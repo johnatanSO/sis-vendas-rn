@@ -1,6 +1,7 @@
 import { Text, View } from 'react-native'
 import { styles } from './SummaryStyle'
 import { Venda } from '../../pages/Dashboard'
+import { formatting } from '../../utils/formatting'
 
 interface SummaryProps {
   vendas: Venda[]
@@ -16,7 +17,7 @@ export default function Summary({ vendas }: SummaryProps) {
               <View style={styles.header}>
                 <Text style={styles.text}>{venda.paymentType}</Text>
               </View> 
-              <Text style={styles.text}>{venda.value}</Text>
+              <Text style={styles.text}>{formatting.formatarReal(venda.value)}</Text>
             </View>
           )
         })}

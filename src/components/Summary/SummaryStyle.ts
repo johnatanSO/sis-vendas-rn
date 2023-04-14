@@ -17,14 +17,23 @@ export const styles = StyleSheet.create({
     backgroundColor: 'rgb(40,40,40)',
     boxShadow: '1px 3px 7px rgba(0,0,0,0.4)',
     width: '100%',
-    padding: '15px',
-    borderRadius: 8,
+    minHeight: '100px',
     display: 'flex',
-    gap: 15
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '15px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    borderRadius: 8,
   },
   header: {
-    width: '100%',
-    border: '1px solid rgb(255,255,255)',
+    //width: '50%',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.3)',
+    paddingBottom: '4px',
+    textAlign: 'center'
   },
   text: {
     color: 'white'
