@@ -1,25 +1,45 @@
-import { Text } from 'react-native'
-import {styles} from './NavigationMenuStyles'
+import { styles } from './NavigationMenuStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faChartPie, faGears, faClipboardList} from '@fortawesome/free-solid-svg-icons'
+import {
+  faChartPie,
+  faClipboardList,
+  faDollarSign,
+} from '@fortawesome/free-solid-svg-icons'
+import { View } from 'react-native'
 
-export function NavigationMenu({ }){
+export function NavigationMenu(props: any) {
   return (
-    <nav style={styles.navMenuContainer}>
+    <View style={styles.navMenuContainer}>
       <ul style={styles.listMenu}>
-        <li style={styles.listItem}>
+        <li
+          onClick={() => {
+            props.navigation.navigate('Dashboard')
+          }}
+          style={styles.listItem}
+        >
           <FontAwesomeIcon size={19} color="white" icon={faChartPie} />
-          <Text style={styles.textMenu}>Dashboard</Text>
         </li>
-        <li style={styles.listItem}>
+        <li
+          onClick={() => {
+            props.navigation.navigate('Vendas')
+          }}
+          style={styles.listItem}
+        >
+          <FontAwesomeIcon size={19} color="white" icon={faDollarSign} />
+        </li>
+        <li
+          onClick={() => {
+            props.navigation.navigate('Relatorios')
+          }}
+          style={styles.listItem}
+        >
           <FontAwesomeIcon size={19} color="white" icon={faClipboardList} />
-          <Text style={styles.textMenu}>Relatórios</Text>
-        </li>
-        <li style={styles.listItem}>
-          <FontAwesomeIcon size={19} color="white" icon={faGears} />
-          <Text style={styles.textMenu}>Configurações</Text>
         </li>
       </ul>
-    </nav>
+    </View>
   )
+}
+
+NavigationMenu.navigationOptions = {
+  title: 'NavigationMenu',
 }

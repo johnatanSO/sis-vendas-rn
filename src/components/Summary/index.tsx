@@ -1,14 +1,25 @@
 import { Text, View } from 'react-native'
-import {styles} from './SummaryStyle'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faUser, faBars} from '@fortawesome/free-solid-svg-icons'
+import { styles } from './SummaryStyle'
+import { Venda } from '../../pages/Dashboard'
 
+interface SummaryProps {
+  vendas: Venda[]
+}
 
-export default function Summary({ }){
+export default function Summary({ vendas }: SummaryProps) {
   return (
     <>
       <View style={styles.summaryContainer}>
-        <View></View>
+        {vendas?.map((venda) => {
+          return (
+            <View style={styles.card} key={venda.id}>
+              <View style={styles.header}>
+                <Text style={styles.text}>{venda.paymentType}</Text>
+              </View> 
+              <Text style={styles.text}>{venda.value}</Text>
+            </View>
+          )
+        })}
       </View>
     </>
   )
