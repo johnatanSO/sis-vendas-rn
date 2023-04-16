@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  layoutContainer: {
-    flex: 1,
+  container: {
+    width: '100%',
+    backgroundColor: 'rgb(30,30,30)',
+  },
+  text: {
     color: 'white',
-    fontFamily: 'Poppins',
   },
 })

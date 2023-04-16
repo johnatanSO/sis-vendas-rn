@@ -1,13 +1,13 @@
 import { Text, View } from 'react-native'
 import { styles } from './TotalValueStyle'
 import { formatting } from '../../utils/formatting'
-import { Venda } from '../../pages/Dashboard'
+import { Venda } from '../../screens/Dashboard'
 
 interface TotalValueProps {
   vendas: Venda[]
 }
 
-export default function TotalValue({vendas}: TotalValueProps) {
+export default function TotalValue({ vendas }: TotalValueProps) {
   const totalVendas = vendas.reduce((acc, venda) => {
     acc += venda.value
     return acc
