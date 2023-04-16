@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const PORT = 8080
-const cors = require('cors');
+const cors = require('cors')
 app.use(cors())
 
 app.listen(PORT, () => console.log('SERVIDOR RODANDO NA PORTA 8080!'))

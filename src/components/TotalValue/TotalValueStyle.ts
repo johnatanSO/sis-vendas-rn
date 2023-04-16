@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native'
+import theme from '../../../styles/theme'
 
 export const styles = StyleSheet.create({
   totalValueContainer: {
-    backgroundColor: 'rgb(50,100,255)',
+    backgroundColor: theme.COLORS.BLUE_500,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -14,7 +15,7 @@ export const styles = StyleSheet.create({
     marginTop: 'auto',
     marginBottom: '3rem',
     width: '90%',
-    boxShadow: '1px 3px 10px rgba(0,0,0,0.2)',
+    boxShadow: '1px 3px 10px rgba(0,0,0,0.3)',
   },
   text: {
     color: 'white',

@@ -1,10 +1,24 @@
-import { NavigationContainer } from '@react-navigation/native'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import React from 'react'
-import { View, StatusBar } from 'react-native'
-import { Routes } from './src/layout/Routes'
-import { styles } from './styles/globalStyles.js'
+import { StatusBar } from 'react-native'
+import { Routes } from './src/Routes'
+import {
+  useFonts,
+  Roboto_400Regular,
+  Roboto_700Bold,
+} from '@expo-google-fonts/roboto'
+import { Loading } from './src/components/Loading'
+import theme from './styles/theme'
 
 export default function App() {
+  const [fontsLoader] = useFonts({
+    Roboto_400Regular,
+    Roboto_700Bold,
+  })
+
+  const createTheme = DefaultTheme
+  createTheme.colors.background = theme.COLORS.GRAY_700
+
   return (
     <>
       <StatusBar
@@ -12,10 +26,8 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      <NavigationContainer>
-        <View style={styles.layoutContainer}>
-          <Routes /> {/* Telas */}
-        </View>
+      <NavigationContainer theme={createTheme}>
+        {fontsLoader ? <Routes /> : <Loading />}
       </NavigationContainer>
     </>
   )
