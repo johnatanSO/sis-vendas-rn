@@ -36,4 +36,41 @@ export const styles = StyleSheet.create({
     color: theme.COLORS.WHITE,
     fontFamily: theme.FONT_FAMILY.REGULAR,
   },
+
+  modalOverlay: {
+    backgroundColor: 'rgba(0,0,0,0.9)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    flex: 1,
+  },
+  modalContainer: {
+    backgroundColor: theme.COLORS.GRAY_600,
+    width: '85%',
+    maxHeight: '85%',
+    borderRadius: 20,
+    alignItems: 'center',
+    padding: 25,
+  },
+  headerModal: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  closeModalIcon: {
+    color: theme.COLORS.RED,
+  },
+  titleModal: {
+    color: theme.COLORS.WHITE,
+    fontSize: 20,
+    fontFamily: theme.FONT_FAMILY.BOLD,
+  },
+  infosContainer: {
+    backgroundColor: theme.COLORS.GRAY_700,
+    borderRadius: 20,
+    width: '100%',
+    marginTop: 30,
+    padding: 15,
+  },
 })

@@ -1,9 +1,9 @@
 import { Dashboard } from '../screens/Dashboard'
 import { Relatorios } from '../screens/Relatorios'
+import { NovaVenda } from '../screens/NovaVenda'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Vendas } from '../screens/Vendas'
 import { View } from 'react-native'
-import { NovaVenda } from '../screens/NovaVenda'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {
   faChartPie,
@@ -31,7 +31,7 @@ export function Routes() {
           },
         }}
       >
-        {/* <Screen
+        <Screen
           name="Dashboard"
           component={Dashboard}
           options={{
@@ -40,7 +40,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faChartPie} size={20} />
             ),
           }}
-        /> */}
+        />
         <Screen
           name="Vendas"
           component={Vendas}

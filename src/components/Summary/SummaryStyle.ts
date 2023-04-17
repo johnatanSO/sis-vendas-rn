@@ -23,14 +23,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    color: theme.COLORS.WHITE,
+    color: theme.COLORS.GRAY_100,
     fontFamily: theme.FONT_FAMILY.REGULAR,
   },
   titleContainer: {
-    color: theme.COLORS.WHITE,
+    color: theme.COLORS.GRAY_100,
     fontFamily: theme.FONT_FAMILY.BOLD,
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 18,
     marginTop: 15,
   },
 })

@@ -1,13 +1,12 @@
 import { ScrollView, Text, View } from 'react-native'
 import { styles } from './SummaryStyle'
-import { Venda } from '../../screens/Dashboard'
 import { formatting } from '../../utils/formatting'
 
 interface SummaryProps {
-  vendas: Venda[]
+  paymentTypes: any
 }
 
-export default function Summary({ vendas }: SummaryProps) {
+export default function Summary({ paymentTypes }: SummaryProps) {
   return (
     <View style={styles.summaryContainer}>
       <Text style={styles.titleContainer}>Formas de pagamento</Text>
@@ -18,12 +17,12 @@ export default function Summary({ vendas }: SummaryProps) {
           padding: 17,
         }}
       >
-        {vendas?.map((venda) => {
+        {paymentTypes.map((formaDePagamento: any) => {
           return (
-            <View style={styles.card} key={venda.id}>
-              <Text style={styles.text}>{venda.paymentType}</Text>
+            <View key={formaDePagamento.id} style={styles.card}>
+              <Text style={styles.text}>{formaDePagamento.paymentType}</Text>
               <Text style={styles.text}>
-                {formatting.formatarReal(venda.value)}
+                {formatting.formatarReal(formaDePagamento?.value)}
               </Text>
             </View>
           )

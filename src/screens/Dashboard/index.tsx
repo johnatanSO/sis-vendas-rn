@@ -9,28 +9,23 @@ interface DashboardProps {
   navigation: any
 }
 
-export interface Venda {
-  id: number
-  paymentType: string
-  value: number
-}
-
 export function Dashboard({ navigation }: DashboardProps) {
-  const [vendas, setVendas] = useState<Venda[]>([])
+  const [paymentTypes, setPaymentTypes] = useState<any>([])
   useEffect(() => {
-    fetch('http://localhost:8080/vendas')
+    fetch('http://localhost:8080/formasDePagamento')
       .then((res) => {
         return res.json()
       })
       .then((data) => {
-        setVendas(data.items)
+        console.log(data)
+        setPaymentTypes(data.items)
       })
   }, [])
   return (
     <View style={styles.container}>
       <HeaderDashboard />
-      <Summary vendas={vendas} />
-      <TotalValue vendas={vendas} />
+      <Summary paymentTypes={paymentTypes} />
+      <TotalValue paymentTypes={paymentTypes} />
     </View>
   )
 }
