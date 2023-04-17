@@ -18,6 +18,7 @@ const sales = [
     paymentType: 'Cartão de débito',
     value: 45,
     date: new Date(),
+    canceled: true,
   },
   {
     id: 3,

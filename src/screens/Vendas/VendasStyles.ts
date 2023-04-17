@@ -33,10 +33,12 @@ export const styles = StyleSheet.create({
     boxShadow: '1px 3px 7px rgba(0,0,0,0.3)',
   },
   text: {
-    color: theme.COLORS.WHITE,
-    fontFamily: theme.FONT_FAMILY.REGULAR,
+    color: theme.COLORS.GRAY_100,
   },
-
+  canceledText: {
+    fontFamily: theme.FONT_FAMILY.BOLD,
+    color: theme.COLORS.RED,
+  },
   modalOverlay: {
     backgroundColor: 'rgba(0,0,0,0.9)',
     alignItems: 'center',
@@ -48,7 +50,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_600,
     width: '85%',
     maxHeight: '85%',
-    borderRadius: 20,
+    borderRadius: 15,
     alignItems: 'center',
     padding: 25,
   },
@@ -62,15 +64,43 @@ export const styles = StyleSheet.create({
     color: theme.COLORS.RED,
   },
   titleModal: {
-    color: theme.COLORS.WHITE,
-    fontSize: 20,
+    color: theme.COLORS.GRAY_100,
+    fontSize: 23,
     fontFamily: theme.FONT_FAMILY.BOLD,
   },
   infosContainer: {
     backgroundColor: theme.COLORS.GRAY_700,
-    borderRadius: 20,
+    borderRadius: 15,
     width: '100%',
     marginTop: 30,
     padding: 15,
+  },
+  fieldContainer: {
+    borderBottomWidth: 1,
+    borderColor: theme.COLORS.GRAY_500,
+    padding: 15,
+    paddingLeft: 7,
+  },
+  titleField: {
+    fontSize: 18,
+    fontFamily: theme.FONT_FAMILY.BOLD,
+    color: theme.COLORS.GRAY_100,
+  },
+  cancelButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+    backgroundColor: theme.COLORS.RED,
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+    justifyContent: 'center',
+    gap: 15,
+    lineHeight: 1,
+  },
+  textButton: {
+    color: theme.COLORS.WHITE,
+    fontFamily: theme.FONT_FAMILY.BOLD,
+    fontSize: 16,
   },
 })

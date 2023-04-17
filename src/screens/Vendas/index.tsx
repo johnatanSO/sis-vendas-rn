@@ -7,7 +7,7 @@ import { formatting } from '../../utils/formatting'
 import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 export function Vendas({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
@@ -45,7 +45,7 @@ export function Vendas({ navigation }: any) {
         ListEmptyComponent={() => (
           <EmptyItems text="Nenhuma venda encontrada" />
         )}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        ItemSeparatorComponent={() => <View style={{ height: 13 }} />}
         style={styles.listContainer}
         keyExtractor={(sale) => sale.id}
         renderItem={({ item }) => {
@@ -56,10 +56,10 @@ export function Vendas({ navigation }: any) {
               }}
               style={styles.listItem}
             >
-              <Text style={styles.text}>
+              <Text style={item.canceled ? styles.canceledText : styles.text}>
                 {dayjs(item.date).format('DD/MM/YYYY')}
               </Text>
-              <Text style={styles.text}>
+              <Text style={item.canceled ? styles.canceledText : styles.text}>
                 {formatting.formatarReal(item.value)}
               </Text>
             </Pressable>
@@ -89,21 +89,55 @@ export function Vendas({ navigation }: any) {
             </View>
 
             <View style={styles.infosContainer}>
-              <Text style={styles.text}>
-                Cliente {saleDetailsData?.client?.nome}
-              </Text>
-              <Text style={styles.text}>
-                Data {dayjs(saleDetailsData?.date).format('DD/MM/YYYY')}
-              </Text>
-              <Text style={styles.text}>
-                Produtos{' '}
-                {saleDetailsData?.products.map((product: any) => product.name)}
-              </Text>
-              <Text style={styles.text}>Valor {saleDetailsData?.value}</Text>
-              <Text style={styles.text}>
-                Forma de pagamento {saleDetailsData?.paymentType}
-              </Text>
+              <View style={styles.fieldContainer}>
+                <Text style={styles.titleField}>Cliente</Text>
+                <Text style={styles.text}>
+                  {saleDetailsData?.client?.nome || '--'}
+                </Text>
+              </View>
+              <View style={styles.fieldContainer}>
+                <Text style={styles.titleField}>Data</Text>
+                <Text style={styles.text}>
+                  {dayjs(saleDetailsData?.date).format('DD/MM/YYYY') || '--'}
+                </Text>
+              </View>
+              <View style={styles.fieldContainer}>
+                <Text style={styles.titleField}>Produtos</Text>
+                {saleDetailsData?.products.map((product: any) => (
+                  <Text
+                    style={{
+                      ...styles.text,
+                    }}
+                    key={product.name}
+                  >
+                    {product.name || '--'}
+                  </Text>
+                ))}
+              </View>
+              <View style={styles.fieldContainer}>
+                <Text style={styles.titleField}>Valor</Text>
+                <Text style={styles.text}>
+                  {formatting.formatarReal(saleDetailsData?.value || 0)}
+                </Text>
+              </View>
+              <View style={styles.fieldContainer}>
+                <Text style={styles.titleField}>Forma de pagamento</Text>
+                <Text style={styles.text}>
+                  {saleDetailsData?.paymentType || '--'}
+                </Text>
+              </View>
             </View>
+
+            {!saleDetailsData?.canceled ? (
+              <Pressable style={styles.cancelButton}>
+                <FontAwesomeIcon color={'white'} icon={faTrash} />
+                <Text style={styles.textButton}>Cancelar</Text>
+              </Pressable>
+            ) : (
+              <Text style={{ ...styles.canceledText, marginTop: 20 }}>
+                Venda cancelada
+              </Text>
+            )}
           </View>
         </View>
       </Modal>
