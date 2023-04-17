@@ -1,8 +1,7 @@
-import { View, TextInput, Button, FlatList } from 'react-native'
+import { View, Pressable, Text, TextInput } from 'react-native'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
-import { CardItem } from '../../components/CardItem'
-import { EmptyItems } from '../../components/EmptyItems'
+import HeaderNewSale from '../../layout/HeaderNewSale'
 
 export function NovaVenda() {
   const [sales, setSales] = useState<any>([])
@@ -27,6 +26,7 @@ export function NovaVenda() {
 
   return (
     <View style={styles.container}>
+      <HeaderNewSale />
       <TextInput
         onChangeText={(text) => {
           setNewSale({
@@ -47,17 +47,10 @@ export function NovaVenda() {
         style={styles.input}
       />
       <TextInput placeholder="Produtos" style={styles.input} />
-      <Button title="Cadastrar" onPress={createNewSale} />
 
-      <FlatList
-        data={sales}
-        keyExtractor={(sale) => sale.id}
-        renderItem={({ item }) => <CardItem item={item} />}
-        style={styles.listContainer}
-        ListEmptyComponent={() => (
-          <EmptyItems text="Nenhuma venda encontrada" />
-        )}
-      />
+      <Pressable style={styles.newSaleButton} onPress={createNewSale}>
+        <Text style={styles.textNewSaleButton}>Finalizar</Text>
+      </Pressable>
     </View>
   )
 }
