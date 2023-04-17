@@ -2,11 +2,11 @@ import { StyleSheet } from 'react-native'
 import theme from '../../../styles/theme'
 
 export const styles = StyleSheet.create({
-  summaryContainer: {
+  productsSoldContainer: {
     width: '85%',
-    marginTop: '-10vh',
     backgroundColor: theme.COLORS.GRAY_600,
     borderRadius: 20,
+    margin: 20,
     boxShadow: '1px 3px 10px rgba(0,0,0,0.5)',
   },
   card: {

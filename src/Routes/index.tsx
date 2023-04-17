@@ -31,7 +31,7 @@ export function Routes() {
           },
         }}
       >
-        <Screen
+        {/* <Screen
           name="Dashboard"
           component={Dashboard}
           options={{
@@ -40,7 +40,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faChartPie} size={20} />
             ),
           }}
-        />
+        /> */}
         <Screen
           name="Vendas"
           component={Vendas}
@@ -51,7 +51,7 @@ export function Routes() {
             ),
           }}
         />
-        <Screen
+        {/* <Screen
           name="Relatorios"
           component={Relatorios}
           options={{
@@ -68,7 +68,7 @@ export function Routes() {
             title: 'Nova venda',
             tabBarButton: () => null,
           }}
-        />
+        /> */}
       </Navigator>
     </View>
   )

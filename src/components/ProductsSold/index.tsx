@@ -1,16 +1,16 @@
 import { ScrollView, Text, View } from 'react-native'
-import { styles } from './SummaryStyle'
+import { styles } from './ProductsSoldStyle'
 import { Venda } from '../../screens/Dashboard'
 import { formatting } from '../../utils/formatting'
 
-interface SummaryProps {
+interface ProductsSoldProps {
   vendas: Venda[]
 }
 
-export default function Summary({ vendas }: SummaryProps) {
+export default function ProductsSold({ vendas }: ProductsSoldProps) {
   return (
-    <View style={styles.summaryContainer}>
-      <Text style={styles.titleContainer}>Formas de pagamento</Text>
+    <View style={styles.productsSoldContainer}>
+      <Text style={styles.titleContainer}>Produtos vendidos</Text>
       <ScrollView
         contentContainerStyle={{
           width: '100%',
