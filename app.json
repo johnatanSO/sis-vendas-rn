@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DeliveryApp",
-    "slug": "DeliveryApp",
+    "name": "Sistema de vendas",
+    "slug": "Sistema de vendas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

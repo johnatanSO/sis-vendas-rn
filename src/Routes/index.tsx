@@ -40,7 +40,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faChartPie} size={20} />
             ),
           }}
-        />
+        />*/}
         <Screen
           name="Vendas"
           component={Vendas}
@@ -51,7 +51,7 @@ export function Routes() {
             ),
           }}
         />
-        <Screen
+        {/* <Screen
           name="Relatorios"
           component={Relatorios}
           options={{
@@ -60,7 +60,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faDollarSign} size={20} />
             ),
           }}
-        /> */}
+        />  */}
         <Screen
           name="NovaVenda"
           component={NovaVenda}

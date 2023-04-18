@@ -8,10 +8,15 @@ export const styles = StyleSheet.create({
     padding: 15,
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'center',
   },
   title: {
     color: theme.COLORS.WHITE,
     fontFamily: theme.FONT_FAMILY.BOLD,
     fontSize: 25,
   },
+  backArrow: {
+    position: 'absolute',
+    left: 30 
+  }
 })
