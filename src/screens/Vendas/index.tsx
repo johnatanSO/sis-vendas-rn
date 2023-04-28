@@ -6,7 +6,7 @@ import HeaderSales from '../../layout/HeaderSales'
 import { formatting } from '../../utils/formatting'
 import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
-import { ModalSales } from '../../components/ModalSales'
+import { ModalSale } from '../../components/ModalSale'
 
 export function Vendas({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
@@ -66,7 +66,7 @@ export function Vendas({ navigation }: any) {
         }}
       />
       {saleDetailsModalOpened && (
-        <ModalSales
+        <ModalSale
           setSaleDetailsModalOpened={setSaleDetailsModalOpened}
           saleDetailsData={saleDetailsData}
         />

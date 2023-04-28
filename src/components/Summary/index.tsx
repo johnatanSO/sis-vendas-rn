@@ -6,7 +6,7 @@ interface SummaryProps {
   paymentTypes: any
 }
 
-export default function Summary({ paymentTypes }: SummaryProps) {
+export function Summary({ paymentTypes }: SummaryProps) {
   return (
     <View style={styles.summaryContainer}>
       <Text style={styles.titleContainer}>Formas de pagamento</Text>

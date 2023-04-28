@@ -1,9 +1,9 @@
 import { View } from 'react-native'
 import { styles } from './DashboardStyles'
-import Summary from '../../components/Summary'
+import { Summary } from '../../components/Summary'
 import TotalValue from '../../components/TotalValue'
 import { useEffect, useState } from 'react'
-import HeaderDashboard from '../../layout/HeaderDashboard'
+import { HeaderDashboard } from '../../layout/HeaderDashboard'
 
 interface DashboardProps {
   navigation: any

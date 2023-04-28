@@ -5,10 +5,7 @@ import { styles } from './ModalSalesStyles'
 import { formatting } from '../../utils/formatting'
 import dayjs from 'dayjs'
 
-export function ModalSales({
-  saleDetailsData,
-  setSaleDetailsModalOpened,
-}: any) {
+export function ModalSale({ saleDetailsData, setSaleDetailsModalOpened }: any) {
   return (
     <Modal transparent={true} animationType="fade">
       <View style={styles.modalOverlay}>
