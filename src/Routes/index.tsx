@@ -21,7 +21,7 @@ export function Routes() {
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: false,
-          tabBarActiveTintColor: theme.COLORS.PURPLE_500,
+          tabBarActiveTintColor: theme.COLORS.PRIMARY_COLOR,
           tabBarInactiveTintColor: theme.COLORS.GRAY_200,
           tabBarStyle: {
             backgroundColor: theme.COLORS.GRAY_600,
@@ -31,7 +31,7 @@ export function Routes() {
           },
         }}
       >
-        <Screen
+        {/* <Screen
           name="Dashboard"
           component={Dashboard}
           options={{
@@ -40,7 +40,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faChartPie} size={20} />
             ),
           }}
-        />
+        /> */}
         <Screen
           name="Vendas"
           component={Vendas}

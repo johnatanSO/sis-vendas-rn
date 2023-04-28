@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const SaleModel = require('../models/sale')
+const ProductModel = require('../models/product')
 
 router.get('/', async (req, res) => {
   try {
-    const sales = await SaleModel.find()
+    const produtos = await ProductModel.find()
 
     res.status(200).json({
-      items: sales,
+      items: produtos,
       message: 'Busca concluída com sucesso!',
     })
   } catch (err) {
@@ -19,22 +19,21 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const newSale = new SaleModel({
-      client: req.body.client,
-      products: req.body.products,
-      paymentType: req.body.paymentType,
-      totalValue: req.body.totalValue,
+    const newProduct = new ProductModel({
+      name: req.body.name,
+      value: req.body.value,
+      stock: req.body.stock,
     })
-    await newSale.save()
+    await newProduct.save()
 
     res.status(200).json({
-      item: newSale,
-      message: 'Venda cadastrada com sucesso!',
+      item: newProduct,
+      message: 'Produto cadastrado com sucesso!',
     })
   } catch (err) {
     res.status(500).json({
       error: err,
-      message: 'Falha ao cadastrar venda',
+      message: 'Falha ao cadastrar produto!',
       item: undefined,
     })
   }

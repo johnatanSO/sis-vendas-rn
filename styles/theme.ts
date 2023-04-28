@@ -5,7 +5,7 @@ export default {
     GREEN_700: '#00875F',
     GREEN_500: '#00B37E',
 
-    PURPLE_500: '#8257e5',
+    PRIMARY_COLOR: '#ff6600',
     BLUE_500: 'rgb(50,100,255)',
 
     RED: '#F75A68',

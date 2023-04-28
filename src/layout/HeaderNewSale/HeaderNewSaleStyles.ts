@@ -17,6 +17,6 @@ export const styles = StyleSheet.create({
   },
   backArrow: {
     position: 'absolute',
-    left: 30 
-  }
+    left: 20,
+  },
 })

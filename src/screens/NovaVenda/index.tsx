@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 
-export function NovaVenda({navigation}:any) {
+export function NovaVenda({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
   const defaultValueNewSale = {
     cliente: {

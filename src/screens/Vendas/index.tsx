@@ -19,11 +19,12 @@ export function Vendas({ navigation }: any) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:8080/vendas')
+    fetch('http://localhost:5000/vendas')
       .then((res) => {
         return res.json()
       })
       .then((data) => {
+        console.log(data.items)
         setSales(data.items)
       })
   }, [])
@@ -46,7 +47,7 @@ export function Vendas({ navigation }: any) {
         )}
         ItemSeparatorComponent={() => <View style={{ height: 13 }} />}
         style={styles.listContainer}
-        keyExtractor={(sale) => sale.id}
+        keyExtractor={(sale) => sale?._id}
         renderItem={({ item }) => {
           return (
             <Pressable
@@ -55,11 +56,11 @@ export function Vendas({ navigation }: any) {
               }}
               style={styles.listItem}
             >
-              <Text style={item.canceled ? styles.canceledText : styles.text}>
-                {dayjs(item.date).format('DD/MM/YYYY')}
+              <Text style={item?.canceled ? styles.canceledText : styles.text}>
+                {dayjs(item?.date).format('DD/MM/YYYY')}
               </Text>
-              <Text style={item.canceled ? styles.canceledText : styles.text}>
-                {formatting.formatarReal(item.value)}
+              <Text style={item?.canceled ? styles.canceledText : styles.text}>
+                {formatting.formatarReal(item?.totalValue)}
               </Text>
             </Pressable>
           )

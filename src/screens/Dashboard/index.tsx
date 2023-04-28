@@ -12,7 +12,7 @@ interface DashboardProps {
 export function Dashboard({ navigation }: DashboardProps) {
   const [paymentTypes, setPaymentTypes] = useState<any>([])
   useEffect(() => {
-    fetch('http://localhost:8080/formasDePagamento')
+    fetch('http://localhost:5000/formasDePagamento')
       .then((res) => {
         return res.json()
       })

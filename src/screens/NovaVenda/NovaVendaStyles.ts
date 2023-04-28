@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     width: '85%',
     alignItems: 'center',
-    backgroundColor: theme.COLORS.PURPLE_500,
+    backgroundColor: theme.COLORS.PRIMARY_COLOR,
   },
   textNewSaleButton: {
     color: theme.COLORS.WHITE,

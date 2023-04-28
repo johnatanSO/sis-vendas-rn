@@ -7,19 +7,17 @@ router.get('/', function (req, res) {
   try {
     const totalPaymentTypes = sales.reduce(
       (acc, sale) => {
-        if (sale.paymentType === 'Cartão de crédito')
-          acc.cartaoDeCredito += sale.value
-        if (sale.paymentType === 'Cartão de débito')
-          acc.cartaoDeDebito += sale.value
-        if (sale.paymentType === 'Dinheiro') acc.dinheiro += sale.value
-        if (sale.paymentType === 'PIX') acc.pix += sale.value
+        if (sale.paymentType === 'credit_card') acc.credit_card += sale.value
+        if (sale.paymentType === 'debit_card') acc.debit_card += sale.value
+        if (sale.paymentType === 'money') acc.money += sale.value
+        if (sale.paymentType === 'pix') acc.pix += sale.value
 
         return acc
       },
       {
-        cartaoDeCredito: 0,
-        cartaoDeDebito: 0,
-        dinheiro: 0,
+        credit_card: 0,
+        debit_card: 0,
+        money: 0,
         pix: 0,
       },
     )

@@ -5,7 +5,7 @@ import { styles } from './LoadingStyles'
 export function Loading() {
   return (
     <View style={styles.container}>
-      <ActivityIndicator color={theme.COLORS.PURPLE_500} />
+      <ActivityIndicator color={theme.COLORS.PRIMARY_COLOR} />
     </View>
   )
 }

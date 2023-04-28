@@ -4,14 +4,14 @@ import theme from '../../../styles/theme'
 export const styles = StyleSheet.create({
   summaryContainer: {
     width: '85%',
-    marginTop: '-10vh',
+    marginTop: '-6vh',
     backgroundColor: theme.COLORS.GRAY_600,
     borderRadius: 20,
     boxShadow: '1px 3px 10px rgba(0,0,0,0.5)',
   },
   card: {
     boxShadow: '0px 3px 7px rgba(0,0,0,0.2)',
-    backgroundColor: theme.COLORS.GRAY_500,
+    backgroundColor: theme.COLORS.GRAY_400,
 
     width: '100%',
     padding: 20,
@@ -31,6 +31,6 @@ export const styles = StyleSheet.create({
     fontFamily: theme.FONT_FAMILY.BOLD,
     textAlign: 'center',
     fontSize: 18,
-    marginTop: 15,
+    marginTop: 25,
   },
 })

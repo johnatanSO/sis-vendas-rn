@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   newSaleButton: {
-    backgroundColor: theme.COLORS.PURPLE_500,
+    backgroundColor: theme.COLORS.PRIMARY_COLOR,
     padding: 15,
     borderRadius: 10,
     marginTop: 25,
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     paddingBottom: 30,
   },
   listItem: {
-    backgroundColor: theme.COLORS.GRAY_600,
+    backgroundColor: theme.COLORS.GRAY_500,
     padding: 18,
     borderRadius: 12,
     flexDirection: 'row',

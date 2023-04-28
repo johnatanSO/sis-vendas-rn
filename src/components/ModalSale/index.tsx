@@ -28,9 +28,7 @@ export function ModalSale({ saleDetailsData, setSaleDetailsModalOpened }: any) {
           <View style={styles.infosContainer}>
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Cliente</Text>
-              <Text style={styles.text}>
-                {saleDetailsData?.client?.nome || '--'}
-              </Text>
+              <Text style={styles.text}>{saleDetailsData?.client || '--'}</Text>
             </View>
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Data</Text>
@@ -41,20 +39,18 @@ export function ModalSale({ saleDetailsData, setSaleDetailsModalOpened }: any) {
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Produtos</Text>
               {saleDetailsData?.products.map((product: any) => (
-                <Text
-                  style={{
-                    ...styles.text,
-                  }}
-                  key={product.name}
-                >
-                  {product.name || '--'}
-                </Text>
+                <View key={product?._id}>
+                  <Text style={styles.text}>{product.name || '--'}</Text>
+                  <Text style={styles.text}>
+                    {formatting.formatarReal(product?.value || 0) || '--'}
+                  </Text>
+                </View>
               ))}
             </View>
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Valor</Text>
               <Text style={styles.text}>
-                {formatting.formatarReal(saleDetailsData?.value || 0)}
+                {formatting.formatarReal(saleDetailsData?.totalValue || 0)}
               </Text>
             </View>
             <View style={styles.fieldContainer}>
