@@ -61,6 +61,7 @@ export function Routes() {
             ),
           }}
         />
+
         <Screen
           name="NovaVenda"
           component={NovaVenda}

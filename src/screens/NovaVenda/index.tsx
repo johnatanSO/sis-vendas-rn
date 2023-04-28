@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 
-export function NovaVenda() {
+export function NovaVenda({navigation}:any) {
   const [sales, setSales] = useState<any>([])
   const defaultValueNewSale = {
     cliente: {
@@ -26,7 +26,7 @@ export function NovaVenda() {
 
   return (
     <View style={styles.container}>
-      <HeaderNewSale />
+      <HeaderNewSale navigation={navigation} />
       <TextInput
         onChangeText={(text) => {
           setNewSale({
