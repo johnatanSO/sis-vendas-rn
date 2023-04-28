@@ -20,7 +20,7 @@ export default function TotalValue({ paymentTypes }: TotalValueProps) {
       <View style={styles.totalValueContainer}>
         <Text style={styles.text}>Valor total</Text>
         <Text style={styles.text}>
-          {formatting.formatarReal(totalPaymentTypes)}
+          {formatting.formatarReal(totalPaymentTypes || 0)}
         </Text>
       </View>
     </>

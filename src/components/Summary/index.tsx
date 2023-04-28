@@ -20,9 +20,11 @@ export function Summary({ paymentTypes }: SummaryProps) {
         {paymentTypes.map((formaDePagamento: any) => {
           return (
             <View key={formaDePagamento.id} style={styles.card}>
-              <Text style={styles.text}>{formaDePagamento.paymentType}</Text>
               <Text style={styles.text}>
-                {formatting.formatarReal(formaDePagamento?.value)}
+                {formaDePagamento?.paymentType || '--'}
+              </Text>
+              <Text style={styles.text}>
+                {formatting.formatarReal(formaDePagamento?.value || 0)}
               </Text>
             </View>
           )
