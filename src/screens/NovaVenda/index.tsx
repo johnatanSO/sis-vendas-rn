@@ -1,4 +1,4 @@
-import { View, Pressable, Text, TextInput } from 'react-native'
+import { View, Pressable, Text, TextInput, Picker } from 'react-native'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
@@ -6,11 +6,13 @@ import HeaderNewSale from '../../layout/HeaderNewSale'
 export function NovaVenda({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
   const defaultValueNewSale = {
-    cliente: {
-      nome: '',
-    },
+    client: '',
+    paymentType: '',
+    products: [],
+    totalValue: 0,
   }
   const [newSale, setNewSale] = useState<any>(defaultValueNewSale)
+  const [products, setProducts] = useState<any>([])
 
   function createNewSale() {
     setSales((oldSales: any) => [
@@ -24,6 +26,19 @@ export function NovaVenda({ navigation }: any) {
     setNewSale(defaultValueNewSale)
   }
 
+  function getProducts() {
+    fetch('http://localhost:5000/produtos')
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        setProducts(data.items)
+      })
+      .catch((err) => {
+        console.log('[ERRO]: ', err)
+      })
+  }
+
   return (
     <View style={styles.container}>
       <HeaderNewSale navigation={navigation} />
@@ -31,22 +46,36 @@ export function NovaVenda({ navigation }: any) {
         onChangeText={(text) => {
           setNewSale({
             ...newSale,
-            cliente: {
-              ...newSale.cliente,
-              nome: text,
-            },
+            cliente: text,
           })
         }}
-        value={newSale.cliente.nome}
+        value={newSale.cliente}
         placeholder="Nome do cliente"
         style={styles.input}
       />
-      <TextInput
-        placeholder="Valor da venda"
-        keyboardType="numeric"
+
+      <Picker
         style={styles.input}
-      />
-      <TextInput placeholder="Produtos" style={styles.input} />
+        onValueChange={(itemValue: any) => {
+          if (itemValue) {
+            setNewSale({
+              ...newSale,
+              products: [...newSale.products, itemValue],
+            })
+          }
+        }}
+        onFocus={() => {
+          getProducts()
+        }}
+      >
+        {products?.map((product: any) => {
+          return (
+            <>
+              <Picker.Item label={product.name} value={product} />
+            </>
+          )
+        })}
+      </Picker>
 
       <Pressable style={styles.newSaleButton} onPress={createNewSale}>
         <Text style={styles.textNewSaleButton}>Finalizar</Text>

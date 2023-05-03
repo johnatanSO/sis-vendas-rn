@@ -14,6 +14,7 @@ export function Dashboard({ navigation }: DashboardProps) {
   useEffect(() => {
     fetch('http://localhost:5000/dashboard/formasDePagamento')
       .then((res) => {
+        console.log('resposta de formas de pagamento: ', res)
         return res.json()
       })
       .then((data) => {

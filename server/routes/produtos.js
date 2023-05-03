@@ -4,10 +4,10 @@ const ProductModel = require('../models/product')
 
 router.get('/', async (req, res) => {
   try {
-    const produtos = await ProductModel.find()
+    const products = await ProductModel.find()
 
     res.status(200).json({
-      items: produtos,
+      items: products,
       message: 'Busca concluída com sucesso!',
     })
   } catch (err) {
