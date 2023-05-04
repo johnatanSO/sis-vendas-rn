@@ -5,7 +5,7 @@ const SaleModel = require('../models/sale')
 router.get('/formasDePagamento', async (req, res) => {
   try {
     const sales = await SaleModel.find()
-    const paymentTypes = sales.reduce((acc, sale) => {
+    const paymentTypes = sales?.reduce((acc, sale) => {
       const paymentAlreadyExists = !!acc.find(
         (s) => s.type === sale.paymentType,
       )

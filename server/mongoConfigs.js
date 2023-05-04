@@ -7,10 +7,10 @@ mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection
   .on(
     'error',
-    console.error.bind(console, 'Erro ao conectar com o banco de dados!'),
+    console.error.bind(console, 'Erro ao conectar com o banco de dados'),
   )
   .once('open', () => {
-    console.log('Conexão com o banco de dados estabelecida com sucesso!')
+    console.log('Conexão com o banco de dados estabelecida com sucesso')
   })
 
 module.exports = mongoose
