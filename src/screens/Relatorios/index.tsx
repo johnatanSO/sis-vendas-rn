@@ -38,7 +38,7 @@ export function Relatorios() {
           <EmptyItems text="Nenhuma venda encontrada" />
         )}
         style={{
-          marginTop: 15,
+          marginTop: 25,
           width: '85%',
         }}
         ItemSeparatorComponent={() => <View style={{ height: 13 }} />}
@@ -61,7 +61,6 @@ export function Relatorios() {
               <Text 
                 style={{
                   color: 'white',
-                  fontSize: 18,
                 }}
               >
                 {item?.nome}
@@ -69,7 +68,6 @@ export function Relatorios() {
               <Text
                 style={{
                   color: 'white',
-                  fontSize: 18,
                 }}
               >
                 {formatting.formatarReal(item?.value || 0)}
