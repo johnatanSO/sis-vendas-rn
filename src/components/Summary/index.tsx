@@ -17,9 +17,9 @@ export function Summary({ paymentTypes }: SummaryProps) {
           padding: 17,
         }}
       >
-        {paymentTypes.map((formaDePagamento: any) => {
+        {paymentTypes.map((formaDePagamento: any, key:number) => {
           return (
-            <View key={formaDePagamento.id} style={styles.card}>
+            <View key={key} style={styles.card}>
               <Text style={styles.text}>{formaDePagamento?.type || '--'}</Text>
               <Text style={styles.text}>
                 {formatting.formatarReal(formaDePagamento?.value || 0)}
