@@ -1,10 +1,11 @@
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { styles } from './RelatoriosStyles'
+import HeaderReports from '../../layout/HeaderReports'
 
 export function Relatorios() {
   return (
     <View style={styles.container}>
-      <Text style={{ color: 'white' }}>Relatórios</Text>
+      <HeaderReports />
     </View>
   )
 }

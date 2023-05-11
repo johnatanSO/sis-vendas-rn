@@ -47,7 +47,7 @@ export function Routes() {
           options={{
             title: 'Vendas',
             tabBarIcon: ({ color }) => (
-              <FontAwesomeIcon color={color} icon={faClipboardList} size={20} />
+              <FontAwesomeIcon color={color} icon={faDollarSign} size={20} />
             ),
           }}
         />
@@ -57,7 +57,7 @@ export function Routes() {
           options={{
             title: 'Relatórios',
             tabBarIcon: ({ color }) => (
-              <FontAwesomeIcon color={color} icon={faDollarSign} size={20} />
+              <FontAwesomeIcon color={color} icon={faClipboardList} size={20} />
             ),
           }}
         />
