@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const SaleModel = require('../models/sale')
+const ProductModel = require('../models/product')
 
 router.get('/', async (req, res) => {
   try {
@@ -19,15 +20,35 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    if (!req.body.paymentType) {
+      res.status(500).json({
+        error: 'Forma de pagamento não informada',
+        message: 'Por favor, informe uma forma de pagamento',
+      })
+    }
+    if (!req.body.products || req.body.products?.length === 0) {
+      res.status(500).json({
+        error: 'Nenhum produto selecionado',
+        message: 'Por favor, selecione algum produto',
+      })
+    }
+
     const newSale = new SaleModel({
       client: req.body.client,
       products: req.body.products,
       paymentType: req.body.paymentType,
       totalValue: req.body.totalValue,
     })
-    await newSale.save()
 
-    res.status(200).json({
+    for (const product of req.body.products) {
+      await ProductModel.updateOne(
+        { _id: product._id },
+        { $inc: { stock: -Number(product.amount) } },
+      )
+    }
+
+    await newSale.save()
+    res.status(201).json({
       item: newSale,
       message: 'Venda cadastrada com sucesso!',
     })

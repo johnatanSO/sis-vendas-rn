@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     })
     await newProduct.save()
 
-    res.status(200).json({
+    res.status(201).json({
       item: newProduct,
       message: 'Produto cadastrado com sucesso!',
     })

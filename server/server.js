@@ -1,19 +1,20 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const PORT = 5000
+const PORT = 3333
 const cors = require('cors')
 const dbConnection = require('./mongoConfigs')
 
 app.mongo = dbConnection
+app.listen(PORT, () => console.log(`SERVIDOR RODANDO NA PORTA ${PORT}!`))
+
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(express.json())
 app.use(cors())
+
 app.use('/vendas', require('./routes/vendas'))
 app.use('/dashboard', require('./routes/dashboard'))
 app.use('/produtos', require('./routes/produtos'))
-
-app.listen(PORT, () => console.log(`SERVIDOR RODANDO NA PORTA ${PORT}!`))
 
 app.get('/', function (req, res) {
   try {

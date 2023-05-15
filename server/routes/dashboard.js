@@ -27,7 +27,7 @@ router.get('/formasDePagamento', async (req, res) => {
 
     res.status(200).json({
       items: paymentTypes,
-      message: 'Busca concluída com sucesso!',
+      message: 'Busca concluída com sucesso',
     })
   } catch (err) {
     res
