@@ -1,7 +1,8 @@
-const express = require('express')
+import express from 'express'
+import SaleModel from '../models/sale'
+import ProductModel from '../models/product'
+
 const router = express.Router()
-const SaleModel = require('../models/sale')
-const ProductModel = require('../models/product')
 
 router.get('/', async (req, res) => {
   try {
@@ -61,4 +62,4 @@ router.post('/', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router

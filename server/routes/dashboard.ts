@@ -1,13 +1,14 @@
-const express = require('express')
+import express from 'express'
+import SaleModel from '../models/sale'
+
 const router = express.Router()
-const SaleModel = require('../models/sale')
 
 router.get('/formasDePagamento', async (req, res) => {
   try {
     const sales = await SaleModel.find()
-    const paymentTypes = sales?.reduce((acc, sale) => {
+    const paymentTypes = sales?.reduce((acc: any, sale: any) => {
       const paymentAlreadyExists = !!acc.find(
-        (s) => s.type === sale.paymentType,
+        (s: any) => s.type === sale.paymentType,
       )
       if (!paymentAlreadyExists) {
         acc.push({
@@ -15,7 +16,7 @@ router.get('/formasDePagamento', async (req, res) => {
           value: sale.totalValue,
         })
       } else {
-        acc.forEach((s) => {
+        acc.forEach((s: any) => {
           if (s.type === sale.paymentType) {
             s.value += sale.totalValue
           }
@@ -36,4 +37,4 @@ router.get('/formasDePagamento', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router
