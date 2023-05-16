@@ -1,4 +1,5 @@
-import { View, Pressable, Text, TextInput, Picker } from 'react-native'
+import { View, Pressable, Text, TextInput } from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
