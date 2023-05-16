@@ -13,8 +13,19 @@ export function Relatorios() {
       <HeaderReports />
       <View style={styles.subHeader}>
         <Pressable style={styles.menuButton}>
-          <FontAwesomeIcon style={{...styles.buttonIcon, color: theme.COLORS.PRIMARY_COLOR, borderColor: theme.COLORS.PRIMARY_COLOR}} icon={faWineBottle} />
-          <Text style={{...styles.buttonText, color: theme.COLORS.PRIMARY_COLOR}}>Products</Text>
+          <FontAwesomeIcon
+            style={{
+              ...styles.buttonIcon,
+              color: theme.COLORS.PRIMARY_COLOR,
+              borderColor: theme.COLORS.PRIMARY_COLOR,
+            }}
+            icon={faWineBottle}
+          />
+          <Text
+            style={{ ...styles.buttonText, color: theme.COLORS.PRIMARY_COLOR }}
+          >
+            Products
+          </Text>
         </Pressable>
         <Pressable style={styles.menuButton}>
           <FontAwesomeIcon style={styles.buttonIcon} icon={faUsers} />
@@ -27,13 +38,8 @@ export function Relatorios() {
         - Separar em componente;
       */}
 
-
       <FlatList
-        data={
-          [
-            {nome: 'Product test', value: 15}
-          ]
-        }
+        data={[{ nome: 'Product test', value: 15 }]}
         ListEmptyComponent={() => (
           <EmptyItems text="Nenhuma venda encontrada" />
         )}
@@ -45,20 +51,20 @@ export function Relatorios() {
         keyExtractor={(product) => product?.nome}
         renderItem={({ item }) => {
           return (
-            <Pressable 
+            <Pressable
               style={{
                 backgroundColor: theme.COLORS.GRAY_400,
-                width: '100%', 
+                width: '100%',
                 borderRadius: 10,
                 alignItems: 'center',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                padding: "1rem",
+                padding: '1rem',
                 paddingRight: 20,
-                paddingLeft: 20
+                paddingLeft: 20,
               }}
             >
-              <Text 
+              <Text
                 style={{
                   color: 'white',
                 }}

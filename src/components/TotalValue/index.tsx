@@ -3,7 +3,7 @@ import { styles } from './TotalValueStyle'
 import { formatting } from '../../utils/formatting'
 
 interface TotalValueProps {
-  paymentTypes: any
+  paymentTypes: { type: string; value: number }[]
 }
 
 export default function TotalValue({ paymentTypes }: TotalValueProps) {

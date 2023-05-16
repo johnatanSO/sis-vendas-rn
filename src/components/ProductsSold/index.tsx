@@ -1,7 +1,13 @@
 import { ScrollView, Text, View } from 'react-native'
 import { styles } from './ProductsSoldStyle'
-import { Venda } from '../../screens/Dashboard'
 import { formatting } from '../../utils/formatting'
+
+export interface Venda {
+  text: string
+  value: number
+  paymentType: string
+  _id: string
+}
 
 interface ProductsSoldProps {
   vendas: Venda[]
@@ -20,7 +26,7 @@ export default function ProductsSold({ vendas }: ProductsSoldProps) {
       >
         {vendas?.map((venda) => {
           return (
-            <View style={styles.card} key={venda.id}>
+            <View style={styles.card} key={venda._id}>
               <Text style={styles.text}>{venda.paymentType}</Text>
               <Text style={styles.text}>
                 {formatting.formatarReal(venda.value)}
