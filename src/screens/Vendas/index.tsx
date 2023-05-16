@@ -19,7 +19,7 @@ export function Vendas({ navigation }: any) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:5000/vendas')
+    fetch('http://localhost:3333/vendas')
       .then((res) => {
         return res.json()
       })

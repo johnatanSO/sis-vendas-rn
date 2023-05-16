@@ -1,6 +1,7 @@
 import { ScrollView, Text, View } from 'react-native'
 import { styles } from './SummaryStyle'
 import { formatting } from '../../utils/formatting'
+import { EmptyItems } from '../EmptyItems'
 
 interface SummaryProps {
   paymentTypes: { type: string; value: number }[]
@@ -17,7 +18,7 @@ export function Summary({ paymentTypes }: SummaryProps) {
           padding: 17,
         }}
       >
-        {paymentTypes.map((formaDePagamento, key) => {
+        {paymentTypes?.map((formaDePagamento, key) => {
           return (
             <View key={key} style={styles.card}>
               <Text style={styles.text}>
@@ -30,6 +31,9 @@ export function Summary({ paymentTypes }: SummaryProps) {
             </View>
           )
         })}
+        {paymentTypes?.length === 0 && (
+          <EmptyItems text="Nenhum item encontrado" />
+        )}
       </ScrollView>
     </View>
   )

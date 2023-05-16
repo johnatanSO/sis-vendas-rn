@@ -28,7 +28,7 @@ export function NovaVenda({ navigation }: any) {
   }
 
   function getProducts() {
-    fetch('http://localhost:5000/produtos')
+    fetch('http://localhost:3333/produtos')
       .then((res) => {
         return res.json()
       })
