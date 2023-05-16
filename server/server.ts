@@ -1,6 +1,5 @@
 import express, { Express } from 'express'
 import dbConnection from './mongoConfigs'
-import bodyParser from 'body-parser'
 import cors from 'cors'
 import vendasRotas from './routes/vendas'
 import dashboardRotas from './routes/dashboard'
@@ -14,7 +13,6 @@ interface CustomExpress extends Express {
 const app: CustomExpress = express()
 const PORT = 3333
 app.mongo = dbConnection
-app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 app.listen(PORT, () => console.log(`SERVIDOR RODANDO NA PORTA ${PORT}!`))
