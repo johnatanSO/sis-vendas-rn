@@ -7,6 +7,7 @@ import { formatting } from '../../utils/formatting'
 import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
 import { ModalSale } from '../../components/ModalSale'
+import http from '../../http'
 
 export function Vendas({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
@@ -19,14 +20,9 @@ export function Vendas({ navigation }: any) {
   }
 
   useEffect(() => {
-    fetch('http://localhost:3333/vendas')
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        console.log(data.items)
-        setSales(data.items)
-      })
+    http.get('/vendas').then((res) => {
+      setSales(res.data.items)
+    })
   }, [])
 
   function handleOpenSaleDetailsModal(sale: any) {

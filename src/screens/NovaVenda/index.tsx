@@ -3,6 +3,7 @@ import { Picker } from '@react-native-picker/picker'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
+import http from '../../http'
 
 export function NovaVenda({ navigation }: any) {
   const [sales, setSales] = useState<any>([])
@@ -28,12 +29,10 @@ export function NovaVenda({ navigation }: any) {
   }
 
   function getProducts() {
-    fetch('http://localhost:3333/produtos')
+    http
+      .get('/produtos')
       .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setProducts(data.items)
+        setProducts(res.data.items)
       })
       .catch((err) => {
         console.log('[ERRO]: ', err)

@@ -9,7 +9,6 @@ interface SubmenuProps {
 }
 
 export function Submenu({ activeReport, setActiveReport }: SubmenuProps) {
-  console.log('Menu ativo: ', activeReport)
   return (
     <View style={styles.subHeader}>
       <Pressable

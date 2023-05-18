@@ -4,6 +4,7 @@ import { Summary } from '../../components/Summary'
 import TotalValue from '../../components/TotalValue'
 import { useEffect, useState } from 'react'
 import { HeaderDashboard } from '../../layout/HeaderDashboard'
+import http from '../../http'
 
 interface DashboardProps {
   navigation: any
@@ -12,13 +13,9 @@ interface DashboardProps {
 export function Dashboard({ navigation }: DashboardProps) {
   const [paymentTypes, setPaymentTypes] = useState<any>([])
   useEffect(() => {
-    fetch('http://localhost:3333/dashboard/formasDePagamento')
-      .then((res) => {
-        return res.json()
-      })
-      .then((data) => {
-        setPaymentTypes(data.items)
-      })
+    http.get('/dashboard/formasDePagamento').then((res) => {
+      setPaymentTypes(res.data.items)
+    })
   }, [])
   return (
     <View style={styles.container}>
