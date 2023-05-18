@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: '1rem',
-    paddingRight: 20,
-    paddingLeft: 20,
+    paddingRight: '1.1rem',
+    paddingLeft: '1.1rem',
   },
   text: {
     color: theme.COLORS.GRAY_100,

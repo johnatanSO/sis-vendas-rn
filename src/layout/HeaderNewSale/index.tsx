@@ -3,7 +3,11 @@ import { styles } from './HeaderNewSaleStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 
-export default function HeaderNewSale({ navigation }: any) {
+interface HeaderNewSaleProps {
+  navigation: any
+}
+
+export default function HeaderNewSale({ navigation }: HeaderNewSaleProps) {
   return (
     <View style={styles.container}>
       <Pressable

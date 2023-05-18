@@ -31,7 +31,7 @@ export function Routes() {
           },
         }}
       >
-        <Screen
+        {/* <Screen
           name="Dashboard"
           component={Dashboard}
           options={{
@@ -50,7 +50,7 @@ export function Routes() {
               <FontAwesomeIcon color={color} icon={faDollarSign} size={20} />
             ),
           }}
-        />
+        /> */}
         <Screen
           name="Relatorios"
           component={Relatorios}

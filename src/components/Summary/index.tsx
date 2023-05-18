@@ -2,9 +2,10 @@ import { ScrollView, Text, View } from 'react-native'
 import { styles } from './SummaryStyle'
 import { formatting } from '../../utils/formatting'
 import { EmptyItems } from '../EmptyItems'
+import { PaymentType } from '../../screens/Dashboard'
 
 interface SummaryProps {
-  paymentTypes: { type: string; value: number }[]
+  paymentTypes: PaymentType[]
 }
 
 export function Summary({ paymentTypes }: SummaryProps) {

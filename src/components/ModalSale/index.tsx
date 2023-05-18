@@ -4,9 +4,10 @@ import { Modal, Pressable, Text, View } from 'react-native'
 import { styles } from './ModalSalesStyles'
 import { formatting } from '../../utils/formatting'
 import dayjs from 'dayjs'
+import { Sale } from '../../screens/Vendas'
 
 interface ModalSaleProps {
-  saleDetailsData: any
+  saleDetailsData: Sale | undefined
   setSaleDetailsModalOpened: (open: boolean) => void
 }
 
@@ -46,7 +47,7 @@ export function ModalSale({
             </View>
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Produtos</Text>
-              {saleDetailsData?.products.map((product: any) => (
+              {saleDetailsData?.products.map((product) => (
                 <View key={product?._id}>
                   <Text style={styles.text}>{product.name || '--'}</Text>
                   <Text style={styles.text}>

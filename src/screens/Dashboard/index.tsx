@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react'
 import { HeaderDashboard } from '../../layout/HeaderDashboard'
 import http from '../../http'
 
-interface DashboardProps {
-  navigation: any
+export interface PaymentType {
+  type: string
+  value: number
 }
 
-export function Dashboard({ navigation }: DashboardProps) {
-  const [paymentTypes, setPaymentTypes] = useState<any>([])
+export function Dashboard() {
+  const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([])
   useEffect(() => {
     http.get('/dashboard/formasDePagamento').then((res) => {
       setPaymentTypes(res.data.items)

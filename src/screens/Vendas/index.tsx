@@ -8,12 +8,29 @@ import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
 import { ModalSale } from '../../components/ModalSale'
 import http from '../../http'
+import { Product } from '../Relatorios/ProductsList'
 
-export function Vendas({ navigation }: any) {
-  const [sales, setSales] = useState<any>([])
+export interface Sale {
+  _id: string
+  client: string
+  date: Date
+  products: Product[]
+  totalValue: number
+  paymentType: string
+  canceled?: boolean
+}
+
+interface VendasProps {
+  navigation: any
+}
+
+export function Vendas({ navigation }: VendasProps) {
+  const [sales, setSales] = useState<Sale[]>([])
   const [saleDetailsModalOpened, setSaleDetailsModalOpened] =
     useState<boolean>(false)
-  const [saleDetailsData, setSaleDetailsData] = useState<any>(undefined)
+  const [saleDetailsData, setSaleDetailsData] = useState<Sale | undefined>(
+    undefined,
+  )
 
   function handleGoToNewSale() {
     navigation.navigate('NovaVenda')
@@ -25,7 +42,7 @@ export function Vendas({ navigation }: any) {
     })
   }, [])
 
-  function handleOpenSaleDetailsModal(sale: any) {
+  function handleOpenSaleDetailsModal(sale: Sale) {
     setSaleDetailsData(sale)
     setSaleDetailsModalOpened(true)
   }

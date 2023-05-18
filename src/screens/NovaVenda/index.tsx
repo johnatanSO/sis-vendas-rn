@@ -4,27 +4,28 @@ import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
+import { Product } from '../Relatorios/ProductsList'
 
-export function NovaVenda({ navigation }: any) {
-  const [sales, setSales] = useState<any>([])
+interface NovaVendaProps {
+  navigation: any
+}
+
+interface NewSale {
+  client: string
+  products: Product[]
+}
+
+export function NovaVenda({ navigation }: NovaVendaProps) {
   const defaultValueNewSale = {
     client: '',
     paymentType: '',
     products: [],
     totalValue: 0,
   }
-  const [newSale, setNewSale] = useState<any>(defaultValueNewSale)
-  const [products, setProducts] = useState<any>([])
+  const [newSale, setNewSale] = useState<NewSale>(defaultValueNewSale)
+  const [products, setProducts] = useState<Product[]>([])
 
   function createNewSale() {
-    setSales((oldSales: any) => [
-      ...oldSales,
-      {
-        id: sales.length + 1,
-        ...newSale,
-      },
-    ])
-
     setNewSale(defaultValueNewSale)
   }
 
@@ -46,17 +47,17 @@ export function NovaVenda({ navigation }: any) {
         onChangeText={(text) => {
           setNewSale({
             ...newSale,
-            cliente: text,
+            client: text,
           })
         }}
-        value={newSale.cliente}
+        value={newSale.client}
         placeholder="Nome do cliente"
         style={styles.input}
       />
 
       <Picker
         style={styles.input}
-        onValueChange={(itemValue: any) => {
+        onValueChange={(itemValue: Product) => {
           if (itemValue) {
             setNewSale({
               ...newSale,
@@ -68,7 +69,7 @@ export function NovaVenda({ navigation }: any) {
           getProducts()
         }}
       >
-        {products?.map((product: any) => {
+        {products?.map((product) => {
           return (
             <>
               <Picker.Item label={product.name} value={product} />

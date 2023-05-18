@@ -1,19 +1,17 @@
 import { Text, View } from 'react-native'
 import { styles } from './TotalValueStyle'
 import { formatting } from '../../utils/formatting'
+import { PaymentType } from '../../screens/Dashboard'
 
 interface TotalValueProps {
-  paymentTypes: { type: string; value: number }[]
+  paymentTypes: PaymentType[]
 }
 
 export default function TotalValue({ paymentTypes }: TotalValueProps) {
-  const totalPaymentTypes = paymentTypes.reduce(
-    (acc: number, paymentType: any) => {
-      acc += paymentType.value
-      return acc
-    },
-    0,
-  )
+  const totalPaymentTypes = paymentTypes.reduce((acc, paymentType) => {
+    acc += paymentType.value
+    return acc
+  }, 0)
 
   return (
     <>

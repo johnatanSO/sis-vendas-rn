@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import theme from '../../../../styles/theme'
 
-export const styles: any = StyleSheet.create({
+export const styles = StyleSheet.create({
   subHeader: {
     flexDirection: 'row',
     width: '100%',
