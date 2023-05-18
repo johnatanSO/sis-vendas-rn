@@ -1,11 +1,7 @@
 import { View, FlatList, Pressable, Text } from 'react-native'
 import { EmptyItems } from '../../../components/EmptyItems'
-import theme from '../../../../styles/theme'
 import { formatting } from '../../../utils/formatting'
 import { styles } from './ProductsList.styles'
-
-// TO-DO:
-// Separating by component
 
 export function ProductsList() {
   return (
@@ -17,31 +13,9 @@ export function ProductsList() {
       keyExtractor={(product) => product?.nome}
       renderItem={({ item }) => {
         return (
-          <Pressable
-            style={{
-              backgroundColor: theme.COLORS.GRAY_400,
-              width: '100%',
-              borderRadius: 10,
-              alignItems: 'center',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: '1rem',
-              paddingRight: 20,
-              paddingLeft: 20,
-            }}
-          >
-            <Text
-              style={{
-                color: 'white',
-              }}
-            >
-              {item?.nome}
-            </Text>
-            <Text
-              style={{
-                color: 'white',
-              }}
-            >
+          <Pressable style={styles.productItem}>
+            <Text style={styles.text}>{item?.nome}</Text>
+            <Text style={styles.text}>
               {formatting.formatarReal(item?.value || 0)}
             </Text>
           </Pressable>

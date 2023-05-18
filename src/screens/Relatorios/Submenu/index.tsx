@@ -1,30 +1,73 @@
 import { Pressable, Text, View } from 'react-native'
 import { styles } from './Submenu.styles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import theme from '../../../../styles/theme'
 import { faUsers, faWineBottle } from '@fortawesome/free-solid-svg-icons'
 
-export function Submenu() {
+interface SubmenuProps {
+  activeReport: string
+  setActiveReport: (activeReport: string) => void
+}
+
+export function Submenu({ activeReport, setActiveReport }: SubmenuProps) {
+  console.log('Menu ativo: ', activeReport)
   return (
     <View style={styles.subHeader}>
-      <Pressable style={styles.menuButton}>
+      <Pressable
+        onPress={() => {
+          setActiveReport('products')
+        }}
+        style={
+          activeReport === 'products'
+            ? styles.activeMenuButton
+            : styles.menuButton
+        }
+      >
         <FontAwesomeIcon
-          style={{
-            ...styles.buttonIcon,
-            color: theme.COLORS.PRIMARY_COLOR,
-            borderColor: theme.COLORS.PRIMARY_COLOR,
-          }}
+          style={
+            activeReport === 'products'
+              ? styles.activeButtonIcon
+              : styles.buttonIcon
+          }
           icon={faWineBottle}
         />
         <Text
-          style={{ ...styles.buttonText, color: theme.COLORS.PRIMARY_COLOR }}
+          style={
+            activeReport === 'products'
+              ? styles.activeButtonText
+              : styles.buttonText
+          }
         >
           Produtos
         </Text>
       </Pressable>
-      <Pressable style={styles.menuButton}>
-        <FontAwesomeIcon style={styles.buttonIcon} icon={faUsers} />
-        <Text style={styles.buttonText}>Clientes</Text>
+
+      <Pressable
+        onPress={() => {
+          setActiveReport('clients')
+        }}
+        style={
+          activeReport === 'clients'
+            ? styles.activeMenuButton
+            : styles.menuButton
+        }
+      >
+        <FontAwesomeIcon
+          style={
+            activeReport === 'clients'
+              ? styles.activeButtonIcon
+              : styles.buttonIcon
+          }
+          icon={faUsers}
+        />
+        <Text
+          style={
+            activeReport === 'clients'
+              ? styles.activeButtonText
+              : styles.buttonText
+          }
+        >
+          Clientes
+        </Text>
       </Pressable>
     </View>
   )
