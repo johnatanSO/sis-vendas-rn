@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_600,
     borderRadius: 20,
     boxShadow: '1px 3px 10px rgba(0,0,0,0.5)',
+    alignItems: 'center',
   },
   card: {
     boxShadow: '0px 3px 7px rgba(0,0,0,0.2)',
@@ -28,6 +29,11 @@ export const styles = StyleSheet.create({
   },
   titleContainer: {
     color: theme.COLORS.GRAY_100,
+    borderBottomWidth: 1,
+    borderColor: theme.COLORS.GRAY_300,
+    paddingBottom: 7,
+    paddingLeft: 25,
+    paddingRight: 25,
     fontFamily: theme.FONT_FAMILY.BOLD,
     textAlign: 'center',
     fontSize: 18,

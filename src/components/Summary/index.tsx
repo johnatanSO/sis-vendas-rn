@@ -32,7 +32,7 @@ export function Summary({ paymentTypes }: SummaryProps) {
           )
         })}
         {paymentTypes?.length === 0 && (
-          <EmptyItems text="Nenhum item encontrado" />
+          <EmptyItems text="Nenhuma venda encontrada" />
         )}
       </ScrollView>
     </View>
