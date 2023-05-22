@@ -16,17 +16,17 @@ interface NewSale {
 }
 
 export function NovaVenda({ navigation }: NovaVendaProps) {
-  const defaultValueNewSale = {
+  const defaultValuesNewSale = {
     client: '',
     paymentType: '',
     products: [],
     totalValue: 0,
   }
-  const [newSale, setNewSale] = useState<NewSale>(defaultValueNewSale)
+  const [newSale, setNewSale] = useState<NewSale>(defaultValuesNewSale)
   const [products, setProducts] = useState<Product[]>([])
 
   function createNewSale() {
-    setNewSale(defaultValueNewSale)
+    setNewSale(defaultValuesNewSale)
   }
 
   function getProducts() {

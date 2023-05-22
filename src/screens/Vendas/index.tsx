@@ -6,7 +6,7 @@ import HeaderSales from '../../layout/HeaderSales'
 import { formatting } from '../../utils/formatting'
 import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
-import { ModalSale } from '../../components/ModalSale'
+import { ModalSale } from './ModalSale'
 import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
 

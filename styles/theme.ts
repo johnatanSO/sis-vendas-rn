@@ -7,8 +7,9 @@ export default {
 
     PRIMARY_COLOR: '#ff6600',
     BLUE_500: 'rgb(50,100,255)',
+    BLUE_400: '#31A2FF',
 
-    RED: '#F75A68',
+    RED: '#ED4252',
     RED_DARK: '#AA2834',
 
     GRAY_700: '#121214',

@@ -2,9 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Modal, Pressable, Text, View } from 'react-native'
 import { styles } from './ModalSalesStyles'
-import { formatting } from '../../utils/formatting'
+import { formatting } from '../../../utils/formatting'
 import dayjs from 'dayjs'
-import { Sale } from '../../screens/Vendas'
+import { Sale } from '..'
 
 interface ModalSaleProps {
   saleDetailsData: Sale | undefined

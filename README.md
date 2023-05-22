@@ -5,12 +5,14 @@
 ### Funcionalidades prontas: 
   #### - [X] Dashboard;
   #### - [X] Vendas;
+  #### - [X] Listar vendas;
+  #### - [X] Cancelar venda;
+  #### - [X] Listar produtos;
+  #### - [X] Novo produto;
 
 ### Funcionalidades em desenvolvimento:
   #### - [ ] Nova venda;
   #### - [ ] Editar uma venda;
-  #### - [ ] Listar produtos;
-  #### - [ ] Novo produto;
   #### - [ ] Editar produto;
   #### - [ ] Excluir produto;
   #### - [ ] Excluir uma venda;
