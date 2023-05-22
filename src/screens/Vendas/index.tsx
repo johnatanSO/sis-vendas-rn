@@ -7,8 +7,8 @@ import { formatting } from '../../utils/formatting'
 import { styles } from './VendasStyles'
 import dayjs from 'dayjs'
 import { ModalSale } from './ModalSale'
-import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
+import { salesService } from '../../services/salesService.service'
 
 export interface Sale {
   _id: string
@@ -36,10 +36,14 @@ export function Vendas({ navigation }: VendasProps) {
     navigation.navigate('NovaVenda')
   }
 
-  useEffect(() => {
-    http.get('/vendas').then((res) => {
+  function getSales() {
+    salesService.getAll().then((res) => {
       setSales(res.data.items)
     })
+  }
+
+  useEffect(() => {
+    getSales()
   }, [])
 
   function handleOpenSaleDetailsModal(sale: Sale) {
@@ -70,7 +74,7 @@ export function Vendas({ navigation }: VendasProps) {
               style={styles.listItem}
             >
               <Text style={item?.canceled ? styles.canceledText : styles.text}>
-                {dayjs(item?.date).format('DD/MM/YYYY')}
+                {dayjs(item?.date).format('DD/MM/YYYY - HH:mm')}
               </Text>
               <Text style={item?.canceled ? styles.canceledText : styles.text}>
                 {formatting.formatarReal(item?.totalValue)}

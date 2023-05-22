@@ -9,11 +9,11 @@
   #### - [X] Cancelar venda;
   #### - [X] Listar produtos;
   #### - [X] Novo produto;
+  #### - [X] Editar produto;
+  #### - [X] Excluir produto;
 
 ### Funcionalidades em desenvolvimento:
   #### - [ ] Nova venda;
   #### - [ ] Editar uma venda;
-  #### - [ ] Editar produto;
-  #### - [ ] Excluir produto;
   #### - [ ] Excluir uma venda;
   #### - [ ] Tela de clientes

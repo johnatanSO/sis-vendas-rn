@@ -72,7 +72,7 @@ export function ProductsList() {
           )}
           style={styles.list}
           ItemSeparatorComponent={() => <View style={{ height: 20 }} />}
-          keyExtractor={(product) => product?._id}
+          keyExtractor={(product) => product._id}
           renderItem={({ item }) => {
             return (
               <ListItem

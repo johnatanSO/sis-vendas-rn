@@ -1,14 +1,14 @@
 import express from 'express'
 import SaleModel from '../models/sale'
 
-const router = express.Router()
+const dashboardRoutes = express.Router()
 
 interface Sale {
   paymentType: string
   totalValue: number
 }
 
-router.get('/formasDePagamento', async (req, res) => {
+dashboardRoutes.get('/formasDePagamento', async (req, res) => {
   try {
     const sales = await SaleModel.find()
     const paymentTypes = sales?.reduce(
@@ -45,4 +45,4 @@ router.get('/formasDePagamento', async (req, res) => {
   }
 })
 
-export default router
+export { dashboardRoutes }

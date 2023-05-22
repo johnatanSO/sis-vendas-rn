@@ -8,13 +8,11 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_600,
     borderRadius: 20,
     boxShadow: '1px 3px 10px rgba(0,0,0,0.5)',
-    alignItems: 'center',
   },
   card: {
     boxShadow: '0px 3px 7px rgba(0,0,0,0.2)',
     backgroundColor: theme.COLORS.GRAY_400,
-
-    width: '100%',
+    flex: 1,
     padding: 20,
     borderRadius: 15,
 

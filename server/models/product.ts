@@ -6,6 +6,4 @@ const productSchema = new mongoose.Schema({
   stock: { type: Number, default: null },
 })
 
-const Product = mongoose.model('Product', productSchema)
-
-export default Product
+export const ProductModel = mongoose.model('Product', productSchema)

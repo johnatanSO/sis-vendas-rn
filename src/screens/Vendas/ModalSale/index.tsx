@@ -42,7 +42,8 @@ export function ModalSale({
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Data</Text>
               <Text style={styles.text}>
-                {dayjs(saleDetailsData?.date).format('DD/MM/YYYY') || '--'}
+                {dayjs(saleDetailsData?.date).format('DD/MM/YYYY - HH:mm') ||
+                  '--'}
               </Text>
             </View>
             <View style={styles.fieldContainer}>

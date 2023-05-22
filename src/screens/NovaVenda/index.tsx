@@ -6,12 +6,12 @@ import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
 import { formasDePagamento } from '../../utils/formatting'
+import { salesService } from '../../services/salesService.service'
 
 interface NovaVendaProps {
   navigation: any
 }
-
-interface NewSale {
+export interface NewSale {
   client: string
   products: Product[]
   paymentType: string
@@ -26,17 +26,25 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     totalValue: 0,
   }
   const [newSale, setNewSale] = useState<NewSale>(defaultValuesNewSale)
-  const [products, setProducts] = useState<Product[]>([])
+  const [productsList, setProductsList] = useState<Product[]>([])
 
   function createNewSale() {
-    setNewSale(defaultValuesNewSale)
+    salesService
+      .create(newSale)
+      .then((res) => {
+        // navigation.navigate('Vendas')
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log('[ERROR]: ', err)
+      })
   }
 
   function getProducts() {
     http
       .get('/produtos')
       .then((res) => {
-        setProducts(res.data.items)
+        setProductsList(res.data.items)
       })
       .catch((err) => {
         console.log('[ERRO]: ', err)
@@ -62,23 +70,25 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
 
         <Picker
           style={styles.input}
-          onValueChange={(itemValue: Product) => {
-            if (itemValue) {
-              setNewSale({
-                ...newSale,
-                products: [...newSale.products, itemValue],
-              })
-            }
-          }}
           onFocus={() => {
             getProducts()
           }}
+          onValueChange={(index: any) => {
+            if (index) {
+              setNewSale({
+                ...newSale,
+                products: [...newSale.products, productsList[index]],
+              })
+            }
+          }}
         >
-          {products?.map((product) => {
+          {productsList?.map((product, index) => {
             return (
-              <>
-                <Picker.Item label={product.name} value={product} />
-              </>
+              <Picker.Item
+                key={product._id}
+                label={product?.name}
+                value={index}
+              />
             )
           })}
         </Picker>
@@ -86,6 +96,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         <Picker
           style={styles.input}
           onValueChange={(formaDePagamento: string) => {
+            console.log(formaDePagamento)
             if (formaDePagamento) {
               setNewSale({
                 ...newSale,
@@ -96,12 +107,11 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         >
           {formasDePagamento?.map((formaDePagamento) => {
             return (
-              <>
-                <Picker.Item
-                  label={formaDePagamento?.text}
-                  value={formaDePagamento?.value}
-                />
-              </>
+              <Picker.Item
+                key={formaDePagamento.value}
+                label={formaDePagamento?.text}
+                value={formaDePagamento?.value}
+              />
             )
           })}
         </Picker>
