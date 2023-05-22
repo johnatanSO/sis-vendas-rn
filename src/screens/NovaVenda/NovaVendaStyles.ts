@@ -4,13 +4,19 @@ import theme from '../../../styles/theme'
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 10,
+    alignItems: 'center',
+  },
+  fields: {
+    marginTop: '25px',
+    width: '85%',
     alignItems: 'center',
     gap: 10,
   },
   input: {
-    backgroundColor: 'rgb(30,30,30)',
-    width: '85%',
-    color: 'white',
+    backgroundColor: theme.COLORS.GRAY_600,
+    color: theme.COLORS.GRAY_200,
+    width: '100%',
     borderRadius: 10,
     padding: 15,
   },
@@ -23,6 +29,6 @@ export const styles = StyleSheet.create({
   },
   textNewSaleButton: {
     color: theme.COLORS.WHITE,
-    fontFamily: theme.FONT_FAMILY.REGULAR,
+    fontFamily: theme.FONT_FAMILY.BOLD,
   },
 })

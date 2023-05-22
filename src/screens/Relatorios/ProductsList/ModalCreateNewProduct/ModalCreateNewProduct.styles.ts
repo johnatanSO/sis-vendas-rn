@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
     gap: 15,
   },
   input: {
-    backgroundColor: 'rgb(30,30,30)',
+    backgroundColor: theme.COLORS.GRAY_600,
     width: '100%',
     borderRadius: 10,
     padding: 15,

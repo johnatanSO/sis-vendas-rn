@@ -5,6 +5,7 @@ import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
+import { formasDePagamento } from '../../utils/formatting'
 
 interface NovaVendaProps {
   navigation: any
@@ -13,6 +14,8 @@ interface NovaVendaProps {
 interface NewSale {
   client: string
   products: Product[]
+  paymentType: string
+  totalValue: number
 }
 
 export function NovaVenda({ navigation }: NovaVendaProps) {
@@ -43,40 +46,66 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
   return (
     <View style={styles.container}>
       <HeaderNewSale navigation={navigation} />
-      <TextInput
-        onChangeText={(text) => {
-          setNewSale({
-            ...newSale,
-            client: text,
-          })
-        }}
-        value={newSale.client}
-        placeholder="Nome do cliente"
-        style={styles.input}
-      />
 
-      <Picker
-        style={styles.input}
-        onValueChange={(itemValue: Product) => {
-          if (itemValue) {
+      <View style={styles.fields}>
+        <TextInput
+          onChangeText={(text) => {
             setNewSale({
               ...newSale,
-              products: [...newSale.products, itemValue],
+              client: text,
             })
-          }
-        }}
-        onFocus={() => {
-          getProducts()
-        }}
-      >
-        {products?.map((product) => {
-          return (
-            <>
-              <Picker.Item label={product.name} value={product} />
-            </>
-          )
-        })}
-      </Picker>
+          }}
+          value={newSale.client}
+          placeholder="Nome do cliente"
+          style={styles.input}
+        />
+
+        <Picker
+          style={styles.input}
+          onValueChange={(itemValue: Product) => {
+            if (itemValue) {
+              setNewSale({
+                ...newSale,
+                products: [...newSale.products, itemValue],
+              })
+            }
+          }}
+          onFocus={() => {
+            getProducts()
+          }}
+        >
+          {products?.map((product) => {
+            return (
+              <>
+                <Picker.Item label={product.name} value={product} />
+              </>
+            )
+          })}
+        </Picker>
+
+        <Picker
+          style={styles.input}
+          onValueChange={(formaDePagamento: string) => {
+            if (formaDePagamento) {
+              setNewSale({
+                ...newSale,
+                paymentType: formaDePagamento,
+              })
+            }
+          }}
+        >
+          {formasDePagamento?.map((formaDePagamento) => {
+            return (
+              <>
+                <Picker.Item
+                  label={formaDePagamento?.text}
+                  value={formaDePagamento?.value}
+                />
+              </>
+            )
+          })}
+        </Picker>
+      </View>
 
       <Pressable style={styles.newSaleButton} onPress={createNewSale}>
         <Text style={styles.textNewSaleButton}>Finalizar</Text>
