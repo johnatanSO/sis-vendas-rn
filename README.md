@@ -13,7 +13,8 @@
   #### - [X] Excluir produto;
 
 ### Funcionalidades em desenvolvimento:
+  #### - [ ] Separar services e repositories da rota de vendas;
   #### - [ ] Nova venda;
   #### - [ ] Editar uma venda;
   #### - [ ] Excluir uma venda;
-  #### - [ ] Tela de clientes
+  #### - [ ] Tela de clientes;

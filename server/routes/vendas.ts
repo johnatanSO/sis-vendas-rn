@@ -1,13 +1,14 @@
 import express, { Request, Response } from 'express'
-import SaleModel from '../models/sale'
+import { SaleModel } from '../models/sale'
 import { ProductModel } from '../models/product'
+import { SalesRepository } from '../repositories/SalesRepository'
 
 const vendasRoutes = express.Router()
+const salesRepository = new SalesRepository()
 
 vendasRoutes.get('/', async (req, res) => {
   try {
-    const sales = await SaleModel.find()
-
+    const sales = await salesRepository.list()
     res.status(200).json({
       items: sales,
       message: 'Busca concluída com sucesso!',

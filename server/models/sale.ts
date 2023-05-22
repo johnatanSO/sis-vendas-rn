@@ -20,6 +20,4 @@ const saleSchema = new mongoose.Schema({
   },
 })
 
-const Sale = mongoose.model('Sale', saleSchema)
-
-export default Sale
+export const SaleModel = mongoose.model('Sale', saleSchema)
