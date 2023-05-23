@@ -4,7 +4,8 @@
   "description": "Servidor para trabalho da faculdade",
   "main": "server.js",
   "scripts": {
-    "start": "ts-node-dev --transpile-only server.ts"
+    "start": "ts-node-dev --transpile-only server.ts",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",

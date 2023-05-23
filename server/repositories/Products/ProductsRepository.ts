@@ -13,7 +13,7 @@ export class ProductsRepository implements IProductsRepository {
     return newProduct
   }
 
-  async update({ _id, name, value, stock }: any) {
+  async update({ _id, name, value, stock }: Product): Promise<any> {
     return await ProductModel.updateOne(
       { _id },
       { $set: { name, value, stock } },
@@ -22,5 +22,13 @@ export class ProductsRepository implements IProductsRepository {
 
   async delete(idProduct: string) {
     await ProductModel.deleteOne({ _id: idProduct })
+  }
+
+  async findByName(name: string): Promise<Product | null> {
+    return await ProductModel.findOne({ name })
+  }
+
+  async findById(productId: string): Promise<Product | null> {
+    return await ProductModel.findOne({ _id: productId })
   }
 }

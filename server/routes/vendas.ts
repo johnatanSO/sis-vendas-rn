@@ -5,6 +5,7 @@ import { SalesRepository } from '../repositories/Sales/SalesRepository'
 const vendasRoutes = express.Router()
 const salesRepository = new SalesRepository()
 
+// [X] - TODO: Refactor and move query to repository.
 vendasRoutes.get('/', async (req, res) => {
   try {
     const sales = await salesRepository.list()
@@ -19,7 +20,7 @@ vendasRoutes.get('/', async (req, res) => {
   }
 })
 
-// TODO: Refactor and move to services.
+// [X] - TODO: Refactor and move logic to services.
 vendasRoutes.post('/', async (req: Request, res: Response) => {
   const { client, products, paymentType, totalValue = 0 } = req.body
   try {
