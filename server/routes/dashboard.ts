@@ -1,5 +1,5 @@
 import express from 'express'
-import SaleModel from '../models/sale'
+import { SaleModel } from '../models/sale'
 
 const dashboardRoutes = express.Router()
 

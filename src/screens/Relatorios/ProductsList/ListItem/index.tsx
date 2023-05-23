@@ -21,7 +21,7 @@ export function ListItem({
 }: ListItemProps) {
   return (
     <View style={styles.productItem}>
-      <View>
+      <View style={styles.infosContainer}>
         <Text style={styles.textName}>{item?.name}</Text>
         <Text style={item?.stock === 0 ? styles.textAlert : styles.text}>
           Quantidade {item?.stock}
@@ -30,6 +30,7 @@ export function ListItem({
           Valor {formatting.formatarReal(item?.value || 0)}
         </Text>
       </View>
+
       <View style={styles.actionsContainer}>
         <Pressable
           onPress={() => {
