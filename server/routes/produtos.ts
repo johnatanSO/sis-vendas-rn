@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express'
-import { ProductsRepository } from './../repositories/ProductsRepository'
+import { ProductsRepository } from './../repositories/Products/ProductsRepository'
 
 const produtosRoutes = express.Router()
 const productsRepository = new ProductsRepository()

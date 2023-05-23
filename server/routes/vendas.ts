@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express'
-import { SaleModel } from '../models/sale'
 import { ProductModel } from '../models/product'
-import { SalesRepository } from '../repositories/SalesRepository'
+import { SalesRepository } from '../repositories/Sales/SalesRepository'
 
 const vendasRoutes = express.Router()
 const salesRepository = new SalesRepository()
@@ -20,6 +19,7 @@ vendasRoutes.get('/', async (req, res) => {
   }
 })
 
+// TODO: Refactor and move to services.
 vendasRoutes.post('/', async (req: Request, res: Response) => {
   const { client, products, paymentType, totalValue = 0 } = req.body
   try {
@@ -30,7 +30,7 @@ vendasRoutes.post('/', async (req: Request, res: Response) => {
       throw new Error('Nenhum produto selecionado')
     }
 
-    const newSale = new SaleModel({
+    const newSale = salesRepository.create({
       client,
       products,
       paymentType,
@@ -44,7 +44,6 @@ vendasRoutes.post('/', async (req: Request, res: Response) => {
       )
     }
 
-    await newSale.save()
     res.status(201).json({
       item: newSale,
       message: 'Venda cadastrada com sucesso!',

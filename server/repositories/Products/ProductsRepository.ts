@@ -1,4 +1,4 @@
-import { ProductModel } from '../models/product'
+import { ProductModel } from '../../models/product'
 import { IProductsRepository, Product } from './IProductsRepository'
 
 export class ProductsRepository implements IProductsRepository {
