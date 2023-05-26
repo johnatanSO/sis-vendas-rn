@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
     color: theme.COLORS.WHITE,
     fontFamily: theme.FONT_FAMILY.BOLD,
   },
-
   selectProductContainer: {
     width: '100%',
   },
@@ -69,4 +68,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     color: theme.COLORS.GRAY_200,
   },
+  totalValueSaleCard: {
+
+  }
 })

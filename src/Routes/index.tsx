@@ -41,7 +41,7 @@ export function Routes() {
             ),
           }}
         /> */}
-        {/* <Screen
+        {/*  <Screen
           name="Vendas"
           component={Vendas}
           options={{

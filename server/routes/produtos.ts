@@ -7,7 +7,6 @@ import { DeleteProductService } from '../services/DeleteProductService.service'
 const produtosRoutes = express.Router()
 const productsRepository = new ProductsRepository()
 
-// [X] - TODO: Refactor and move query to repository.
 produtosRoutes.get('/', async (req: Request, res: Response) => {
   try {
     const products = await productsRepository.list()
@@ -22,7 +21,6 @@ produtosRoutes.get('/', async (req: Request, res: Response) => {
   }
 })
 
-// [X] - TODO: Refactor and move logic to services.
 produtosRoutes.post('/', async (req: Request, res: Response) => {
   const { name, value, stock } = req.body
   try {

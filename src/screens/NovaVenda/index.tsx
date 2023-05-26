@@ -5,16 +5,21 @@ import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
-import { formasDePagamento } from '../../utils/formatting'
+import { formasDePagamento, formatting } from '../../utils/formatting'
 import { salesService } from '../../services/salesService.service'
 
+const CustomPickerItem = (props:any) => (
+  <Picker.Item {...props} />
+)
+
 interface SaleProduct extends Product {
-  amount: string
+  amount: number
 }
 
 interface NovaVendaProps {
   navigation: any
 }
+
 export interface NewSale {
   client: string
   products: SaleProduct[]
@@ -33,13 +38,23 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
   const [productsList, setProductsList] = useState<SaleProduct[]>([])
 
   function createNewSale() {
+    if (!newSale.paymentType) {
+      console.log('Forma de pagamento não informada [front check]')
+      return
+    }
+    if (newSale.products.length === 0) {
+      console.log('Nenhum produto selecionado [front check]')
+      return
+    }
+
     salesService
       .create(newSale)
-      .then((res) => {
-        console.log(res)
+      .then(() => {
+        console.log('VENDA CRIADA COM SUCESSO!')
+        navigation.navigate('Vendas')
       })
       .catch((err) => {
-        console.log('[ERROR]: ', err)
+        console.log('[ERROR]: ', err.response.data.message)
       })
   }
 
@@ -53,6 +68,8 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         console.log('[ERRO]: ', err)
       })
   }
+
+  const totalValue = newSale?.products?.reduce((acc, prod) => acc += prod.value, 0)
 
   return (
     <View style={styles.container}>
@@ -82,12 +99,13 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             }
           }}
         >
+          <CustomPickerItem label="Selecione uma forma de pagamento" value={null} />
           {formasDePagamento?.map((formaDePagamento) => {
             return (
-              <Picker.Item
+              <CustomPickerItem
                 key={formaDePagamento.value}
                 label={formaDePagamento?.text}
-                value={null}
+                value={formaDePagamento?.value}
               />
             )
           })}
@@ -103,21 +121,18 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             }}
             onValueChange={(index: any) => {
               if (index) {
+                const newProduct = { ...productsList[index], amount: 1 }
                 setNewSale({
                   ...newSale,
-                  products: [...newSale.products, productsList[index]],
+                  products: [...newSale.products, newProduct],
                 })
               }
             }}
           >
+            {' '}
+            <CustomPickerItem label="Selecione um produto" value={null} />
             {productsList?.map((product, index) => {
-              return (
-                <Picker.Item
-                  key={product._id}
-                  label={product?.name}
-                  value={index}
-                />
-              )
+              return <CustomPickerItem key={product?._id} label={product?.name} value={index} />
             })}
           </Picker>
         </View>
@@ -134,9 +149,9 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
           style={{ width: '100%' }}
           ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
           keyExtractor={(product) => product._id}
-          renderItem={({ item }) => {
+          renderItem={({ item, index }) => {
             return (
-              <View style={styles.selectedProductCard} key={item._id}>
+              <View style={styles.selectedProductCard}>
                 <Text
                   style={{
                     color: 'white',
@@ -148,20 +163,33 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
                 </Text>
                 <TextInput
                   style={styles.productInput}
-                  value={item.amount}
-                  onChangeText={(text) => {}}
+                  value={item.amount.toString()}
+                  onChangeText={(text) => {
+                    item.amount = Number(text)
+                  }}
                   placeholder="Qtd."
+                  inputMode="numeric"
+                  keyboardType="number-pad"
                 />
                 <TextInput
                   style={styles.productInput}
-                  onChangeText={(text) => {}}
+                  onChangeText={(text) => {
+                    item.value = Number(text)
+                  }}
                   value={item.value.toString()}
                   placeholder="Valor"
+                  inputMode="numeric"
+                  keyboardType="number-pad"
                 />
               </View>
             )
           }}
         />
+      </View>
+
+      <View style={styles.totalValueSaleCard}> 
+        <Text style={styles.textNewSaleButton}>Valor total</Text>
+        <Text style={styles.textNewSaleButton}>{formatting.formatarReal(totalValue || 0)}</Text>
       </View>
 
       <Pressable style={styles.newSaleButton} onPress={createNewSale}>

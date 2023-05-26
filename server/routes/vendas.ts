@@ -1,11 +1,14 @@
+import { ProductsRepository } from './../repositories/Products/ProductsRepository';
 import express, { Request, Response } from 'express'
 import { ProductModel } from '../models/product'
 import { SalesRepository } from '../repositories/Sales/SalesRepository'
+import { CreateNewSaleService } from '../services/CreateNewSale.service'
+import { UpdateProductsStock } from '../services/UpdateProductsStock.service'
 
 const vendasRoutes = express.Router()
 const salesRepository = new SalesRepository()
+const productsRepository = new ProductsRepository()
 
-// [X] - TODO: Refactor and move query to repository.
 vendasRoutes.get('/', async (req, res) => {
   try {
     const sales = await salesRepository.list()
@@ -20,37 +23,22 @@ vendasRoutes.get('/', async (req, res) => {
   }
 })
 
-// [X] - TODO: Refactor and move logic to services.
 vendasRoutes.post('/', async (req: Request, res: Response) => {
   const { client, products, paymentType, totalValue = 0 } = req.body
+
   try {
-    if (!paymentType) {
-      throw new Error('Forma de pagamento não informada')
-    }
-    if (!products || products?.length === 0) {
-      throw new Error('Nenhum produto selecionado')
-    }
+    const createNewSaleService = new CreateNewSaleService(salesRepository)
+    const newSale = await createNewSaleService.execute({client, products, paymentType, totalValue})
 
-    const newSale = salesRepository.create({
-      client,
-      products,
-      paymentType,
-      totalValue,
-    })
-
-    for (const product of products) {
-      await ProductModel.updateOne(
-        { _id: product._id },
-        { $inc: { stock: -Number(/* product.amount */ 1) } },
-      )
-    }
+    const updateProductsStock = new UpdateProductsStock(productsRepository)
+    await updateProductsStock.execute(products)
 
     res.status(201).json({
       item: newSale,
       message: 'Venda cadastrada com sucesso!',
     })
   } catch (error) {
-    res.status(500).json({ error })
+    res.status(400).json({ message: error.message })
   }
 })
 

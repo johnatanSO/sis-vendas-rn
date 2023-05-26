@@ -37,14 +37,19 @@ export function Vendas({ navigation }: VendasProps) {
   }
 
   function getSales() {
+    console.log('GET SALE FUNCTION')
     salesService.getAll().then((res) => {
       setSales(res.data.items)
     })
   }
 
   useEffect(() => {
-    getSales()
-  }, [])
+    const unsubscribe = navigation.addListener('focus', () => {
+      getSales()
+    })
+
+    return unsubscribe
+  }, [navigation])
 
   function handleOpenSaleDetailsModal(sale: Sale) {
     setSaleDetailsData(sale)

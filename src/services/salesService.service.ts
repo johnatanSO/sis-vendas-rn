@@ -6,7 +6,6 @@ export const salesService = {
     return http.get('/vendas')
   },
   create(saleData: NewSale) {
-    console.log(saleData)
     const body = { ...saleData }
     return http.post('/vendas', { ...body })
   },
