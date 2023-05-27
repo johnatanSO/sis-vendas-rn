@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
     width: '85%',
     maxHeight: '85%',
     borderRadius: 15,
-    alignItems: 'center',
     padding: 25,
+    height: 'auto',
   },
   headerModal: {
     flexDirection: 'row',
@@ -41,7 +41,6 @@ export const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: theme.COLORS.GRAY_600,
-    width: '100%',
     borderRadius: 10,
     padding: 15,
     color: theme.COLORS.GRAY_200,
@@ -49,7 +48,7 @@ export const styles = StyleSheet.create({
   confirmButton: {
     backgroundColor: theme.COLORS.PRIMARY_COLOR,
     width: '100%',
-    marginTop: '15px',
+    marginTop: 15,
     borderRadius: 10,
     alignItems: 'center',
     padding: 15,
@@ -60,7 +59,10 @@ export const styles = StyleSheet.create({
   },
   labelField: {
     color: theme.COLORS.GRAY_200,
-    marginLeft: '5px',
-    marginBottom: '3px',
+    backgroundColor: 'transparent',
+    marginLeft: 10,
+    marginBottom: -7,
+    position: 'relative',
+    zIndex: 9999999,
   },
 })

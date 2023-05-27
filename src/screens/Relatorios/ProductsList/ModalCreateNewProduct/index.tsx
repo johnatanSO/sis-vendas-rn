@@ -1,5 +1,14 @@
 import { useState } from 'react'
-import { View, Text, Modal, Pressable, TextInput } from 'react-native'
+import {
+  View,
+  Text,
+  Modal,
+  Pressable,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from 'react-native'
 import { styles } from './ModalCreateNewProduct.styles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -42,10 +51,12 @@ export function ModalCreateNewProduct({
       .create(newProduct)
       .then(() => {
         handleClose(false)
+        Alert.alert('Produto criado com sucesso')
         getProducts()
       })
       .catch((error: any) => {
-        console.log('[ERROR]: ', error)
+        Alert.alert('Erro ao tentar criar produto', error.response.data.message)
+        console.log(error)
       })
       .finally(() => {
         setLoadingCreateNew(false)
@@ -72,87 +83,87 @@ export function ModalCreateNewProduct({
 
   return (
     <Modal transparent={true} animationType="fade">
-      <View style={styles.modalOverlay}>
-        <View style={styles.modalContainer}>
-          <View style={styles.headerModal}>
-            <Text style={styles.titleModal}>Informações do produto</Text>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContainer}>
+            <View style={styles.headerModal}>
+              <Text style={styles.titleModal}>Informações do produto</Text>
+              <Pressable
+                onPress={() => {
+                  handleClose(false)
+                  setProductDataToEdit(undefined)
+                }}
+              >
+                <FontAwesomeIcon
+                  size={25}
+                  style={styles.closeModalIcon}
+                  icon={faXmark}
+                />
+              </Pressable>
+            </View>
+
+            <View style={styles.fieldsContainer}>
+              <View>
+                <Text style={styles.labelField}>Nome</Text>
+                <TextInput
+                  onChangeText={(text) => {
+                    setNewProduct({
+                      ...newProduct,
+                      name: text,
+                    })
+                  }}
+                  value={newProduct.name}
+                  placeholder="Digite o nome do produto"
+                  placeholderTextColor={theme.COLORS.GRAY_300}
+                  style={styles.input}
+                />
+              </View>
+
+              <View>
+                <Text style={styles.labelField}>Valor</Text>
+                <TextInput
+                  onChangeText={(text) => {
+                    setNewProduct({
+                      ...newProduct,
+                      value: text,
+                    })
+                  }}
+                  value={newProduct.value}
+                  keyboardType="numeric"
+                  placeholder="Digite o valor do produto"
+                  placeholderTextColor={theme.COLORS.GRAY_300}
+                  style={styles.input}
+                />
+              </View>
+
+              <View>
+                <Text style={styles.labelField}>Estoque</Text>
+                <TextInput
+                  onChangeText={(text) => {
+                    setNewProduct({
+                      ...newProduct,
+                      stock: text,
+                    })
+                  }}
+                  value={newProduct.stock}
+                  placeholder="Digite a quantidade do estoque"
+                  placeholderTextColor={theme.COLORS.GRAY_300}
+                  style={styles.input}
+                />
+              </View>
+            </View>
+
             <Pressable
-              onPress={() => {
-                handleClose(false)
-                setProductDataToEdit(undefined)
-              }}
+              onPress={productDataToEdit ? updateProduct : createNewProduct}
+              style={styles.confirmButton}
             >
-              <FontAwesomeIcon
-                size={25}
-                style={styles.closeModalIcon}
-                icon={faXmark}
-              />
+              <Text style={styles.confirmButtonText}>
+                {loadingCreateNew ? 'loading...' : 'Confirmar'}
+              </Text>
             </Pressable>
           </View>
-
-          <View style={styles.fieldsContainer}>
-            <View>
-              <Text style={styles.labelField}>Nome</Text>
-              <TextInput
-                onChangeText={(text) => {
-                  setNewProduct({
-                    ...newProduct,
-                    name: text,
-                  })
-                }}
-                value={newProduct.name}
-                keyboardType="numeric"
-                placeholder="Digite o nome do produto"
-                placeholderTextColor={theme.COLORS.GRAY_300}
-                style={styles.input}
-              />
-            </View>
-
-            <View>
-              <Text style={styles.labelField}>Valor</Text>
-              <TextInput
-                onChangeText={(text) => {
-                  setNewProduct({
-                    ...newProduct,
-                    value: text,
-                  })
-                }}
-                value={newProduct.value}
-                keyboardType="numeric"
-                placeholder="Digite o valor do produto"
-                placeholderTextColor={theme.COLORS.GRAY_300}
-                style={styles.input}
-              />
-            </View>
-
-            <View>
-              <Text style={styles.labelField}>Estoque</Text>
-              <TextInput
-                onChangeText={(text) => {
-                  setNewProduct({
-                    ...newProduct,
-                    stock: text,
-                  })
-                }}
-                value={newProduct.stock}
-                keyboardType="numeric"
-                placeholder="Digite a quantidade do estoque"
-                placeholderTextColor={theme.COLORS.GRAY_300}
-                style={styles.input}
-              />
-            </View>
-          </View>
-
-          <Pressable
-            onPress={productDataToEdit ? updateProduct : createNewProduct}
-            style={styles.confirmButton}
-          >
-            <Text style={styles.confirmButtonText}>
-              {loadingCreateNew ? 'loading...' : 'Confirmar'}
-            </Text>
-          </Pressable>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   )
 }

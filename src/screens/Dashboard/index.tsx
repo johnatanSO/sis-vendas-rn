@@ -11,13 +11,23 @@ export interface PaymentType {
   value: number
 }
 
-export function Dashboard() {
+interface DashboardProps {
+  navigation: any
+}
+
+export function Dashboard({ navigation }: DashboardProps) {
   const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([])
+
   useEffect(() => {
-    http.get('/dashboard/formasDePagamento').then((res) => {
-      setPaymentTypes(res.data.items)
+    const unsubscribe = navigation.addListener('focus', () => {
+      http.get('/dashboard/formasDePagamento').then((res) => {
+        setPaymentTypes(res.data.items)
+      })
     })
-  }, [])
+
+    return unsubscribe
+  }, [navigation])
+
   return (
     <View style={styles.container}>
       <HeaderDashboard />

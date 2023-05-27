@@ -1,19 +1,30 @@
-import { View, Pressable, Text, TextInput, FlatList } from 'react-native'
-import { Picker } from '@react-native-picker/picker'
-import { useState } from 'react'
+import {
+  View,
+  Pressable,
+  Text,
+  TextInput,
+  FlatList,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Alert,
+} from 'react-native'
+import { useState, useEffect } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
 import { Product } from '../Relatorios/ProductsList'
 import { formasDePagamento, formatting } from '../../utils/formatting'
 import { salesService } from '../../services/salesService.service'
-
-const CustomPickerItem = (props:any) => (
-  <Picker.Item {...props} />
-)
+import { Dropdown } from 'react-native-element-dropdown'
+import theme from '../../../styles/theme'
 
 interface SaleProduct extends Product {
   amount: number
+}
+
+interface ListItem {
+  text: string
+  value: SaleProduct
 }
 
 interface NovaVendaProps {
@@ -35,7 +46,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     totalValue: 0,
   }
   const [newSale, setNewSale] = useState<NewSale>(defaultValuesNewSale)
-  const [productsList, setProductsList] = useState<SaleProduct[]>([])
+  const [productsList, setProductsList] = useState<ListItem[]>([])
 
   function createNewSale() {
     if (!newSale.paymentType) {
@@ -50,7 +61,8 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     salesService
       .create(newSale)
       .then(() => {
-        console.log('VENDA CRIADA COM SUCESSO!')
+        Alert.alert('Venda criada com sucesso!')
+        setNewSale(defaultValuesNewSale)
         navigation.navigate('Vendas')
       })
       .catch((err) => {
@@ -62,139 +74,160 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     http
       .get('/produtos')
       .then((res) => {
-        setProductsList(res.data.items)
+        const formatedList = res.data.items.map((product: SaleProduct) => ({
+          value: product,
+          text: product.name,
+        }))
+        setProductsList(formatedList)
       })
       .catch((err) => {
         console.log('[ERRO]: ', err)
       })
   }
 
-  const totalValue = newSale?.products?.reduce((acc, prod) => acc += prod.value, 0)
+  function onChangeProductField({ text, inputField, index }: any) {
+    const sale: any = { ...newSale }
+    sale.products[index][inputField] = text
+
+    setNewSale(sale)
+  }
+
+  function handleAddNewProduct({ value }: ListItem) {
+    value.amount = 1
+
+    setNewSale({
+      ...newSale,
+      products: [...newSale.products, value],
+    })
+  }
+
+  useEffect(() => {
+    setNewSale({
+      ...newSale,
+      totalValue: newSale?.products?.reduce(
+        (acc, prod) => (acc += prod.value),
+        0,
+      ),
+    })
+  }, [newSale.products])
 
   return (
-    <View style={styles.container}>
-      <HeaderNewSale navigation={navigation} />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <HeaderNewSale navigation={navigation} />
 
-      <View style={styles.fields}>
-        <TextInput
-          style={styles.input}
-          onChangeText={(text) => {
-            setNewSale({
-              ...newSale,
-              client: text,
-            })
-          }}
-          value={newSale.client}
-          placeholder="Nome do cliente"
-        />
-
-        <Picker
-          style={styles.input}
-          onValueChange={(formaDePagamento: string) => {
-            if (formaDePagamento) {
+        <View style={styles.fields}>
+          <TextInput
+            placeholderTextColor={theme.COLORS.GRAY_300}
+            style={styles.input}
+            onChangeText={(text) => {
               setNewSale({
                 ...newSale,
-                paymentType: formaDePagamento,
+                client: text,
               })
-            }
-          }}
-        >
-          <CustomPickerItem label="Selecione uma forma de pagamento" value={null} />
-          {formasDePagamento?.map((formaDePagamento) => {
-            return (
-              <CustomPickerItem
-                key={formaDePagamento.value}
-                label={formaDePagamento?.text}
-                value={formaDePagamento?.value}
-              />
-            )
-          })}
-        </Picker>
+            }}
+            value={newSale.client}
+            placeholder="Nome do cliente"
+          />
 
-        <View style={styles.selectProductContainer}>
-          <Text style={styles.labelSelectProduct}>Selecione um produto</Text>
-          <Picker
-            selectedValue={undefined}
-            style={styles.input}
-            onFocus={() => {
-              getProducts()
+          <Dropdown
+            valueField="value"
+            labelField="text"
+            placeholder="Selecione a forma de pagamento"
+            placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
+            selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
+            style={styles.selectInput}
+            onChange={({ value }) => {
+              setNewSale({
+                ...newSale,
+                paymentType: value,
+              })
             }}
-            onValueChange={(index: any) => {
-              if (index) {
-                const newProduct = { ...productsList[index], amount: 1 }
-                setNewSale({
-                  ...newSale,
-                  products: [...newSale.products, newProduct],
-                })
-              }
-            }}
-          >
-            {' '}
-            <CustomPickerItem label="Selecione um produto" value={null} />
-            {productsList?.map((product, index) => {
-              return <CustomPickerItem key={product?._id} label={product?.name} value={index} />
-            })}
-          </Picker>
+            data={formasDePagamento}
+          />
+
+          <View style={styles.selectProductContainer}>
+            <Text style={styles.labelSelectProduct}>Selecione um produto</Text>
+            <Dropdown
+              valueField="value"
+              labelField="text"
+              placeholder="Produtos"
+              placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
+              selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
+              style={styles.selectInput}
+              onChange={handleAddNewProduct}
+              data={productsList}
+              onFocus={() => {
+                getProducts()
+              }}
+            />
+          </View>
         </View>
-      </View>
 
-      <View style={styles.selectedProductsContainer}>
-        {newSale?.products?.length > 0 && (
-          <Text style={styles.selectedProductsTitle}>
-            Produtos selecionados
-          </Text>
-        )}
-        <FlatList
-          data={newSale?.products}
-          style={{ width: '100%' }}
-          ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-          keyExtractor={(product) => product._id}
-          renderItem={({ item, index }) => {
-            return (
-              <View style={styles.selectedProductCard}>
-                <Text
-                  style={{
-                    color: 'white',
-                    fontWeight: '500',
-                    marginRight: 'auto',
-                  }}
-                >
-                  {item?.name}
-                </Text>
-                <TextInput
-                  style={styles.productInput}
-                  value={item.amount.toString()}
-                  onChangeText={(text) => {
-                    item.amount = Number(text)
-                  }}
-                  placeholder="Qtd."
-                  inputMode="numeric"
-                  keyboardType="number-pad"
-                />
-                <TextInput
-                  style={styles.productInput}
-                  onChangeText={(text) => {
-                    item.value = Number(text)
-                  }}
-                  value={item.value.toString()}
-                  placeholder="Valor"
-                  inputMode="numeric"
-                  keyboardType="number-pad"
-                />
-              </View>
-            )
-          }}
-        />
-      </View>
+        <View style={styles.selectedProductsContainer}>
+          {newSale?.products?.length > 0 && (
+            <View style={styles.selectedProductsTitleContainer}>
+              <Text style={styles.selectedProductsTitle}>Produtos</Text>
+              <Text style={styles.selectedProductsTitle}>
+                Total {formatting.formatarReal(newSale.totalValue || 0)}
+              </Text>
+            </View>
+          )}
+          <FlatList
+            data={newSale?.products}
+            style={{ width: '100%' }}
+            ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+            keyExtractor={(product) => product._id}
+            renderItem={({ item, index }) => {
+              return (
+                <View style={styles.selectedProductCard}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: '500',
+                      marginRight: 'auto',
+                    }}
+                  >
+                    {item?.name}
+                  </Text>
+                  <TextInput
+                    style={styles.productInput}
+                    value={item.amount.toString()}
+                    onChangeText={(text) => {
+                      onChangeProductField({
+                        text,
+                        inputField: 'amount',
+                        index,
+                      })
+                    }}
+                    placeholder="Qtd."
+                    inputMode="numeric"
+                    keyboardType="number-pad"
+                  />
+                  <TextInput
+                    style={styles.productInput}
+                    onChangeText={(text) => {
+                      onChangeProductField({
+                        text,
+                        inputField: 'value',
+                        index,
+                      })
+                    }}
+                    value={item.value.toString()}
+                    placeholder="Valor"
+                    inputMode="numeric"
+                    keyboardType="number-pad"
+                  />
+                </View>
+              )
+            }}
+          />
+        </View>
 
-      <View style={styles.totalValueSaleCard}> 
-        <Text style={styles.textNewSaleButton}>Valor total</Text>
-        <Text style={styles.textNewSaleButton}>{formatting.formatarReal(totalValue || 0)}</Text>
+        <Pressable style={styles.newSaleButton} onPress={createNewSale}>
+          <Text style={styles.textNewSaleButton}>Finalizar</Text>
+        </Pressable>
       </View>
-
-      <Pressable style={styles.newSaleButton} onPress={createNewSale}>
-        <Text style={styles.textNewSaleButton}>Finalizar</Text>
-      </Pressable>
-    </View>
+    </TouchableWithoutFeedback>
   )
 }

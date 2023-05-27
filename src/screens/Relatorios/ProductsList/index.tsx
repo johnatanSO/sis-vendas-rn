@@ -15,7 +15,12 @@ export interface Product {
   stock: number
 }
 
-export function ProductsList() {
+interface ProductsListProps {
+  navigation: any
+  focus: string
+}
+
+export function ProductsList({ navigation, focus }: ProductsListProps) {
   const [products, setProducts] = useState<Product[]>([])
   const [modalCreateNewProductOpened, setModalCreateNewProductOpened] =
     useState<boolean>(false)
@@ -25,6 +30,7 @@ export function ProductsList() {
   >(undefined)
 
   function getProducts() {
+    console.log('get poducts')
     setLoadingListProducts(true)
     productsService
       .getAll()
@@ -49,6 +55,14 @@ export function ProductsList() {
         console.log('[ERROR]: ', err)
       })
   }
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getProducts()
+    })
+
+    return unsubscribe
+  }, [navigation])
 
   useEffect(() => {
     getProducts()

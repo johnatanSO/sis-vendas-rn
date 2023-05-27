@@ -37,7 +37,6 @@ export function Vendas({ navigation }: VendasProps) {
   }
 
   function getSales() {
-    console.log('GET SALE FUNCTION')
     salesService.getAll().then((res) => {
       setSales(res.data.items)
     })

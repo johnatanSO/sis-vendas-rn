@@ -3,7 +3,7 @@ import { ISalesRepository, Sale } from './ISalesRepository'
 
 export class SalesRepository implements ISalesRepository {
   async list(): Promise<Sale[]> {
-    return await SaleModel.find()
+    return await SaleModel.find().sort({date: -1})
   }
 
   async create({

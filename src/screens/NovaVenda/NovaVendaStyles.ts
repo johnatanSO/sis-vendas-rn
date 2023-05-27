@@ -8,17 +8,26 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fields: {
-    marginTop: '25px',
+    marginTop: 25,
     width: '85%',
     alignItems: 'center',
     gap: 10,
   },
   input: {
     backgroundColor: theme.COLORS.GRAY_600,
-    color: theme.COLORS.GRAY_200,
+    color: theme.COLORS.GRAY_100,
     width: '100%',
     borderRadius: 10,
     padding: 15,
+  },
+  selectInput: {
+    backgroundColor: theme.COLORS.GRAY_600,
+    color: theme.COLORS.GRAY_100,
+    width: '100%',
+    borderRadius: 10,
+    padding: 7,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   newSaleButton: {
     padding: 15,
@@ -40,9 +49,15 @@ export const styles = StyleSheet.create({
     color: theme.COLORS.GRAY_300,
     margin: 5,
   },
-
   selectedProductsContainer: {
     width: '85%',
+    marginTop: 10,
+    flex: 1,
+  },
+  selectedProductsTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   selectedProductsTitle: {
     color: theme.COLORS.GRAY_300,
@@ -68,7 +83,5 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     color: theme.COLORS.GRAY_200,
   },
-  totalValueSaleCard: {
-
-  }
+  totalValueSaleCard: {},
 })

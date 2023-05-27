@@ -14,10 +14,10 @@ produtosRoutes.get('/', async (req: Request, res: Response) => {
       items: products,
       message: 'Busca concluída com sucesso!',
     })
-  } catch (err) {
+  } catch ({message}) {
     res
       .status(500)
-      .json({ error: err, message: 'Falha ao buscar dados', items: [] })
+      .json({ message })
   }
 })
 
@@ -38,9 +38,9 @@ produtosRoutes.post('/', async (req: Request, res: Response) => {
       item: newProduct,
       message: 'Produto cadastrado com sucesso!',
     })
-  } catch (error: any) {
+  } catch ({message}) {
     res.status(400).json({
-      error: error.message,
+      message,
     })
   }
 })
