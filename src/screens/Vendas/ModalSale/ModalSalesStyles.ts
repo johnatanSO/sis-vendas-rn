@@ -51,6 +51,11 @@ export const styles = StyleSheet.create({
     padding: 15,
     paddingLeft: 7,
   },
+  productItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   titleField: {
     fontSize: 18,
     fontFamily: theme.FONT_FAMILY.BOLD,

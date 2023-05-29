@@ -21,4 +21,8 @@ export class SalesRepository implements ISalesRepository {
     await newSale.save()
     return newSale
   }
+
+  async cancel(idSale:string){
+    await SaleModel.updateOne({_id: idSale}, {$set: {status: 'canceled'}})
+  }
 }

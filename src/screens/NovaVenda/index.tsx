@@ -134,6 +134,15 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             valueField="value"
             labelField="text"
             placeholder="Selecione a forma de pagamento"
+            activeColor={theme.COLORS.GRAY_300}
+            containerStyle={{
+              backgroundColor: theme.COLORS.GRAY_500,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+            }}
+            itemTextStyle={{
+              color: theme.COLORS.GRAY_100,
+            }}
             placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
             selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
             style={styles.selectInput}
@@ -152,6 +161,15 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
               valueField="value"
               labelField="text"
               placeholder="Produtos"
+              activeColor={theme.COLORS.GRAY_300}
+              containerStyle={{
+                backgroundColor: theme.COLORS.GRAY_500,
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+              }}
+              itemTextStyle={{
+                color: theme.COLORS.GRAY_100,
+              }}
               placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
               selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
               style={styles.selectInput}

@@ -42,6 +42,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: theme.COLORS.GRAY_100,
+    fontFamily: theme.FONT_FAMILY.BOLD,
   },
   canceledText: {
     fontFamily: theme.FONT_FAMILY.BOLD,

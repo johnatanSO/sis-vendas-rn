@@ -22,7 +22,9 @@ export function ListItem({
   return (
     <View style={styles.productItem}>
       <View style={styles.infosContainer}>
-        <Text style={styles.textName}>{item?.name}</Text>
+        <Text numberOfLines={1} style={styles.textName}>
+          {item?.name || '--'}
+        </Text>
         <Text style={item?.stock === 0 ? styles.textAlert : styles.text}>
           Quantidade {item?.stock}
         </Text>

@@ -1,5 +1,6 @@
 import http from '../http'
 import { NewSale } from '../screens/NovaVenda'
+import { Sale } from '../screens/Vendas'
 
 export const salesService = {
   getAll() {
@@ -8,5 +9,9 @@ export const salesService = {
   create(saleData: NewSale) {
     const body = { ...saleData }
     return http.post('/vendas', { ...body })
+  },
+  cancel(saleData: Sale) {
+    const body = { ...saleData }
+    return http.put('/vendas/cancelar', { ...body })
   },
 }

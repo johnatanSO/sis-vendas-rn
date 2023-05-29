@@ -1,4 +1,4 @@
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Alert } from 'react-native'
 import { EmptyItems } from '../../../components/EmptyItems'
 import { styles } from './ProductsList.styles'
 import { useEffect, useState } from 'react'
@@ -30,7 +30,6 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
   >(undefined)
 
   function getProducts() {
-    console.log('get poducts')
     setLoadingListProducts(true)
     productsService
       .getAll()
@@ -46,14 +45,30 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
   }
 
   function handleDeleteProduct(idProduct: string) {
-    productsService
-      .delete(idProduct)
-      .then(() => {
-        getProducts()
-      })
-      .catch((err) => {
-        console.log('[ERROR]: ', err)
-      })
+    Alert.alert(
+      'Alerta de confirmação',
+      'Deseja realmente excluir este produto?',
+      [
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            productsService
+              .delete(idProduct)
+              .then(() => {
+                getProducts()
+              })
+              .catch((err) => {
+                console.log('[ERROR]: ', err)
+              })
+          },
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: () => {},
+        },
+      ],
+    )
   }
 
   useEffect(() => {

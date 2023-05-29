@@ -1,20 +1,51 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { Modal, Pressable, Text, View } from 'react-native'
+import { Alert, Modal, Pressable, Text, View } from 'react-native'
 import { styles } from './ModalSalesStyles'
 import { formatting } from '../../../utils/formatting'
 import dayjs from 'dayjs'
 import { Sale } from '..'
+import { salesService } from '../../../services/salesService.service'
 
 interface ModalSaleProps {
-  saleDetailsData: Sale | undefined
+  saleDetailsData: Sale
+  getSales: () => void
   setSaleDetailsModalOpened: (open: boolean) => void
 }
 
 export function ModalSale({
   saleDetailsData,
   setSaleDetailsModalOpened,
+  getSales,
 }: ModalSaleProps) {
+  function handleCancelOrder() {
+    Alert.alert(
+      'Alerta de confirmação',
+      'Deseja realmente cancelar esta venda?',
+      [
+        {
+          text: 'Confirmar',
+          onPress: () => {
+            salesService
+              .cancel(saleDetailsData)
+              .then(() => {
+                setSaleDetailsModalOpened(false)
+                getSales()
+              })
+              .catch((err) => {
+                console.log('ERRO', err.response.data.message)
+                Alert.alert('Alerta de erro', err.response.data.message)
+              })
+          },
+        },
+        {
+          text: 'Cancelar',
+          style: 'cancel',
+          onPress: () => {},
+        },
+      ],
+    )
+  }
   return (
     <Modal transparent={true} animationType="fade">
       <View style={styles.modalOverlay}>
@@ -49,7 +80,7 @@ export function ModalSale({
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Produtos</Text>
               {saleDetailsData?.products.map((product) => (
-                <View key={product?._id}>
+                <View style={styles.productItem} key={product?._id}>
                   <Text style={styles.text}>{product.name || '--'}</Text>
                   <Text style={styles.text}>
                     {formatting.formatarReal(product?.value || 0) || '--'}
@@ -66,13 +97,15 @@ export function ModalSale({
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Forma de pagamento</Text>
               <Text style={styles.text}>
-                {saleDetailsData?.paymentType || '--'}
+                {formatting.formatarFormaDePagamento(
+                  saleDetailsData?.paymentType,
+                ) || '--'}
               </Text>
             </View>
           </View>
 
-          {!saleDetailsData?.canceled ? (
-            <Pressable style={styles.cancelButton}>
+          {saleDetailsData?.status !== 'canceled' ? (
+            <Pressable onPress={handleCancelOrder} style={styles.cancelButton}>
               <FontAwesomeIcon color={'white'} icon={faTrash} />
               <Text style={styles.textButton}>Cancelar</Text>
             </Pressable>

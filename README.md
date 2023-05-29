@@ -11,10 +11,12 @@
   #### - [X] Novo produto;
   #### - [X] Editar produto;
   #### - [X] Excluir produto;
+  #### - [X] Separar services e repositories da rota de vendas;
+  #### - [X] Nova venda;
+  #### - [X] Confirmação para excluir um produto;
+  #### - [X] Confirmação para cancelar uma venda;
 
 ### Funcionalidades em desenvolvimento:
-  #### - [ ] Separar services e repositories da rota de vendas;
-  #### - [ ] Nova venda;
   #### - [ ] Editar uma venda;
   #### - [ ] Excluir uma venda;
   #### - [ ] Tela de clientes;

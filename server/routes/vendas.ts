@@ -4,6 +4,7 @@ import { ProductModel } from '../models/product'
 import { SalesRepository } from '../repositories/Sales/SalesRepository'
 import { CreateNewSaleService } from '../services/CreateNewSale.service'
 import { UpdateProductsStock } from '../services/UpdateProductsStock.service'
+import { CancelSaleService } from '../services/CancelSaleService.service';
 
 const vendasRoutes = express.Router()
 const salesRepository = new SalesRepository()
@@ -36,6 +37,21 @@ vendasRoutes.post('/', async (req: Request, res: Response) => {
     res.status(201).json({
       item: newSale,
       message: 'Venda cadastrada com sucesso!',
+    })
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
+vendasRoutes.put('/cancelar', async (req: Request, res: Response) => {
+  const { _id } = req.body
+
+  try {
+    const cancelSaleService = new CancelSaleService(salesRepository)
+    cancelSaleService.execute(_id)
+
+    res.status(201).json({
+      message: 'Venda cancelada com sucesso!',
     })
   } catch (error) {
     res.status(400).json({ message: error.message })

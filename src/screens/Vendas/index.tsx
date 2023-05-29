@@ -17,7 +17,7 @@ export interface Sale {
   products: Product[]
   totalValue: number
   paymentType: string
-  canceled?: boolean
+  status: string
 }
 
 interface VendasProps {
@@ -28,9 +28,7 @@ export function Vendas({ navigation }: VendasProps) {
   const [sales, setSales] = useState<Sale[]>([])
   const [saleDetailsModalOpened, setSaleDetailsModalOpened] =
     useState<boolean>(false)
-  const [saleDetailsData, setSaleDetailsData] = useState<Sale | undefined>(
-    undefined,
-  )
+  const [saleDetailsData, setSaleDetailsData] = useState<Sale>(undefined as any)
 
   function handleGoToNewSale() {
     navigation.navigate('NovaVenda')
@@ -77,10 +75,22 @@ export function Vendas({ navigation }: VendasProps) {
               }}
               style={styles.listItem}
             >
-              <Text style={item?.canceled ? styles.canceledText : styles.text}>
+              <Text
+                style={
+                  item?.status === 'canceled'
+                    ? styles.canceledText
+                    : styles.text
+                }
+              >
                 {dayjs(item?.date).format('DD/MM/YYYY - HH:mm')}
               </Text>
-              <Text style={item?.canceled ? styles.canceledText : styles.text}>
+              <Text
+                style={
+                  item?.status === 'canceled'
+                    ? styles.canceledText
+                    : styles.text
+                }
+              >
                 {formatting.formatarReal(item?.totalValue)}
               </Text>
             </Pressable>
@@ -91,6 +101,7 @@ export function Vendas({ navigation }: VendasProps) {
         <ModalSale
           setSaleDetailsModalOpened={setSaleDetailsModalOpened}
           saleDetailsData={saleDetailsData}
+          getSales={getSales}
         />
       )}
     </View>

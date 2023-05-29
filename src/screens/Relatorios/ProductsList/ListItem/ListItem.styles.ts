@@ -33,7 +33,6 @@ export const styles = StyleSheet.create({
     color: theme.COLORS.GRAY_100,
     fontFamily: theme.FONT_FAMILY.BOLD,
     fontSize: 20,
-    whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
