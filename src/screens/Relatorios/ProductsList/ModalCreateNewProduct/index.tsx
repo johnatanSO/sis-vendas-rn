@@ -51,12 +51,15 @@ export function ModalCreateNewProduct({
       .create(newProduct)
       .then(() => {
         handleClose(false)
-        Alert.alert('Produto criado com sucesso')
+        Alert.alert('Produto cadastrado com sucesso')
         getProducts()
       })
-      .catch((error: any) => {
-        Alert.alert('Erro ao tentar criar produto', error.response.data.message)
-        console.log(error)
+      .catch((err: any) => {
+        Alert.alert(
+          'Erro ao tentar cadastrar o produto',
+          err.response.data.message,
+        )
+        console.log(err.response.data.message)
       })
       .finally(() => {
         setLoadingCreateNew(false)
@@ -71,10 +74,15 @@ export function ModalCreateNewProduct({
         handleClose(false)
         getProducts()
         setProductDataToEdit(undefined)
+        Alert.alert('Produto atualizado com sucesso')
         console.log('Produto atualizado com sucesso: ', res.data)
       })
       .catch((err) => {
-        console.log('[ERROR]:', err)
+        Alert.alert(
+          'Erro ao tentar atualizar o produto',
+          err.response.data.message,
+        )
+        console.log('[ERROR]:', err.response.data.message)
       })
       .finally(() => {
         setLoadingCreateNew(false)

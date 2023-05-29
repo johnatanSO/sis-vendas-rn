@@ -50,22 +50,25 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
 
   function createNewSale() {
     if (!newSale.paymentType) {
-      console.log('Forma de pagamento não informada [front check]')
+      Alert.alert('Forma de pagamento não informada')
+      console.log('Forma de pagamento não informada')
       return
     }
     if (newSale.products.length === 0) {
-      console.log('Nenhum produto selecionado [front check]')
+      Alert.alert('Nenhum produto selecionado')
+      console.log('Nenhum produto selecionado')
       return
     }
 
     salesService
       .create(newSale)
       .then(() => {
-        Alert.alert('Venda criada com sucesso!')
+        Alert.alert('Venda realizada com sucesso!')
         setNewSale(defaultValuesNewSale)
         navigation.navigate('Vendas')
       })
       .catch((err) => {
+        Alert.alert('Erro ao tentar realizar venda', err.response.data.message)
         console.log('[ERROR]: ', err.response.data.message)
       })
   }

@@ -55,10 +55,15 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
             productsService
               .delete(idProduct)
               .then(() => {
+                Alert.alert('Produto excluído com sucesso')
                 getProducts()
               })
               .catch((err) => {
-                console.log('[ERROR]: ', err)
+                Alert.alert(
+                  'Erro ao tentar excluír produto',
+                  err.response.data.message,
+                )
+                console.log('[ERROR]: ', err.response.data.message)
               })
           },
         },
