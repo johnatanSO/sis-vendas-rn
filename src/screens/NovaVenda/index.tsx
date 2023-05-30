@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ActivityIndicator,
 } from 'react-native'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
@@ -47,6 +48,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
   }
   const [newSale, setNewSale] = useState<NewSale>(defaultValuesNewSale)
   const [productsList, setProductsList] = useState<ListItem[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   function createNewSale() {
     if (!newSale.paymentType) {
@@ -60,6 +62,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
       return
     }
 
+    setLoading(true)
     salesService
       .create(newSale, totalValue)
       .then(() => {
@@ -70,6 +73,9 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
       .catch((err) => {
         Alert.alert('Erro ao tentar realizar venda', err.response.data.message)
         console.log('[ERROR]: ', err.response.data.message)
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -253,7 +259,11 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         </View>
 
         <Pressable style={styles.newSaleButton} onPress={createNewSale}>
-          <Text style={styles.textNewSaleButton}>Finalizar</Text>
+          {loading ? (
+            <ActivityIndicator color={theme.COLORS.WHITE} />
+          ) : (
+            <Text style={styles.textNewSaleButton}>Finalizar</Text>
+          )}
         </Pressable>
       </View>
     </TouchableWithoutFeedback>

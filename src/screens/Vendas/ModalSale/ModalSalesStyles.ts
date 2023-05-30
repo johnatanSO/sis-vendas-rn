@@ -73,6 +73,18 @@ export const styles = StyleSheet.create({
     gap: 15,
     lineHeight: 1,
   },
+  editButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 15,
+    backgroundColor: theme.COLORS.BLUE_400,
+    width: '100%',
+    padding: 15,
+    borderRadius: 10,
+    justifyContent: 'center',
+    gap: 15,
+    lineHeight: 1,
+  },
   textButton: {
     color: theme.COLORS.WHITE,
     fontFamily: theme.FONT_FAMILY.BOLD,

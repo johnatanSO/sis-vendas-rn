@@ -3,13 +3,15 @@ import { styles } from './HeaderDashboardStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 
+const backgroundImageSource = { uri: '../../../assets/beer2.svg' }
 export function HeaderDashboard() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Dashboard</Text>
       <ImageBackground
-        source={require('../../../assets/beer2.svg')}
+        source={backgroundImageSource}
         style={styles.backgroundImage}
+        resizeMode="cover"
       />
       <FontAwesomeIcon
         style={styles.notificationIcon}

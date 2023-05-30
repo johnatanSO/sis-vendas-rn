@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { Alert, Modal, Pressable, Text, View } from 'react-native'
 import { styles } from './ModalSalesStyles'
 import { formatting } from '../../../utils/formatting'
@@ -46,6 +46,9 @@ export function ModalSale({
       ],
     )
   }
+
+  function handleEditOrder() {}
+
   return (
     <Modal transparent={true} animationType="fade">
       <View style={styles.modalOverlay}>
@@ -105,10 +108,19 @@ export function ModalSale({
           </View>
 
           {saleDetailsData?.status !== 'canceled' ? (
-            <Pressable onPress={handleCancelOrder} style={styles.cancelButton}>
-              <FontAwesomeIcon color={'white'} icon={faTrash} />
-              <Text style={styles.textButton}>Cancelar</Text>
-            </Pressable>
+            <>
+              <Pressable
+                onPress={handleCancelOrder}
+                style={styles.cancelButton}
+              >
+                <FontAwesomeIcon color={'white'} icon={faTrash} />
+                <Text style={styles.textButton}>Cancelar</Text>
+              </Pressable>
+              <Pressable onPress={handleEditOrder} style={styles.editButton}>
+                <FontAwesomeIcon color={'white'} icon={faPen} />
+                <Text style={styles.textButton}>Editar venda</Text>
+              </Pressable>
+            </>
           ) : (
             <Text style={{ ...styles.canceledText, marginTop: 20 }}>
               Venda cancelada
