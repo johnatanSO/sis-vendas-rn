@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  ActivityIndicator,
 } from 'react-native'
 import { styles } from './ModalCreateNewProduct.styles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -74,7 +75,6 @@ export function ModalCreateNewProduct({
         handleClose(false)
         getProducts()
         setProductDataToEdit(undefined)
-        Alert.alert('Produto atualizado com sucesso')
         console.log('Produto atualizado com sucesso: ', res.data)
       })
       .catch((err) => {
@@ -154,6 +154,7 @@ export function ModalCreateNewProduct({
                     })
                   }}
                   value={newProduct.stock}
+                  keyboardType="number-pad"
                   placeholder="Digite a quantidade do estoque"
                   placeholderTextColor={theme.COLORS.GRAY_300}
                   style={styles.input}
@@ -166,7 +167,11 @@ export function ModalCreateNewProduct({
               style={styles.confirmButton}
             >
               <Text style={styles.confirmButtonText}>
-                {loadingCreateNew ? 'loading...' : 'Confirmar'}
+                {loadingCreateNew ? (
+                  <ActivityIndicator color={theme.COLORS.WHITE} />
+                ) : (
+                  'Confirmar'
+                )}
               </Text>
             </Pressable>
           </View>

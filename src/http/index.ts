@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL = 'http://localhost:3333/'
+const BASE_URL = 'http://192.168.1.77:3333/'
 /* Passando o URL hardcode mesmo pois é apenas um trabalho,
   caso fosse um projeto real, deveriam ser criadas variáveis de 
   ambiente. 

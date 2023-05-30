@@ -34,7 +34,6 @@ export const styles = StyleSheet.create({
     fontFamily: theme.FONT_FAMILY.BOLD,
     fontSize: 20,
     overflow: 'hidden',
-    textOverflow: 'ellipsis',
   },
   actionsContainer: {
     flexDirection: 'row',

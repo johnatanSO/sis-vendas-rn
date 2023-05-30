@@ -6,8 +6,8 @@ export const salesService = {
   getAll() {
     return http.get('/vendas')
   },
-  create(saleData: NewSale) {
-    const body = { ...saleData }
+  create(saleData: NewSale, totalValue: number) {
+    const body = { ...saleData, totalValue }
     return http.post('/vendas', { ...body })
   },
   cancel(saleData: Sale) {

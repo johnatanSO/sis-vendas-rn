@@ -20,10 +20,19 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 15,
   },
-  selectInput: {
+  selectPaymentInput: {
     backgroundColor: theme.COLORS.GRAY_600,
     color: theme.COLORS.GRAY_100,
     width: '100%',
+    borderRadius: 10,
+    padding: 7,
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  selectProductsInput: {
+    backgroundColor: theme.COLORS.GRAY_600,
+    color: theme.COLORS.GRAY_100,
+    flex: 1,
     borderRadius: 10,
     padding: 7,
     paddingLeft: 16,
@@ -48,6 +57,20 @@ export const styles = StyleSheet.create({
   labelSelectProduct: {
     color: theme.COLORS.GRAY_300,
     margin: 5,
+  },
+  inputSelectProductContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  clearProductsButton: {
+    backgroundColor: theme.COLORS.RED,
+    padding: 15,
+    borderRadius: 10,
+    lineHeight: 1,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 20,
   },
   selectedProductsContainer: {
     width: '85%',

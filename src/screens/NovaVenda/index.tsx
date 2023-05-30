@@ -8,7 +8,7 @@ import {
   Keyboard,
   Alert,
 } from 'react-native'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
@@ -17,6 +17,8 @@ import { formasDePagamento, formatting } from '../../utils/formatting'
 import { salesService } from '../../services/salesService.service'
 import { Dropdown } from 'react-native-element-dropdown'
 import theme from '../../../styles/theme'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
 
 interface SaleProduct extends Product {
   amount: number
@@ -35,7 +37,6 @@ export interface NewSale {
   client: string
   products: SaleProduct[]
   paymentType: string
-  totalValue: number
 }
 
 export function NovaVenda({ navigation }: NovaVendaProps) {
@@ -43,7 +44,6 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     client: '',
     paymentType: '',
     products: [],
-    totalValue: 0,
   }
   const [newSale, setNewSale] = useState<NewSale>(defaultValuesNewSale)
   const [productsList, setProductsList] = useState<ListItem[]>([])
@@ -61,7 +61,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     }
 
     salesService
-      .create(newSale)
+      .create(newSale, totalValue)
       .then(() => {
         Alert.alert('Venda realizada com sucesso!')
         setNewSale(defaultValuesNewSale)
@@ -72,6 +72,11 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         console.log('[ERROR]: ', err.response.data.message)
       })
   }
+
+  const totalValue = newSale?.products?.reduce(
+    (acc, prod) => /* (acc += prod.value) */ 0,
+    0,
+  )
 
   function getProducts() {
     http
@@ -89,8 +94,9 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
   }
 
   function onChangeProductField({ text, inputField, index }: any) {
+    console.log('VALUE', text)
     const sale: any = { ...newSale }
-    sale.products[index][inputField] = text
+    sale.products[index][inputField] = text.replace(',', '.')
 
     setNewSale(sale)
   }
@@ -103,16 +109,6 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
       products: [...newSale.products, value],
     })
   }
-
-  useEffect(() => {
-    setNewSale({
-      ...newSale,
-      totalValue: newSale?.products?.reduce(
-        (acc, prod) => (acc += prod.value),
-        0,
-      ),
-    })
-  }, [newSale.products])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -148,7 +144,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             }}
             placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
             selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
-            style={styles.selectInput}
+            style={styles.selectPaymentInput}
             onChange={({ value }) => {
               setNewSale({
                 ...newSale,
@@ -160,28 +156,41 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
 
           <View style={styles.selectProductContainer}>
             <Text style={styles.labelSelectProduct}>Selecione um produto</Text>
-            <Dropdown
-              valueField="value"
-              labelField="text"
-              placeholder="Produtos"
-              activeColor={theme.COLORS.GRAY_300}
-              containerStyle={{
-                backgroundColor: theme.COLORS.GRAY_500,
-                borderBottomLeftRadius: 10,
-                borderBottomRightRadius: 10,
-              }}
-              itemTextStyle={{
-                color: theme.COLORS.GRAY_100,
-              }}
-              placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
-              selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
-              style={styles.selectInput}
-              onChange={handleAddNewProduct}
-              data={productsList}
-              onFocus={() => {
-                getProducts()
-              }}
-            />
+            <View style={{ flexDirection: 'row' }}>
+              <Dropdown
+                valueField="value"
+                labelField="text"
+                placeholder="Produtos"
+                activeColor={theme.COLORS.GRAY_300}
+                containerStyle={{
+                  backgroundColor: theme.COLORS.GRAY_500,
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                }}
+                itemTextStyle={{
+                  color: theme.COLORS.GRAY_100,
+                }}
+                placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
+                selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
+                style={styles.selectProductsInput}
+                onChange={handleAddNewProduct}
+                data={productsList}
+                onFocus={() => {
+                  getProducts()
+                }}
+              />
+              <Pressable
+                style={styles.clearProductsButton}
+                onPress={() => {
+                  setNewSale({
+                    ...newSale,
+                    products: [],
+                  })
+                }}
+              >
+                <FontAwesomeIcon color="white" icon={faXmark} />
+              </Pressable>
+            </View>
           </View>
         </View>
 
@@ -190,7 +199,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             <View style={styles.selectedProductsTitleContainer}>
               <Text style={styles.selectedProductsTitle}>Produtos</Text>
               <Text style={styles.selectedProductsTitle}>
-                Total {formatting.formatarReal(newSale.totalValue || 0)}
+                Total {formatting.formatarReal(totalValue || 0)}
               </Text>
             </View>
           )}
@@ -222,7 +231,6 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
                       })
                     }}
                     placeholder="Qtd."
-                    inputMode="numeric"
                     keyboardType="number-pad"
                   />
                   <TextInput
@@ -236,8 +244,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
                     }}
                     value={item.value.toString()}
                     placeholder="Valor"
-                    inputMode="numeric"
-                    keyboardType="number-pad"
+                    keyboardType="numeric"
                   />
                 </View>
               )
