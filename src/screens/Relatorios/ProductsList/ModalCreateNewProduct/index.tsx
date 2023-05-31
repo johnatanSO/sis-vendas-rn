@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import theme from '../../../../../styles/theme'
 import { productsService } from '../../../../services/productsService.service'
+import CurrencyInput from 'react-native-currency-input'
 
 interface ModalCreateNewProductProps {
   productDataToEdit: any
@@ -25,8 +26,8 @@ interface ModalCreateNewProductProps {
 
 export interface NewProduct {
   name: string
-  value: string
-  stock: string
+  value: number
+  stock: number
 }
 
 export function ModalCreateNewProduct({
@@ -37,8 +38,8 @@ export function ModalCreateNewProduct({
 }: ModalCreateNewProductProps) {
   const defaultValuesNewProduct = {
     name: '',
-    value: '0',
-    stock: '0',
+    value: 0,
+    stock: 0,
   }
 
   const [newProduct, setNewProduct] = useState<NewProduct>(
@@ -121,7 +122,7 @@ export function ModalCreateNewProduct({
                     })
                   }}
                   value={newProduct.name}
-                  placeholder="Digite o nome do produto"
+                  placeholder="Nome do produto"
                   placeholderTextColor={theme.COLORS.GRAY_300}
                   style={styles.input}
                 />
@@ -129,18 +130,22 @@ export function ModalCreateNewProduct({
 
               <View>
                 <Text style={styles.labelField}>Valor</Text>
-                <TextInput
-                  onChangeText={(text) => {
+                <CurrencyInput
+                  value={newProduct.value}
+                  onChangeValue={(value) => {
                     setNewProduct({
                       ...newProduct,
-                      value: text,
+                      value: Number(value),
                     })
                   }}
-                  value={newProduct.value}
-                  keyboardType="numeric"
-                  placeholder="Digite o valor do produto"
-                  placeholderTextColor={theme.COLORS.GRAY_300}
+                  prefix="R$"
+                  delimiter="."
+                  separator=","
+                  precision={2}
+                  minValue={0}
                   style={styles.input}
+                  placeholder="Valor do produto"
+                  keyboardType="numeric"
                 />
               </View>
 
@@ -150,10 +155,10 @@ export function ModalCreateNewProduct({
                   onChangeText={(text) => {
                     setNewProduct({
                       ...newProduct,
-                      stock: text,
+                      stock: Number(text),
                     })
                   }}
-                  value={newProduct.stock}
+                  value={newProduct.stock.toString()}
                   keyboardType="number-pad"
                   placeholder="Digite a quantidade do estoque"
                   placeholderTextColor={theme.COLORS.GRAY_300}

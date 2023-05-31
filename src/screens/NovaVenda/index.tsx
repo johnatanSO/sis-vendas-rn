@@ -19,7 +19,8 @@ import { salesService } from '../../services/salesService.service'
 import { Dropdown } from 'react-native-element-dropdown'
 import theme from '../../../styles/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBroom, faTrash } from '@fortawesome/free-solid-svg-icons'
+import CurrencyInput from 'react-native-currency-input'
 
 interface SaleProduct extends Product {
   amount: number
@@ -79,10 +80,10 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
       })
   }
 
-  const totalValue = newSale?.products?.reduce(
-    (acc, prod) => /* (acc += prod.value) */ 0,
-    0,
-  )
+  const totalValue = newSale?.products?.reduce((acc, prod) => {
+    acc += prod.value * prod.amount
+    return acc
+  }, 0)
 
   function getProducts() {
     http
@@ -99,10 +100,9 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
       })
   }
 
-  function onChangeProductField({ text, inputField, index }: any) {
-    console.log('VALUE', text)
+  function onChangeProductField({ value, inputField, index }: any) {
     const sale: any = { ...newSale }
-    sale.products[index][inputField] = text.replace(',', '.')
+    sale.products[index][inputField] = value
 
     setNewSale(sale)
   }
@@ -113,6 +113,16 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     setNewSale({
       ...newSale,
       products: [...newSale.products, value],
+    })
+  }
+
+  function handleRemoveProduct(productId: string) {
+    const newProducts = newSale.products.filter(
+      (prod) => prod._id !== productId,
+    )
+    setNewSale({
+      ...newSale,
+      products: newProducts,
     })
   }
 
@@ -194,7 +204,8 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
                   })
                 }}
               >
-                <FontAwesomeIcon color="white" icon={faXmark} />
+                <FontAwesomeIcon color="white" icon={faBroom} />
+                <Text style={styles.textNewSaleButton}>Limpar</Text>
               </Pressable>
             </View>
           </View>
@@ -217,41 +228,58 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
             renderItem={({ item, index }) => {
               return (
                 <View style={styles.selectedProductCard}>
-                  <Text
-                    style={{
-                      color: 'white',
-                      fontWeight: '500',
-                      marginRight: 'auto',
+                  <View style={styles.selectedProductFieldsContainer}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontWeight: '500',
+                        marginRight: 'auto',
+                      }}
+                    >
+                      {item?.name}
+                    </Text>
+                    <TextInput
+                      style={styles.productInput}
+                      value={item.amount.toString()}
+                      onChangeText={(text) => {
+                        const value = Number(text)
+                        onChangeProductField({
+                          value,
+                          inputField: 'amount',
+                          index,
+                        })
+                      }}
+                      placeholder="Qtd."
+                      keyboardType="number-pad"
+                    />
+                    <CurrencyInput
+                      value={item.value}
+                      onChangeValue={(value) => {
+                        onChangeProductField({
+                          value,
+                          inputField: 'value',
+                          index,
+                        })
+                      }}
+                      prefix="R$"
+                      delimiter="."
+                      separator=","
+                      precision={2}
+                      minValue={0}
+                      style={styles.productInput}
+                      placeholder="Valor"
+                      keyboardType="numeric"
+                    />
+                  </View>
+                  <Pressable
+                    onPress={() => {
+                      handleRemoveProduct(item._id)
                     }}
+                    style={styles.removeProductButton}
                   >
-                    {item?.name}
-                  </Text>
-                  <TextInput
-                    style={styles.productInput}
-                    value={item.amount.toString()}
-                    onChangeText={(text) => {
-                      onChangeProductField({
-                        text,
-                        inputField: 'amount',
-                        index,
-                      })
-                    }}
-                    placeholder="Qtd."
-                    keyboardType="number-pad"
-                  />
-                  <TextInput
-                    style={styles.productInput}
-                    onChangeText={(text) => {
-                      onChangeProductField({
-                        text,
-                        inputField: 'value',
-                        index,
-                      })
-                    }}
-                    value={item.value.toString()}
-                    placeholder="Valor"
-                    keyboardType="numeric"
-                  />
+                    <FontAwesomeIcon color="white" icon={faTrash} />
+                    <Text style={styles.textNewSaleButton}>Remover</Text>
+                  </Pressable>
                 </View>
               )
             }}

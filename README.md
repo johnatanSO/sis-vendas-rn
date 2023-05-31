@@ -21,11 +21,11 @@
   #### - [x] Função para cancelar uma venda;
   #### - [x] Alerta de erro de verificação dos campos na hora da venda;
   #### - [X] Adicionar loading nos botões;
+  #### - [X] Verificação de vírgula e ponto nos inputs;
+  #### - [X] Adicionar opção para excluir um produto na hora da venda;
 
 ### Funcionalidades em desenvolvimento:
-  #### - [ ] Adicionar opção para excluir um produto na hora da venda;
   #### - [ ] Imagem não está sendo exibida;
-  #### - [ ] Verificação de vírgula e ponto nos inputs;
   #### - [ ] Fechar um modal ao clicar fora dele;
 
   #### - [ ] Função para editar uma venda;
