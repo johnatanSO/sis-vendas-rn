@@ -19,9 +19,9 @@ export const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: theme.COLORS.GRAY_600,
     width: '85%',
-    maxHeight: '85%',
-    borderRadius: 15,
+    height: '85%',
     alignItems: 'center',
+    borderRadius: 15,
     padding: 25,
   },
   headerModal: {
@@ -42,6 +42,8 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_700,
     borderRadius: 15,
     width: '100%',
+    maxHeight: '100%',
+    flex: 1,
     marginTop: 30,
     padding: 15,
   },
@@ -52,9 +54,11 @@ export const styles = StyleSheet.create({
     paddingLeft: 7,
   },
   productItem: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    marginLeft: 7,
+    padding: 5,
+    paddingLeft: 10,
+    borderLeftColor: theme.COLORS.GRAY_300,
+    borderLeftWidth: 1,
   },
   titleField: {
     fontSize: 18,

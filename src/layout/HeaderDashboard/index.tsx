@@ -3,7 +3,7 @@ import { styles } from './HeaderDashboardStyles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBell } from '@fortawesome/free-solid-svg-icons'
 
-const backgroundImageSource = { uri: '../../../assets/beer2.svg' }
+const backgroundImageSource = require('../../../assets/beer2.svg')
 export function HeaderDashboard() {
   return (
     <View style={styles.container}>

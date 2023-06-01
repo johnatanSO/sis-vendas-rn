@@ -12,10 +12,9 @@ export const styles = StyleSheet.create({
   modalContainer: {
     backgroundColor: theme.COLORS.GRAY_600,
     width: '85%',
-    maxHeight: '85%',
     borderRadius: 15,
     padding: 25,
-    height: 'auto',
+    paddingBottom: 0,
   },
   headerModal: {
     flexDirection: 'row',
@@ -52,6 +51,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     padding: 15,
+    marginBottom: 25,
   },
   confirmButtonText: {
     color: theme.COLORS.WHITE,

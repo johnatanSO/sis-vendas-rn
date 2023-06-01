@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   backgroundImage: {
     width: 100,
     height: 100,
-    marginTop: 15,
+    marginTop: 10,
     filter: 'grayscale(1)',
     opacity: 0.2,
   },

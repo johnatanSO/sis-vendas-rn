@@ -8,6 +8,8 @@ import {
   Keyboard,
   Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
@@ -128,9 +130,11 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
         <HeaderNewSale navigation={navigation} />
-
         <View style={styles.fields}>
           <TextInput
             placeholderTextColor={theme.COLORS.GRAY_300}
@@ -286,14 +290,16 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
           />
         </View>
 
-        <Pressable style={styles.newSaleButton} onPress={createNewSale}>
-          {loading ? (
-            <ActivityIndicator color={theme.COLORS.WHITE} />
-          ) : (
-            <Text style={styles.textNewSaleButton}>Finalizar</Text>
-          )}
-        </Pressable>
-      </View>
+        <View style={styles.containerButton}>
+          <Pressable style={styles.newSaleButton} onPress={createNewSale}>
+            {loading ? (
+              <ActivityIndicator color={theme.COLORS.WHITE} />
+            ) : (
+              <Text style={styles.textNewSaleButton}>Finalizar</Text>
+            )}
+          </Pressable>
+        </View>
+      </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   )
 }

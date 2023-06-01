@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { Alert, Modal, Pressable, Text, View } from 'react-native'
+import { Alert, Modal, Pressable, ScrollView, Text, View } from 'react-native'
 import { styles } from './ModalSalesStyles'
 import { formatting } from '../../../utils/formatting'
 import dayjs from 'dayjs'
@@ -68,7 +68,7 @@ export function ModalSale({
             </Pressable>
           </View>
 
-          <View style={styles.infosContainer}>
+          <ScrollView style={styles.infosContainer}>
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Cliente</Text>
               <Text style={styles.text}>{saleDetailsData?.client || '--'}</Text>
@@ -105,7 +105,7 @@ export function ModalSale({
                 ) || '--'}
               </Text>
             </View>
-          </View>
+          </ScrollView>
 
           {saleDetailsData?.status !== 'canceled' ? (
             <>

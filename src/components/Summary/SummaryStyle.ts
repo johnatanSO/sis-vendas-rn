@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 4 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 1,
     shadowRadius: 10,
   },
   card: {

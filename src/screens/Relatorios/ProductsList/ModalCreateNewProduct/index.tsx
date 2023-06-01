@@ -9,6 +9,9 @@ import {
   Keyboard,
   Alert,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native'
 import { styles } from './ModalCreateNewProduct.styles'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
@@ -93,7 +96,10 @@ export function ModalCreateNewProduct({
   return (
     <Modal transparent={true} animationType="fade">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.modalOverlay}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.modalOverlay}
+        >
           <View style={styles.modalContainer}>
             <View style={styles.headerModal}>
               <Text style={styles.titleModal}>Informações do produto</Text>
@@ -111,7 +117,7 @@ export function ModalCreateNewProduct({
               </Pressable>
             </View>
 
-            <View style={styles.fieldsContainer}>
+            <ScrollView style={styles.fieldsContainer}>
               <View>
                 <Text style={styles.labelField}>Nome</Text>
                 <TextInput
@@ -165,7 +171,7 @@ export function ModalCreateNewProduct({
                   style={styles.input}
                 />
               </View>
-            </View>
+            </ScrollView>
 
             <Pressable
               onPress={productDataToEdit ? updateProduct : createNewProduct}
@@ -180,7 +186,7 @@ export function ModalCreateNewProduct({
               </Text>
             </Pressable>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </Modal>
   )

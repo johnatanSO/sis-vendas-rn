@@ -4,11 +4,11 @@ import theme from '../../../styles/theme'
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 10,
     alignItems: 'center',
+    height: '100%',
   },
   fields: {
-    marginTop: 25,
+    marginTop: 20,
     width: '85%',
     alignItems: 'center',
     gap: 10,
@@ -38,12 +38,19 @@ export const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
   },
+  containerButton: {
+    padding: 10,
+    backgroundColor: theme.COLORS.GRAY_600,
+    borderBottomColor: theme.COLORS.GRAY_300,
+    borderBottomWidth: 1,
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 'auto',
+  },
   newSaleButton: {
     padding: 15,
     borderRadius: 10,
-    width: '85%',
-    marginTop: 'auto',
-    marginBottom: 20,
+    width: '60%',
     alignItems: 'center',
     backgroundColor: theme.COLORS.PRIMARY_COLOR,
   },
@@ -103,6 +110,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 10,
   },
   productInput: {
     backgroundColor: theme.COLORS.GRAY_600,
@@ -119,7 +127,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 10,
     backgroundColor: theme.COLORS.RED,
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
   },
 })
