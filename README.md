@@ -24,9 +24,9 @@
   #### - [X] Verificação de vírgula e ponto nos inputs;
   #### - [X] Adicionar opção para excluir um produto na hora da venda;
   #### - [X] Fazer uma View padding para o botão de nova venda;
+  #### - [X] Teclado sobrepondo os inputs;
 
 ### Funcionalidades em desenvolvimento:
-  #### - [ ] Teclado sobrepondo os inputs;
   #### - [ ] Alterar o tamanho dos inputs da tela de nova venda;
   #### - [ ] Alterar os inputs de 'Quantidade' e 'Valor' dos produtos de uma nova venda
   #### - [ ] Imagem não está sendo exibida no emulador;

@@ -51,6 +51,9 @@ export function ModalCreateNewProduct({
   const [loadingCreateNew, setLoadingCreateNew] = useState<boolean>(false)
 
   function createNewProduct() {
+    if (!newProduct.name) {
+      Alert.alert('Digite um nome para o produto')
+    }
     setLoadingCreateNew(true)
     productsService
       .create(newProduct)
@@ -72,6 +75,9 @@ export function ModalCreateNewProduct({
   }
 
   function updateProduct() {
+    if (!newProduct.name) {
+      Alert.alert('Digite um nome para o produto')
+    }
     setLoadingCreateNew(true)
     productsService
       .update(newProduct)
