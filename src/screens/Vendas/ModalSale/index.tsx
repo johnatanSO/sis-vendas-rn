@@ -69,7 +69,10 @@ export function ModalSale({
           </View>
 
           <ScrollView
-            contentContainerStyle={{ alignItems: 'center', flexGrow: 1 }}
+            contentContainerStyle={{
+              alignItems: 'center',
+              flexGrow: 1,
+            }}
             style={styles.infosContainer}
           >
             <View style={styles.fieldContainer}>
@@ -100,7 +103,7 @@ export function ModalSale({
                 {formatting.formatarReal(saleDetailsData?.totalValue || 0)}
               </Text>
             </View>
-            <View style={styles.fieldContainer}>
+            <View style={[styles.fieldContainer, { marginBottom: 20 }]}>
               <Text style={styles.titleField}>Forma de pagamento</Text>
               <Text style={styles.text}>
                 {formatting.formatarFormaDePagamento(

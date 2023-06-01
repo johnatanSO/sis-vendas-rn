@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_700,
     borderRadius: 15,
     width: '100%',
-    flex: 1,
+    flexGrow: 1,
     marginTop: 30,
     padding: 15,
   },
@@ -51,6 +51,7 @@ export const styles = StyleSheet.create({
     borderColor: theme.COLORS.GRAY_500,
     padding: 15,
     paddingLeft: 7,
+    width: '100%',
   },
   productItem: {
     marginLeft: 7,
