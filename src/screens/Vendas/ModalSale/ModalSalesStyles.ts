@@ -42,7 +42,6 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.GRAY_700,
     borderRadius: 15,
     width: '100%',
-    maxHeight: '100%',
     flex: 1,
     marginTop: 30,
     padding: 15,

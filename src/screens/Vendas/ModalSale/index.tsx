@@ -68,7 +68,10 @@ export function ModalSale({
             </Pressable>
           </View>
 
-          <ScrollView style={styles.infosContainer}>
+          <ScrollView
+            contentContainerStyle={{ alignItems: 'center', flexGrow: 1 }}
+            style={styles.infosContainer}
+          >
             <View style={styles.fieldContainer}>
               <Text style={styles.titleField}>Cliente</Text>
               <Text style={styles.text}>{saleDetailsData?.client || '--'}</Text>

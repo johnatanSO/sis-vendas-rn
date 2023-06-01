@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     marginTop: 30,
     padding: 15,
-    gap: 15,
+    gap: 20,
   },
   input: {
     backgroundColor: theme.COLORS.GRAY_600,
