@@ -26,8 +26,8 @@ export function Routes() {
           tabBarStyle: {
             backgroundColor: theme.COLORS.GRAY_600,
             borderTopWidth: 0,
-            height: 85,
-            paddingBottom: 25,
+            height: 60,
+            paddingBottom: 7,
           },
         }}
       >

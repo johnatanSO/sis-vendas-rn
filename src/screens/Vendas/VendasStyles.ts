@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   },
   listContainer: {
     width: '85%',
-    paddingBottom: 30,
+    marginBottom: 13,
   },
   listItem: {
     backgroundColor: theme.COLORS.GRAY_500,

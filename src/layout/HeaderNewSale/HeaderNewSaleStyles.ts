@@ -11,6 +11,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    zIndex: 5,
   },
   title: {
     color: theme.COLORS.WHITE,
