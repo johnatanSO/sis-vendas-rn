@@ -103,8 +103,8 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     width: '100%',
-    flex: 1,
     gap: 10,
+    marginBottom: 10,
   },
   selectedProductFieldsContainer: {
     width: '100%',
@@ -121,7 +121,6 @@ export const styles = StyleSheet.create({
   },
   removeProductButton: {
     width: '100%',
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

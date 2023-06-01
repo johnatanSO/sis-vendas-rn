@@ -10,6 +10,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native'
 import { useState } from 'react'
 import { styles } from './NovaVendaStyles'
@@ -135,161 +136,162 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
         style={styles.container}
       >
         <HeaderNewSale navigation={navigation} />
-        <View style={styles.fields}>
-          <TextInput
-            placeholderTextColor={theme.COLORS.GRAY_300}
-            style={styles.input}
-            onChangeText={(text) => {
-              setNewSale({
-                ...newSale,
-                client: text,
-              })
-            }}
-            value={newSale.client}
-            placeholder="Nome do cliente"
-          />
+        <ScrollView
+          style={{
+            width: '100%',
+            flex: 1,
+          }}
+          contentContainerStyle={{ alignItems: 'center', flexGrow: 1 }}
+        >
+          <View style={styles.fields}>
+            <TextInput
+              placeholderTextColor={theme.COLORS.GRAY_300}
+              style={styles.input}
+              onChangeText={(text) => {
+                setNewSale({
+                  ...newSale,
+                  client: text,
+                })
+              }}
+              value={newSale.client}
+              placeholder="Nome do cliente"
+            />
 
-          <Dropdown
-            valueField="value"
-            labelField="text"
-            placeholder="Selecione a forma de pagamento"
-            activeColor={theme.COLORS.GRAY_300}
-            containerStyle={{
-              backgroundColor: theme.COLORS.GRAY_500,
-              borderBottomLeftRadius: 10,
-              borderBottomRightRadius: 10,
-            }}
-            itemTextStyle={{
-              color: theme.COLORS.GRAY_100,
-            }}
-            placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
-            selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
-            style={styles.selectPaymentInput}
-            onChange={({ value }) => {
-              setNewSale({
-                ...newSale,
-                paymentType: value,
-              })
-            }}
-            data={formasDePagamento}
-          />
+            <Dropdown
+              valueField="value"
+              labelField="text"
+              placeholder="Selecione a forma de pagamento"
+              activeColor={theme.COLORS.GRAY_300}
+              containerStyle={{
+                backgroundColor: theme.COLORS.GRAY_500,
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+              }}
+              itemTextStyle={{
+                color: theme.COLORS.GRAY_100,
+              }}
+              placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
+              selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
+              style={styles.selectPaymentInput}
+              onChange={({ value }) => {
+                setNewSale({
+                  ...newSale,
+                  paymentType: value,
+                })
+              }}
+              data={formasDePagamento}
+            />
 
-          <View style={styles.selectProductContainer}>
-            <Text style={styles.labelSelectProduct}>Selecione um produto</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Dropdown
-                valueField="value"
-                labelField="text"
-                placeholder="Produtos"
-                activeColor={theme.COLORS.GRAY_300}
-                containerStyle={{
-                  backgroundColor: theme.COLORS.GRAY_500,
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                }}
-                itemTextStyle={{
-                  color: theme.COLORS.GRAY_100,
-                }}
-                placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
-                selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
-                style={styles.selectProductsInput}
-                onChange={handleAddNewProduct}
-                data={productsList}
-                onFocus={() => {
-                  getProducts()
-                }}
-              />
-              <Pressable
-                style={styles.clearProductsButton}
-                onPress={() => {
-                  setNewSale({
-                    ...newSale,
-                    products: [],
-                  })
-                }}
-              >
-                <FontAwesomeIcon color="white" icon={faBroom} />
-                <Text style={styles.textNewSaleButton}>Limpar</Text>
-              </Pressable>
+            <View style={styles.selectProductContainer}>
+              <Text style={styles.labelSelectProduct}>
+                Selecione um produto
+              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <Dropdown
+                  valueField="value"
+                  labelField="text"
+                  placeholder="Produtos"
+                  activeColor={theme.COLORS.GRAY_300}
+                  containerStyle={{
+                    backgroundColor: theme.COLORS.GRAY_500,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                  }}
+                  itemTextStyle={{
+                    color: theme.COLORS.GRAY_100,
+                  }}
+                  placeholderStyle={{ color: theme.COLORS.GRAY_200 }}
+                  selectedTextStyle={{ color: theme.COLORS.GRAY_100 }}
+                  style={styles.selectProductsInput}
+                  onChange={handleAddNewProduct}
+                  data={productsList}
+                  onFocus={() => {
+                    getProducts()
+                  }}
+                />
+                <Pressable
+                  style={styles.clearProductsButton}
+                  onPress={() => {
+                    setNewSale({
+                      ...newSale,
+                      products: [],
+                    })
+                  }}
+                >
+                  <FontAwesomeIcon color="white" icon={faBroom} />
+                  <Text style={styles.textNewSaleButton}>Limpar</Text>
+                </Pressable>
+              </View>
             </View>
           </View>
-        </View>
 
-        <View style={styles.selectedProductsContainer}>
-          {newSale?.products?.length > 0 && (
-            <View style={styles.selectedProductsTitleContainer}>
-              <Text style={styles.selectedProductsTitle}>Produtos</Text>
-              <Text style={styles.selectedProductsTitle}>
-                Total {formatting.formatarReal(totalValue || 0)}
-              </Text>
-            </View>
-          )}
-          <FlatList
-            data={newSale?.products}
-            style={{ width: '100%' }}
-            ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
-            keyExtractor={(product) => product._id}
-            renderItem={({ item, index }) => {
-              return (
-                <View style={styles.selectedProductCard}>
-                  <View style={styles.selectedProductFieldsContainer}>
-                    <Text
-                      style={{
-                        color: 'white',
-                        fontWeight: '500',
-                        marginRight: 'auto',
-                      }}
-                    >
-                      {item?.name}
-                    </Text>
-                    <TextInput
-                      style={styles.productInput}
-                      value={item.amount.toString()}
-                      onChangeText={(text) => {
-                        const value = Number(text)
-                        onChangeProductField({
-                          value,
-                          inputField: 'amount',
-                          index,
-                        })
-                      }}
-                      placeholder="Qtd."
-                      keyboardType="number-pad"
-                    />
-                    <CurrencyInput
-                      value={item.value}
-                      onChangeValue={(value) => {
-                        onChangeProductField({
-                          value,
-                          inputField: 'value',
-                          index,
-                        })
-                      }}
-                      prefix="R$"
-                      delimiter="."
-                      separator=","
-                      precision={2}
-                      minValue={0}
-                      style={styles.productInput}
-                      placeholder="Valor"
-                      keyboardType="numeric"
-                    />
-                  </View>
-                  <Pressable
-                    onPress={() => {
-                      handleRemoveProduct(item._id)
+          <View style={styles.selectedProductsContainer}>
+            {newSale?.products?.length > 0 && (
+              <View style={styles.selectedProductsTitleContainer}>
+                <Text style={styles.selectedProductsTitle}>Produtos</Text>
+                <Text style={styles.selectedProductsTitle}>
+                  Total {formatting.formatarReal(totalValue || 0)}
+                </Text>
+              </View>
+            )}
+            {newSale?.products?.map((item, index) => (
+              <View key={item._id} style={styles.selectedProductCard}>
+                <View style={styles.selectedProductFieldsContainer}>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontWeight: '500',
+                      marginRight: 'auto',
                     }}
-                    style={styles.removeProductButton}
                   >
-                    <FontAwesomeIcon color="white" icon={faTrash} />
-                    <Text style={styles.textNewSaleButton}>Remover</Text>
-                  </Pressable>
+                    {item?.name}
+                  </Text>
+                  <TextInput
+                    style={styles.productInput}
+                    value={item.amount.toString()}
+                    onChangeText={(text) => {
+                      const value = Number(text)
+                      onChangeProductField({
+                        value,
+                        inputField: 'amount',
+                        index,
+                      })
+                    }}
+                    placeholder="Qtd."
+                    keyboardType="number-pad"
+                  />
+                  <CurrencyInput
+                    value={item.value}
+                    onChangeValue={(value) => {
+                      onChangeProductField({
+                        value,
+                        inputField: 'value',
+                        index,
+                      })
+                    }}
+                    prefix="R$"
+                    delimiter="."
+                    separator=","
+                    precision={2}
+                    minValue={0}
+                    style={styles.productInput}
+                    placeholder="Valor"
+                    keyboardType="numeric"
+                  />
                 </View>
-              )
-            }}
-          />
-        </View>
-
+                <Pressable
+                  onPress={() => {
+                    handleRemoveProduct(item._id)
+                  }}
+                  style={styles.removeProductButton}
+                >
+                  <FontAwesomeIcon color="white" icon={faTrash} />
+                  <Text style={styles.textNewSaleButton}>Remover</Text>
+                </Pressable>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
         <View style={styles.containerButton}>
           <Pressable style={styles.newSaleButton} onPress={createNewSale}>
             {loading ? (

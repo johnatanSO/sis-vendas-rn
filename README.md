@@ -25,11 +25,12 @@
   #### - [X] Adicionar opção para excluir um produto na hora da venda;
   #### - [X] Fazer uma View padding para o botão de nova venda;
   #### - [X] Teclado sobrepondo os inputs;
+  #### - [X] Trocar o FlatList por um ScrollView na tela toda;
 
 ### Funcionalidades em desenvolvimento:
-  #### - [ ] Alterar o tamanho dos inputs da tela de nova venda;
-  #### - [ ] Alterar os inputs de 'Quantidade' e 'Valor' dos produtos de uma nova venda
-  #### - [ ] Imagem não está sendo exibida no emulador;
+  #### - [ ] Adicionar verificação para não permitir o usuário selecionar um que já foi selecionado na hora da venda;
+  #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
+  #### - [ ] Imagem não está sendo exibida no emulador Expo GO;
   #### - [ ] Fechar um modal ao clicar fora dele;
 
   #### - [ ] Função para editar uma venda;
