@@ -9,10 +9,18 @@ export const styles = StyleSheet.create({
     paddingTop: windowHeight / 15,
     paddingBottom: 20,
     alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    lineHeight: 1,
+    gap: 10,
   },
   title: {
-    color: theme.COLORS.WHITE,
+    color: theme.COLORS.GRAY_100,
     fontFamily: theme.FONT_FAMILY.BOLD,
     fontSize: 25,
+  },
+  icon: {
+    color: theme.COLORS.GRAY_100,
+    opacity: 0.9,
   },
 })

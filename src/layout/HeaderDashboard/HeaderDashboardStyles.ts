@@ -17,11 +17,9 @@ export const styles = StyleSheet.create({
     marginTop: windowHeight / 15,
   },
   backgroundImage: {
-    width: 100,
-    height: 100,
     marginTop: 10,
-    filter: 'grayscale(1)',
-    opacity: 0.2,
+    color: theme.COLORS.WHITE,
+    opacity: 0.7,
   },
   notificationIcon: {
     position: 'absolute',

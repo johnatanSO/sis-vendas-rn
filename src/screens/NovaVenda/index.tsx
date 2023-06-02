@@ -110,6 +110,10 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
   }
 
   function handleAddNewProduct({ value }: ListItem) {
+    const alreadExistProductInList = !!newSale.products.find(
+      (product) => product._id === value._id,
+    )
+    if (alreadExistProductInList) return
     value.amount = 1
 
     setNewSale({

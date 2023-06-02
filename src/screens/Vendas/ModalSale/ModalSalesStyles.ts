@@ -88,6 +88,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 15,
     lineHeight: 1,
+    opacity: 0.3,
   },
   textButton: {
     color: theme.COLORS.WHITE,

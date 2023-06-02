@@ -1,11 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
-import { Alert, Modal, Pressable, ScrollView, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Alert,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native'
 import { styles } from './ModalSalesStyles'
 import { formatting } from '../../../utils/formatting'
 import dayjs from 'dayjs'
 import { Sale } from '..'
 import { salesService } from '../../../services/salesService.service'
+import { useState } from 'react'
+import theme from '../../../../styles/theme'
 
 interface ModalSaleProps {
   saleDetailsData: Sale
@@ -18,6 +28,8 @@ export function ModalSale({
   setSaleDetailsModalOpened,
   getSales,
 }: ModalSaleProps) {
+  const [loadingCancel, setLoadingCancel] = useState<boolean>(false)
+
   function handleCancelOrder() {
     Alert.alert(
       'Alerta de confirmação',
@@ -26,6 +38,7 @@ export function ModalSale({
         {
           text: 'Confirmar',
           onPress: () => {
+            setLoadingCancel(true)
             salesService
               .cancel(saleDetailsData)
               .then(() => {
@@ -35,6 +48,9 @@ export function ModalSale({
               .catch((err) => {
                 console.log('ERRO', err.response.data.message)
                 Alert.alert('Alerta de erro', err.response.data.message)
+              })
+              .finally(() => {
+                setLoadingCancel(false)
               })
           },
         },
@@ -119,8 +135,14 @@ export function ModalSale({
                 onPress={handleCancelOrder}
                 style={styles.cancelButton}
               >
-                <FontAwesomeIcon color={'white'} icon={faTrash} />
-                <Text style={styles.textButton}>Cancelar</Text>
+                {loadingCancel ? (
+                  <ActivityIndicator color={theme.COLORS.WHITE} />
+                ) : (
+                  <>
+                    <FontAwesomeIcon color={'white'} icon={faTrash} />
+                    <Text style={styles.textButton}>Cancelar</Text>
+                  </>
+                )}
               </Pressable>
               <Pressable onPress={handleEditOrder} style={styles.editButton}>
                 <FontAwesomeIcon color={'white'} icon={faPen} />

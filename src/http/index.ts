@@ -1,5 +1,7 @@
 import axios from 'axios'
-const BASE_URL = 'http://192.168.22.50:3333/'
+const API_URL_PRODUCTION = 'https://backend-trabalho-react-native.onrender.com/'
+// const API_URL_DEVELOPMENT = 'http://192.168.22.50:3333/'
+const BASE_URL = API_URL_PRODUCTION
 /* Passando o URL hardcode mesmo pois é apenas um trabalho,
   caso fosse um projeto real, deveriam ser criadas variáveis de 
   ambiente. 
