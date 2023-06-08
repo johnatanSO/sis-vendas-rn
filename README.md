@@ -26,12 +26,13 @@
   #### - [X] Fazer uma View padding para o botão de nova venda;
   #### - [X] Teclado sobrepondo os inputs;
   #### - [X] Trocar o FlatList por um ScrollView na tela toda;
+  #### - [X] Adicionar verificação para não permitir o usuário selecionar um que já foi selecionado na hora da venda;
+  #### - [X] Imagem não está sendo exibida no emulador Expo GO;
 
 ### Funcionalidades em desenvolvimento:
-  #### - [ ] Adicionar verificação para não permitir o usuário selecionar um que já foi selecionado na hora da venda;
   #### - [ ] Fechar um modal ao clicar fora dele;
   #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
-  #### - [ ] Imagem não está sendo exibida no emulador Expo GO;
+  #### - [ ] Colocar em ordem do maior valor para o menor Dashboard;
 
   #### - [ ] Alterar o card Summary para um carousel de cards/gráficos;
   #### - [ ] Função para editar uma venda;
