@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { styles } from './DashboardStyles'
 import { Summary } from '../../components/Summary'
 import TotalValue from '../../components/TotalValue'
@@ -17,12 +17,22 @@ interface DashboardProps {
 
 export function Dashboard({ navigation }: DashboardProps) {
   const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([])
+  const [loadingPayments, setLoadingPayments] = useState<boolean>(true)
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      http.get('/dashboard/formasDePagamento').then((res) => {
-        setPaymentTypes(res.data.items)
-      })
+      setLoadingPayments(true)
+      http
+        .get('/dashboard/formasDePagamento')
+        .then((res) => {
+          setPaymentTypes(res.data.items)
+        })
+        .catch(() => {
+          Alert.alert('Erro ao buscar formas de pagamento')
+        })
+        .finally(() => {
+          setLoadingPayments(false)
+        })
     })
 
     return unsubscribe
@@ -31,7 +41,7 @@ export function Dashboard({ navigation }: DashboardProps) {
   return (
     <View style={styles.container}>
       <HeaderDashboard />
-      <Summary paymentTypes={paymentTypes} />
+      <Summary loadingPayments={loadingPayments} paymentTypes={paymentTypes} />
       <TotalValue paymentTypes={paymentTypes} />
     </View>
   )

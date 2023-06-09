@@ -28,11 +28,11 @@
   #### - [X] Trocar o FlatList por um ScrollView na tela toda;
   #### - [X] Adicionar verificação para não permitir o usuário selecionar um que já foi selecionado na hora da venda;
   #### - [X] Imagem não está sendo exibida no emulador Expo GO;
+  #### - [X] Colocar em ordem do maior valor para o menor Dashboard;
 
 ### Funcionalidades em desenvolvimento:
   #### - [ ] Fechar um modal ao clicar fora dele;
   #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
-  #### - [ ] Colocar em ordem do maior valor para o menor Dashboard;
 
   #### - [ ] Alterar o card Summary para um carousel de cards/gráficos;
   #### - [ ] Função para editar uma venda;

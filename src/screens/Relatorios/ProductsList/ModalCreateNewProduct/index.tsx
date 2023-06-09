@@ -23,7 +23,7 @@ import CurrencyInput from 'react-native-currency-input'
 interface ModalCreateNewProductProps {
   productDataToEdit: any
   setProductDataToEdit: (productData: any) => void
-  handleClose: (open: boolean) => void
+  handleClose: () => void
   getProducts: () => void
 }
 
@@ -58,7 +58,7 @@ export function ModalCreateNewProduct({
     productsService
       .create(newProduct)
       .then(() => {
-        handleClose(false)
+        handleClose()
         Alert.alert('Produto cadastrado com sucesso')
         getProducts()
       })
@@ -82,7 +82,7 @@ export function ModalCreateNewProduct({
     productsService
       .update(newProduct)
       .then((res) => {
-        handleClose(false)
+        handleClose()
         getProducts()
         setProductDataToEdit(undefined)
         console.log('Produto atualizado com sucesso: ', res.data)
@@ -100,7 +100,14 @@ export function ModalCreateNewProduct({
   }
 
   return (
-    <Modal transparent={true} animationType="fade">
+    <Modal
+      onRequestClose={() => {
+        handleClose()
+      }}
+      transparent={true}
+      animationType="fade"
+      statusBarTranslucent={true}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -111,7 +118,7 @@ export function ModalCreateNewProduct({
               <Text style={styles.titleModal}>Informações do produto</Text>
               <Pressable
                 onPress={() => {
-                  handleClose(false)
+                  handleClose()
                   setProductDataToEdit(undefined)
                 }}
               >
@@ -124,7 +131,7 @@ export function ModalCreateNewProduct({
             </View>
 
             <ScrollView style={styles.fieldsContainer}>
-              <View>
+              <View style={styles.inputContainer}>
                 <Text style={styles.labelField}>Nome</Text>
                 <TextInput
                   onChangeText={(text) => {
@@ -140,7 +147,7 @@ export function ModalCreateNewProduct({
                 />
               </View>
 
-              <View>
+              <View style={styles.inputContainer}>
                 <Text style={styles.labelField}>Valor</Text>
                 <CurrencyInput
                   value={newProduct.value}
@@ -161,7 +168,7 @@ export function ModalCreateNewProduct({
                 />
               </View>
 
-              <View>
+              <View style={styles.inputContainer}>
                 <Text style={styles.labelField}>Estoque</Text>
                 <TextInput
                   onChangeText={(text) => {

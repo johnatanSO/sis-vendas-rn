@@ -20,13 +20,13 @@ import theme from '../../../../styles/theme'
 interface ModalSaleProps {
   saleDetailsData: Sale
   getSales: () => void
-  setSaleDetailsModalOpened: (open: boolean) => void
+  handleClose: () => void
 }
 
 export function ModalSale({
   saleDetailsData,
-  setSaleDetailsModalOpened,
   getSales,
+  handleClose,
 }: ModalSaleProps) {
   const [loadingCancel, setLoadingCancel] = useState<boolean>(false)
 
@@ -42,7 +42,7 @@ export function ModalSale({
             salesService
               .cancel(saleDetailsData)
               .then(() => {
-                setSaleDetailsModalOpened(false)
+                handleClose()
                 getSales()
               })
               .catch((err) => {
@@ -66,16 +66,12 @@ export function ModalSale({
   function handleEditOrder() {}
 
   return (
-    <Modal transparent={true} animationType="fade">
+    <Modal onRequestClose={handleClose} transparent={true} animationType="fade">
       <View style={styles.modalOverlay}>
         <View style={styles.modalContainer}>
           <View style={styles.headerModal}>
             <Text style={styles.titleModal}>Informações da venda</Text>
-            <Pressable
-              onPress={() => {
-                setSaleDetailsModalOpened(false)
-              }}
-            >
+            <Pressable onPress={handleClose}>
               <FontAwesomeIcon
                 size={25}
                 style={styles.closeModalIcon}

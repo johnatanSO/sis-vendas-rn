@@ -125,7 +125,9 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
           productDataToEdit={productDataToEdit}
           setProductDataToEdit={setProductDataToEdit}
           getProducts={getProducts}
-          handleClose={setModalCreateNewProductOpened}
+          handleClose={() => {
+            setModalCreateNewProductOpened(false)
+          }}
         />
       )}
     </>
