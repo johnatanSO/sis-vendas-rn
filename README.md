@@ -29,10 +29,12 @@
   #### - [X] Adicionar verificação para não permitir o usuário selecionar um que já foi selecionado na hora da venda;
   #### - [X] Imagem não está sendo exibida no emulador Expo GO;
   #### - [X] Colocar em ordem do maior valor para o menor Dashboard;
+  #### - [X] Adicionar quantidade de cada produto nos detalhes de uma venda;
+  #### - [X] Limpar os valores dos inputs ao finalizar a venda;
 
-### Funcionalidades em desenvolvimento:
-  #### - [ ] Fechar um modal ao clicar fora dele;
+### Funcionalidades em desenvolvimento: 
   #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
+  #### - [ ] Criar um filtro de data;
 
   #### - [ ] Alterar o card Summary para um carousel de cards/gráficos;
   #### - [ ] Função para editar uma venda;

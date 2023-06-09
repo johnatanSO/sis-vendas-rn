@@ -21,12 +21,14 @@ interface ModalSaleProps {
   saleDetailsData: Sale
   getSales: () => void
   handleClose: () => void
+  open: boolean
 }
 
 export function ModalSale({
   saleDetailsData,
   getSales,
   handleClose,
+  open,
 }: ModalSaleProps) {
   const [loadingCancel, setLoadingCancel] = useState<boolean>(false)
 
@@ -66,7 +68,14 @@ export function ModalSale({
   function handleEditOrder() {}
 
   return (
-    <Modal onRequestClose={handleClose} transparent={true} animationType="fade">
+    <Modal
+      visible={open}
+      onRequestClose={handleClose}
+      transparent={true}
+      animationType="fade"
+      statusBarTranslucent={true}
+      id="modalOverlay"
+    >
       <View style={styles.modalOverlay}>
         <View style={styles.modalContainer}>
           <View style={styles.headerModal}>
@@ -102,7 +111,9 @@ export function ModalSale({
               <Text style={styles.titleField}>Produtos</Text>
               {saleDetailsData?.products.map((product) => (
                 <View style={styles.productItem} key={product?._id}>
-                  <Text style={styles.text}>{product.name || '--'}</Text>
+                  <Text style={styles.text}>
+                    {product.name || '--'} - {product.amount}x
+                  </Text>
                   <Text style={styles.text}>
                     {formatting.formatarReal(product?.value || 0) || '--'}
                   </Text>

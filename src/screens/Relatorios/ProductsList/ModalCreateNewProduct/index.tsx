@@ -22,6 +22,7 @@ import CurrencyInput from 'react-native-currency-input'
 
 interface ModalCreateNewProductProps {
   productDataToEdit: any
+  open: boolean
   setProductDataToEdit: (productData: any) => void
   handleClose: () => void
   getProducts: () => void
@@ -35,6 +36,7 @@ export interface NewProduct {
 
 export function ModalCreateNewProduct({
   handleClose,
+  open,
   getProducts,
   productDataToEdit,
   setProductDataToEdit,
@@ -104,6 +106,7 @@ export function ModalCreateNewProduct({
       onRequestClose={() => {
         handleClose()
       }}
+      visible={open}
       transparent={true}
       animationType="fade"
       statusBarTranslucent={true}

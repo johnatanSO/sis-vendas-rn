@@ -112,15 +112,14 @@ export function Vendas({ navigation }: VendasProps) {
           }}
         />
       )}
-      {saleDetailsModalOpened && (
-        <ModalSale
-          handleClose={() => {
-            setSaleDetailsModalOpened(false)
-          }}
-          saleDetailsData={saleDetailsData}
-          getSales={getSales}
-        />
-      )}
+      <ModalSale
+        handleClose={() => {
+          setSaleDetailsModalOpened(false)
+        }}
+        open={saleDetailsModalOpened}
+        saleDetailsData={saleDetailsData}
+        getSales={getSales}
+      />
     </View>
   )
 }

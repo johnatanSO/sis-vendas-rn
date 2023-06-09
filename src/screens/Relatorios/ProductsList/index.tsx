@@ -13,6 +13,7 @@ export interface Product {
   name: string
   value: number
   stock: number
+  amount: number
 }
 
 interface ProductsListProps {
@@ -120,16 +121,15 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
         />
       )}
 
-      {modalCreateNewProductOpened && (
-        <ModalCreateNewProduct
-          productDataToEdit={productDataToEdit}
-          setProductDataToEdit={setProductDataToEdit}
-          getProducts={getProducts}
-          handleClose={() => {
-            setModalCreateNewProductOpened(false)
-          }}
-        />
-      )}
+      <ModalCreateNewProduct
+        productDataToEdit={productDataToEdit}
+        setProductDataToEdit={setProductDataToEdit}
+        getProducts={getProducts}
+        open={modalCreateNewProductOpened}
+        handleClose={() => {
+          setModalCreateNewProductOpened(false)
+        }}
+      />
     </>
   )
 }

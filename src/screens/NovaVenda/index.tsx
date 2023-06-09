@@ -164,6 +164,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
               valueField="value"
               labelField="text"
               placeholder="Selecione a forma de pagamento"
+              value={newSale?.paymentType}
               activeColor={theme.COLORS.GRAY_300}
               containerStyle={{
                 backgroundColor: theme.COLORS.GRAY_500,
@@ -194,6 +195,7 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
                   valueField="value"
                   labelField="text"
                   placeholder="Produtos"
+                  value={undefined}
                   activeColor={theme.COLORS.GRAY_300}
                   containerStyle={{
                     backgroundColor: theme.COLORS.GRAY_500,
