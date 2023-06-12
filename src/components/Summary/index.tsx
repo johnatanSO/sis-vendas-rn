@@ -39,7 +39,7 @@ export function Summary({ paymentTypes, loadingPayments }: SummaryProps) {
             )
           })
         )}
-        {paymentTypes?.length === 0 && (
+        {paymentTypes?.length === 0 && !loadingPayments && (
           <EmptyItems text="Nenhuma venda encontrada" />
         )}
       </ScrollView>

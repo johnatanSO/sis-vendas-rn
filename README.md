@@ -33,6 +33,7 @@
   #### - [X] Limpar os valores dos inputs ao finalizar a venda;
 
 ### Funcionalidades em desenvolvimento: 
+  #### - [ ] Criar alerta de confirmação e de notificação;
   #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
   #### - [ ] Criar um filtro de data;
 

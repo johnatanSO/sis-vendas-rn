@@ -1,10 +1,11 @@
-import { Alert, View } from 'react-native'
+import { View } from 'react-native'
 import { styles } from './DashboardStyles'
 import { Summary } from '../../components/Summary'
 import TotalValue from '../../components/TotalValue'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { HeaderDashboard } from '../../layout/HeaderDashboard'
 import http from '../../http'
+import { AlertContext } from '../../contexts/alertContext'
 
 export interface PaymentType {
   type: string
@@ -16,6 +17,7 @@ interface DashboardProps {
 }
 
 export function Dashboard({ navigation }: DashboardProps) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [paymentTypes, setPaymentTypes] = useState<PaymentType[]>([])
   const [loadingPayments, setLoadingPayments] = useState<boolean>(true)
 
@@ -25,10 +27,18 @@ export function Dashboard({ navigation }: DashboardProps) {
       http
         .get('/dashboard/formasDePagamento')
         .then((res) => {
-          setPaymentTypes(res.data.items)
+          // setPaymentTypes(res.data.items)
+          setPaymentTypes([])
+          throw new Error('Falha ao buscar formas de pagamento')
         })
-        .catch(() => {
-          Alert.alert('Erro ao buscar formas de pagamento')
+        .catch((err) => {
+          console.log(err)
+          setAlertNotifyConfigs({
+            ...alertNotifyConfigs,
+            open: true,
+            type: 'error',
+            text: 'Erro ao buscar formas de pagamento',
+          })
         })
         .finally(() => {
           setLoadingPayments(false)
