@@ -5,13 +5,12 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
 } from 'react-native'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { styles } from './NovaVendaStyles'
 import HeaderNewSale from '../../layout/HeaderNewSale'
 import http from '../../http'
@@ -23,6 +22,7 @@ import theme from '../../../styles/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faBroom, faTrash } from '@fortawesome/free-solid-svg-icons'
 import CurrencyInput from 'react-native-currency-input'
+import { AlertContext } from '../../contexts/alertContext'
 
 interface SaleProduct extends Product {
   amount: number
@@ -44,6 +44,7 @@ export interface NewSale {
 }
 
 export function NovaVenda({ navigation }: NovaVendaProps) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const defaultValuesNewSale = {
     client: '',
     paymentType: '',
@@ -55,12 +56,22 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
 
   function createNewSale() {
     if (!newSale.paymentType) {
-      Alert.alert('Forma de pagamento não informada')
+      setAlertNotifyConfigs({
+        ...alertNotifyConfigs,
+        type: 'error',
+        open: true,
+        text: 'Forma de pagamento não informada',
+      })
       console.log('Forma de pagamento não informada')
       return
     }
     if (newSale.products.length === 0) {
-      Alert.alert('Nenhum produto selecionado')
+      setAlertNotifyConfigs({
+        ...alertNotifyConfigs,
+        type: 'error',
+        open: true,
+        text: 'Nenhum produto selecionado',
+      })
       console.log('Nenhum produto selecionado')
       return
     }
@@ -69,12 +80,22 @@ export function NovaVenda({ navigation }: NovaVendaProps) {
     salesService
       .create(newSale, totalValue)
       .then(() => {
-        Alert.alert('Venda realizada com sucesso!')
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'success',
+          open: true,
+          text: 'Venda realizada com sucesso',
+        })
         setNewSale(defaultValuesNewSale)
         navigation.navigate('Vendas')
       })
       .catch((err) => {
-        Alert.alert('Erro ao tentar realizar venda', err.response.data.message)
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'error',
+          open: true,
+          text: 'Erro ao tentar realizar venda' + err.response.data.message,
+        })
         console.log('[ERROR]: ', err.response.data.message)
       })
       .finally(() => {

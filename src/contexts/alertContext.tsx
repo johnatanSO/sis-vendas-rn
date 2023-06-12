@@ -6,7 +6,13 @@ interface AlertContextComponentProps {
   children: ReactNode
 }
 
-interface AlertDialogConfirmConfigs {}
+interface AlertDialogConfirmConfigs {
+  open: boolean
+  title: string
+  text: string
+  handleClose: () => void
+  onClickAgree: () => void
+}
 
 interface AlertNotifyConfigs {
   open: boolean
@@ -21,7 +27,13 @@ export function AlertContextComponent({
   children,
 }: AlertContextComponentProps) {
   const [alertDialogConfirmConfigs, setAlertDialogConfirmConfigs] =
-    useState<AlertDialogConfirmConfigs>({})
+    useState<AlertDialogConfirmConfigs>({
+      open: false,
+      title: '',
+      text: '',
+      handleClose: onCloseAlertDialogConfirm,
+      onClickAgree: () => {},
+    })
 
   const [alertNotifyConfigs, setAlertNotifyConfigs] =
     useState<AlertNotifyConfigs>({
@@ -40,6 +52,16 @@ export function AlertContextComponent({
         type: 'success',
       })
     }, 7000)
+  }
+
+  function onCloseAlertDialogConfirm() {
+    setAlertDialogConfirmConfigs({
+      ...alertDialogConfirmConfigs,
+      open: false,
+      title: '',
+      text: '',
+      onClickAgree: () => {},
+    })
   }
 
   return (

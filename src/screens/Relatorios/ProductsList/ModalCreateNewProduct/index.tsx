@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import theme from '../../../../../styles/theme'
 import { productsService } from '../../../../services/productsService.service'
 import CurrencyInput from 'react-native-currency-input'
+import { AlertContext } from '../../../../contexts/alertContext'
 
 interface ModalCreateNewProductProps {
   productDataToEdit: any
@@ -41,6 +42,7 @@ export function ModalCreateNewProduct({
   productDataToEdit,
   setProductDataToEdit,
 }: ModalCreateNewProductProps) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const defaultValuesNewProduct = {
     name: '',
     value: 0,
@@ -54,7 +56,12 @@ export function ModalCreateNewProduct({
 
   function createNewProduct() {
     if (!newProduct.name) {
-      Alert.alert('Digite um nome para o produto')
+      setAlertNotifyConfigs({
+        ...alertNotifyConfigs,
+        type: 'error',
+        open: true,
+        text: 'Informe o nome do produto',
+      })
     }
     setLoadingCreateNew(true)
     productsService

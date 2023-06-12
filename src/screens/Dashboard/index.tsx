@@ -27,9 +27,7 @@ export function Dashboard({ navigation }: DashboardProps) {
       http
         .get('/dashboard/formasDePagamento')
         .then((res) => {
-          // setPaymentTypes(res.data.items)
-          setPaymentTypes([])
-          throw new Error('Falha ao buscar formas de pagamento')
+          setPaymentTypes(res.data.items)
         })
         .catch((err) => {
           console.log(err)
