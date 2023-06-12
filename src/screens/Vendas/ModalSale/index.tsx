@@ -1,8 +1,8 @@
+import { useState, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faPen, faTrash, faXmark } from '@fortawesome/free-solid-svg-icons'
 import {
   ActivityIndicator,
-  Alert,
   Modal,
   Pressable,
   ScrollView,
@@ -14,8 +14,8 @@ import { formatting } from '../../../utils/formatting'
 import dayjs from 'dayjs'
 import { Sale } from '..'
 import { salesService } from '../../../services/salesService.service'
-import { useState } from 'react'
 import theme from '../../../../styles/theme'
+import { AlertContext } from '../../../contexts/alertContext'
 
 interface ModalSaleProps {
   saleDetailsData: Sale
@@ -30,39 +30,48 @@ export function ModalSale({
   handleClose,
   open,
 }: ModalSaleProps) {
+  const {
+    alertDialogConfirmConfigs,
+    setAlertDialogConfirmConfigs,
+    alertNotifyConfigs,
+    setAlertNotifyConfigs,
+  } = useContext(AlertContext)
   const [loadingCancel, setLoadingCancel] = useState<boolean>(false)
 
   function handleCancelOrder() {
-    Alert.alert(
-      'Alerta de confirmação',
-      'Deseja realmente cancelar esta venda?',
-      [
-        {
-          text: 'Confirmar',
-          onPress: () => {
-            setLoadingCancel(true)
-            salesService
-              .cancel(saleDetailsData)
-              .then(() => {
-                handleClose()
-                getSales()
-              })
-              .catch((err) => {
-                console.log('ERRO', err.response.data.message)
-                Alert.alert('Alerta de erro', err.response.data.message)
-              })
-              .finally(() => {
-                setLoadingCancel(false)
-              })
-          },
-        },
-        {
-          text: 'Cancelar',
-          style: 'cancel',
-          onPress: () => {},
-        },
-      ],
-    )
+    setAlertDialogConfirmConfigs({
+      ...alertDialogConfirmConfigs,
+      open: true,
+      title: 'Alerta de confirmação',
+      text: 'Deseja realmente cancelar este pedido?',
+      onClickAgree: () => {
+        setLoadingCancel(true)
+        salesService
+          .cancel(saleDetailsData)
+          .then(() => {
+            handleClose()
+            getSales()
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              text: 'Pedido cancelado com sucesso',
+              type: 'success',
+            })
+          })
+          .catch((err) => {
+            console.log('ERRO', err.response.data.message)
+            setAlertNotifyConfigs({
+              ...alertNotifyConfigs,
+              open: true,
+              type: 'error',
+              text: 'Alerta de erro' + err.response.data.message,
+            })
+          })
+          .finally(() => {
+            setLoadingCancel(false)
+          })
+      },
+    })
   }
 
   function handleEditOrder() {}

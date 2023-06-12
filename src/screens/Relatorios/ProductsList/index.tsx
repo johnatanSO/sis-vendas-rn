@@ -58,7 +58,7 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
       open: true,
       title: 'Alerta de confirmação',
       text: 'Deseja realmente deletar este produto?',
-      onClickAgre: () => {
+      onClickAgree: () => {
         productsService
           .delete(idProduct)
           .then(() => {

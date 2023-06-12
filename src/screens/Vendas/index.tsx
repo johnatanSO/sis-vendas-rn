@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Alert, Pressable, Text, View } from 'react-native'
+import { useEffect, useState, useContext } from 'react'
+import { Pressable, Text, View } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { EmptyItems } from '../../components/EmptyItems'
 import HeaderSales from '../../layout/HeaderSales'
@@ -10,6 +10,7 @@ import { ModalSale } from './ModalSale'
 import { Product } from '../Relatorios/ProductsList'
 import { salesService } from '../../services/salesService.service'
 import { Loading } from '../../components/Loading'
+import { AlertContext } from '../../contexts/alertContext'
 
 export interface Sale {
   _id: string
@@ -26,6 +27,7 @@ interface VendasProps {
 }
 
 export function Vendas({ navigation }: VendasProps) {
+  const { alertNotifyConfigs, setAlertNotifyConfigs } = useContext(AlertContext)
   const [sales, setSales] = useState<Sale[]>([])
   const [saleDetailsModalOpened, setSaleDetailsModalOpened] =
     useState<boolean>(false)
@@ -44,7 +46,12 @@ export function Vendas({ navigation }: VendasProps) {
         setSales(res.data.items)
       })
       .catch(() => {
-        Alert.alert('Erro ao buscar vendas')
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'error',
+          open: true,
+          text: 'Erro ao buscar vendas',
+        })
       })
       .finally(() => {
         setLoadingSales(false)

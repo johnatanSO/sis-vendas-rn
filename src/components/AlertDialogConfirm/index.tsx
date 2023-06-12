@@ -27,11 +27,20 @@ export function AlertDialogConfirm() {
           </Text>
 
           <View style={styles.buttonsContainer}>
-            <Pressable onPress={alertDialogConfirmConfigs.handleClose}>
-              <Text>Cancelar</Text>
+            <Pressable
+              style={[styles.button, styles.cancelButton]}
+              onPress={alertDialogConfirmConfigs.handleClose}
+            >
+              <Text style={styles.textButton}>Cancelar</Text>
             </Pressable>
-            <Pressable onPress={alertDialogConfirmConfigs.onClickAgree}>
-              <Text>Confirmar</Text>
+            <Pressable
+              style={[styles.button, styles.confirmButton]}
+              onPress={async () => {
+                await alertDialogConfirmConfigs.onClickAgree()
+                alertDialogConfirmConfigs.handleClose()
+              }}
+            >
+              <Text style={styles.textButton}>Confirmar</Text>
             </Pressable>
           </View>
         </View>

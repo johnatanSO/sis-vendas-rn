@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     gap: 25,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 4 },
-    shadowOpacity: 0.5,
+    shadowOpacity: 0.7,
     shadowRadius: 10,
     backgroundColor: theme.COLORS.GRAY_400,
   },
@@ -34,5 +34,26 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
+    gap: 15,
+  },
+  button: {
+    shadowColor: '#000',
+    shadowOffset: { width: 1, height: 4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    flex: 1,
+    borderRadius: 7,
+    padding: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cancelButton: {
+    backgroundColor: theme.COLORS.RED,
+  },
+  confirmButton: {
+    backgroundColor: theme.COLORS.BLUE_400,
+  },
+  textButton: {
+    color: theme.COLORS.WHITE,
   },
 })

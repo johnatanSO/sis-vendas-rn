@@ -7,7 +7,6 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
@@ -68,14 +67,22 @@ export function ModalCreateNewProduct({
       .create(newProduct)
       .then(() => {
         handleClose()
-        Alert.alert('Produto cadastrado com sucesso')
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'success',
+          open: true,
+          text: 'Produto cadastrado com sucesso',
+        })
         getProducts()
       })
       .catch((err: any) => {
-        Alert.alert(
-          'Erro ao tentar cadastrar o produto',
-          err.response.data.message,
-        )
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'error',
+          open: true,
+          text:
+            'Erro ao tentar cadastrar o produto' + err.response.data.message,
+        })
         console.log(err.response.data.message)
       })
       .finally(() => {
@@ -85,7 +92,12 @@ export function ModalCreateNewProduct({
 
   function updateProduct() {
     if (!newProduct.name) {
-      Alert.alert('Digite um nome para o produto')
+      setAlertNotifyConfigs({
+        ...alertNotifyConfigs,
+        type: 'error',
+        open: true,
+        text: 'Digite um nome para o produto',
+      })
     }
     setLoadingCreateNew(true)
     productsService
@@ -94,13 +106,22 @@ export function ModalCreateNewProduct({
         handleClose()
         getProducts()
         setProductDataToEdit(undefined)
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'success',
+          open: true,
+          text: 'Produto atualizado com sucesso',
+        })
         console.log('Produto atualizado com sucesso: ', res.data)
       })
       .catch((err) => {
-        Alert.alert(
-          'Erro ao tentar atualizar o produto',
-          err.response.data.message,
-        )
+        setAlertNotifyConfigs({
+          ...alertNotifyConfigs,
+          type: 'error',
+          open: true,
+          text:
+            'Erro ao tentar atualizar o produto' + err.response.data.message,
+        })
         console.log('[ERROR]:', err.response.data.message)
       })
       .finally(() => {
