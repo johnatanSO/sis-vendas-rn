@@ -12,6 +12,7 @@ interface AlertNotifyConfigs {
   open: boolean
   type: 'success' | 'error'
   text: string
+  handleClose: () => void
 }
 
 export const AlertContext = createContext({} as any)
@@ -27,7 +28,19 @@ export function AlertContextComponent({
       open: false,
       text: '',
       type: 'success',
+      handleClose: onCloseNotify,
     })
+
+  function onCloseNotify() {
+    setTimeout(() => {
+      setAlertNotifyConfigs({
+        ...alertNotifyConfigs,
+        open: false,
+        text: '',
+        type: 'success',
+      })
+    }, 7000)
+  }
 
   return (
     <AlertContext.Provider
