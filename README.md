@@ -31,9 +31,9 @@
   #### - [X] Colocar em ordem do maior valor para o menor Dashboard;
   #### - [X] Adicionar quantidade de cada produto nos detalhes de uma venda;
   #### - [X] Limpar os valores dos inputs ao finalizar a venda;
+  #### - [X] Criar alerta de confirmação e de notificação;
 
 ### Funcionalidades em desenvolvimento: 
-  #### - [ ] Criar alerta de confirmação e de notificação;
   #### - [ ] Alterar os o tipo de input de 'Quantidade' e 'Valor' dos produtos de uma nova venda;
   #### - [ ] Criar um filtro de data;
 
