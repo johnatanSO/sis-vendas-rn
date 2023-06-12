@@ -84,6 +84,11 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
     })
   }
 
+  function handleEditProduct(product: Product) {
+    setProductDataToEdit(product)
+    setModalCreateNewProductOpened(true)
+  }
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       getProducts()
@@ -118,9 +123,8 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
           renderItem={({ item }) => {
             return (
               <ListItem
-                handleOpenEditModal={setModalCreateNewProductOpened}
+                handleEditProduct={handleEditProduct}
                 handleDeleteProduct={handleDeleteProduct}
-                setProductDataToEdit={setProductDataToEdit}
                 item={item}
               />
             )
@@ -128,15 +132,17 @@ export function ProductsList({ navigation, focus }: ProductsListProps) {
         />
       )}
 
-      <ModalCreateNewProduct
-        productDataToEdit={productDataToEdit}
-        setProductDataToEdit={setProductDataToEdit}
-        getProducts={getProducts}
-        open={modalCreateNewProductOpened}
-        handleClose={() => {
-          setModalCreateNewProductOpened(false)
-        }}
-      />
+      {modalCreateNewProductOpened && (
+        <ModalCreateNewProduct
+          productDataToEdit={productDataToEdit}
+          setProductDataToEdit={setProductDataToEdit}
+          getProducts={getProducts}
+          open={modalCreateNewProductOpened}
+          handleClose={() => {
+            setModalCreateNewProductOpened(false)
+          }}
+        />
+      )}
     </>
   )
 }

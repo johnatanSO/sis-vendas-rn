@@ -8,16 +8,14 @@ import { styles } from './ListItem.styles'
 
 interface ListItemProps {
   item: Product
-  setProductDataToEdit: (productData: Product | undefined) => void
+  handleEditProduct: (productData: Product) => void
   handleDeleteProduct: (idProduct: string) => void
-  handleOpenEditModal: (open: boolean) => void
 }
 
 export function ListItem({
   item,
-  setProductDataToEdit,
   handleDeleteProduct,
-  handleOpenEditModal,
+  handleEditProduct,
 }: ListItemProps) {
   return (
     <View style={styles.productItem}>
@@ -36,8 +34,7 @@ export function ListItem({
       <View style={styles.actionsContainer}>
         <Pressable
           onPress={() => {
-            setProductDataToEdit(item)
-            handleOpenEditModal(true)
+            handleEditProduct(item)
           }}
           style={styles.editButton}
         >
