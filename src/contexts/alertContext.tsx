@@ -44,14 +44,12 @@ export function AlertContextComponent({
     })
 
   function onCloseNotify() {
-    setTimeout(() => {
-      setAlertNotifyConfigs({
-        ...alertNotifyConfigs,
-        open: false,
-        text: '',
-        type: 'success',
-      })
-    }, 7000)
+    setAlertNotifyConfigs({
+      ...alertNotifyConfigs,
+      open: false,
+      text: '',
+      type: 'success',
+    })
   }
 
   function onCloseAlertDialogConfirm() {

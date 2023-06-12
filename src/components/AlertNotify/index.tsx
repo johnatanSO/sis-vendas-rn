@@ -12,10 +12,13 @@ import { styles } from './AlertNotify.styles'
 export function AlertNotify() {
   const { alertNotifyConfigs } = useContext(AlertContext)
   useEffect(() => {
-    if (alertNotifyConfigs.open) {
-      alertNotifyConfigs.handleClose()
+    if (alertNotifyConfigs?.open) {
+      setTimeout(() => {
+        alertNotifyConfigs.handleClose()
+      }, 7000)
     }
-  }, [alertNotifyConfigs.open])
+  }, [alertNotifyConfigs])
+
   if (!alertNotifyConfigs.open) return <></>
   return (
     <Modal

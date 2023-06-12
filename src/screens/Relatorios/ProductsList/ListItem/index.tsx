@@ -36,8 +36,8 @@ export function ListItem({
       <View style={styles.actionsContainer}>
         <Pressable
           onPress={() => {
-            handleOpenEditModal(true)
             setProductDataToEdit(item)
+            handleOpenEditModal(true)
           }}
           style={styles.editButton}
         >

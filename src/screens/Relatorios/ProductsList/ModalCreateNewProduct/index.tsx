@@ -51,6 +51,7 @@ export function ModalCreateNewProduct({
   const [newProduct, setNewProduct] = useState<NewProduct>(
     productDataToEdit || defaultValuesNewProduct,
   )
+
   const [loadingCreateNew, setLoadingCreateNew] = useState<boolean>(false)
 
   function createNewProduct() {
@@ -120,7 +121,7 @@ export function ModalCreateNewProduct({
           type: 'error',
           open: true,
           text:
-            'Erro ao tentar atualizar o produto' + err.response.data.message,
+            'Erro ao tentar atualizar o produto ' + err.response.data.message,
         })
         console.log('[ERROR]:', err.response.data.message)
       })
